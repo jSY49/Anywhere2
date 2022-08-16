@@ -10,7 +10,7 @@ import com.google.firebase.ktx.Firebase
 
 class firebaseConnect {
 
-    private lateinit var auth: FirebaseAuth
+    lateinit var auth: FirebaseAuth
 
 
     fun firbaseInit(): FirebaseAuth {

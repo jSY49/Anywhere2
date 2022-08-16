@@ -9,12 +9,13 @@
 
 
     <EditText
+        android:id="@+id/edtID"
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:id="@+id/edtID"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="151dp"
         android:hint="Email"
-        android:layout_marginTop="151dp" />
+        android:singleLine="true"/>
 
     <EditText
         android:layout_width="300dp"
@@ -24,6 +25,7 @@
         android:hint="Password"
         android:layout_below="@+id/edtID"
         android:inputType="textPassword"
+        android:singleLine="true"
         />
 
 

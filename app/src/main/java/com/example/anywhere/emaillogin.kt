@@ -4,6 +4,8 @@ import android.content.ContentValues
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
+import android.view.KeyEvent.KEYCODE_ENTER
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -23,6 +25,8 @@ class emaillogin : AppCompatActivity()  {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.email_sign_in)
 
+
+
         //이메일 로그인
         loginButton?.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
@@ -32,7 +36,6 @@ class emaillogin : AppCompatActivity()  {
 
                 loginuser(email,password)
 
-                //userFragment로 변경
 
             }
         })

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".emailsignupActivity">
+
+    <EditText
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:id="@+id/inputnewEmail"
+        android:layout_centerHorizontal="true"
+        android:hint="Email"
+        android:layout_marginTop="151dp" />
+
+
+    <EditText
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:id="@+id/inputPW"
+        android:layout_centerHorizontal="true"
+        android:hint="Password"
+        android:layout_below="@+id/inputnewEmail"
+        android:inputType="textPassword"
+        android:layout_marginTop="20dp"
+        />
+
+
+
+
+    <Button
+        android:id="@+id/signupButton"
+        android:layout_width="140dp"
+        android:layout_height="55dp"
+        android:layout_below="@+id/inputPW"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:text="회원가입"
+        android:textAllCaps="false" />
+
+</RelativeLayout>

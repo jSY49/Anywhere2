@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">어디로든</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="WhereIsNext">다음 여행, 이곳은 어때요?</string>
+    <string name="howisthisitem">예약 상품 추천</string>
+    <string name="emailsingIn"><u>아직 이메일 계정이 없으신가요?</u></string>
+    <string name="GoMoreTrip"><u>더 많은 여행지 보기>></u></string>
+    <string name="GoAreaList">지역별 여행지 보기</string>
+    <string name="GowhetherIsGood">날씨 좋은 여행지 보기</string>
+    <string name="whetherIsGood">날씨/미세먼지 좋은 여행지</string>
+    <string name="AreaTrip">지역별\n여행지</string>
+    <string name="emailsignIn">이메일로 로그인 하기</string>
+    <string name="search">검색</string>
+    <string name="Gomap">지도로\n보기</string>
+    <string name="beach_list">해수욕장</string>
+    <string name="gotothebigmap">지도로 보기 이동 >></string>
+</resources>

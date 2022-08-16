@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    >
+
+
+    <EditText
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:id="@+id/edtID"
+        android:layout_centerHorizontal="true"
+        android:hint="Email"
+        android:layout_marginTop="151dp" />
+
+    <EditText
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:id="@+id/edtPW"
+        android:layout_centerHorizontal="true"
+        android:hint="Password"
+        android:layout_below="@+id/edtID"
+        android:inputType="textPassword"
+        />
+
+
+    <Button
+        android:id="@+id/loginButton"
+        android:layout_width="140dp"
+        android:layout_height="55dp"
+        android:layout_below="@+id/edtPW"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="로그인"
+        android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/emailmakebtn"
+        android:layout_width="250dp"
+        android:layout_height="55dp"
+        android:textAllCaps="false"
+        android:background="#00ff0000"
+        android:shadowColor ="#0f0f0f"
+        android:shadowRadius="2.0"
+        android:shadowDx="1.9"
+        android:shadowDy="1.9"
+        android:text="@string/emailsingIn"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/loginButton"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/black"
+        />
+
+
+
+</RelativeLayout>
+
+    <!--
+    android:textAllCaps="false"  모든 문자를 대문자로 만듦
+
+    android:background="#00ff0000"  투명으로 만들어줌
+    android:shadowColor ="#0f0f0f" -> 그림자색
+    android:shadowRadius="1.6" -> 그림자 크기
+    android:shadowDx="1.5" ->수평으로 떨어진 거리
+    android:shadowDy="1.3" ->수직 방향으로 떨어진 거리
+    -->

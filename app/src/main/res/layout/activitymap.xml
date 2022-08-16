@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:map="http://schemas.android.com/apk/res-auto">
+
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="10dp"
+        map:cameraBearing="0"
+
+        map:cameraTilt="20"
+        map:mapType="normal"
+        map:uiCompass="true"
+        map:uiRotateGestures="true"
+        map:uiScrollGestures="true"
+        map:uiTiltGestures="true"
+        map:uiZoomControls="true"
+        map:uiZoomGestures="true"
+        tools:context=".MapsActivity"
+        />
+
+    <RelativeLayout
+        android:id="@+id/activitymap_ReLY"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|top"
+        android:layout_margin="10dp"
+        android:padding="5dp">
+
+        <Button
+            android:id="@+id/closeBtn"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/x_circle_icon" />
+
+        <Button
+            android:id="@+id/activitymap_ReLY_btn1"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_below="@+id/closeBtn" />
+
+        <TextView
+            android:id="@+id/activitymap_ReLY_btn1_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/activitymap_ReLY_btn1"
+            android:layout_centerInParent="true"
+            android:text="관광지"
+            android:textSize="10dp" />
+
+        <Button
+            android:id="@+id/activitymap_ReLY_btn2"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_below="@+id/activitymap_ReLY_btn1_tv"
+            />
+        <TextView
+            android:id="@+id/activitymap_ReLY_btn2_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="음식점"
+            android:textSize="10dp"
+            android:layout_below="@+id/activitymap_ReLY_btn2"
+            android:layout_centerInParent="true"/>
+
+        <Button
+            android:id="@+id/activitymap_ReLY_btn3"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_below="@+id/activitymap_ReLY_btn2_tv"
+            />
+        <TextView
+            android:id="@+id/activitymap_ReLY_btn3_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="준비중..."
+            android:textSize="10dp"
+            android:layout_below="@+id/activitymap_ReLY_btn3"
+            android:layout_centerInParent="true"/>
+
+    </RelativeLayout>
+</FrameLayout>

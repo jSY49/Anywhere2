@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <HorizontalScrollView
+        android:id="@+id/Activity_main_HrScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="150dp">
+
+
+    </HorizontalScrollView>
+
+    <RelativeLayout
+        android:id="@+id/Activity_main_ReLay4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Activity_main_HrScrollView">
+
+        <TextView
+            android:id="@+id/Activity_main_TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:text="@string/app_name"
+            android:textSize="30sp" />
+
+        <Button
+            android:id="@+id/Activity_main_userBtn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/ic_baseline_account_circle_24" />
+    </RelativeLayout>
+
+
+    <FrameLayout
+        android:id="@+id/Activity_main_SearchFramLy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Activity_main_ReLay4"
+        android:layout_marginBottom="20dp"
+
+        >
+
+
+        <EditText
+            android:id="@+id/Activity_main_EditText"
+            android:layout_width="320dp"
+            android:layout_height="50dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:hint="무엇을 검색 할까요?"
+
+            />
+
+        <Button
+            android:id="@+id/Activity_main_SearchBtn"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="right"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/ic_baseline_search_24"
+            />
+
+    </FrameLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/Activity_main_SearchFramLy">
+
+        <RelativeLayout
+            android:id="@+id/Activity_main_ReLay1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp">
+
+            <Button
+                android:id="@+id/Activity_main_btn1"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/roundshape"
+                android:text="@string/AreaTrip"
+                android:textSize="20dp" />
+
+            <Button
+                android:id="@+id/Activity_main_btn2"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/roundshape"
+                android:text="@string/Gomap"
+                android:textSize="20dp" />
+
+            <Button
+                android:id="@+id/Activity_main_btn3"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/roundshape"
+                android:text="@string/beach_list"
+                android:textSize="20dp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/Activity_main_ReLay2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/Activity_main_ReLay1"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp">
+
+            <Button
+                android:id="@+id/Activity_main_btn4"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true" />
+
+            <Button
+                android:id="@+id/Activity_main_btn5"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_centerInParent="true" />
+
+            <Button
+                android:id="@+id/Activity_main_btn6"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/Activity_main_ReLay3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/Activity_main_ReLay2"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp">
+
+            <Button
+                android:id="@+id/Activity_main_btn7"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true" />
+
+            <Button
+                android:id="@+id/Activity_main_btn8"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_centerInParent="true" />
+
+            <Button
+                android:id="@+id/Activity_main_btn9"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true" />
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+
+</RelativeLayout>
+
+    <!--위젯크기는 "wrap_content", "match_parent" 또는 dp 단위를 사용하는것이 좋습니다. 텍스트의 크기는 sp 단위 권고-->

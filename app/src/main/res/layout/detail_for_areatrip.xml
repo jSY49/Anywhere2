@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:map="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:id="@+id/TopMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btnback"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/ic_baseline_arrow_back_24" />
+
+        <TextView
+            android:id="@+id/areaName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:text="@string/app_name" />
+
+    </RelativeLayout>
+
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/TopMenu"
+        android:layout_marginBottom="20dp">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/detailNm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="10dp"
+                android:text="Title"
+                android:textSize="40dp" />
+
+            <ImageView
+                android:id="@+id/detailImg"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_below="@+id/detailNm"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/test_img" />
+
+            <TextView
+                android:id="@+id/detailOv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/detailImg"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="10dp"
+                android:text="overview"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/detailaddr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/detailOv"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="10dp"
+                android:text="addr"
+                android:textSize="20dp" />
+
+            <Button
+                android:id="@+id/fullscreenBtn"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/detailaddr"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="5dp"
+                android:background="#00ff0000"
+                android:text="@string/gotothebigmap"
+                android:textColor="@color/black"
+                android:shadowRadius="7.0"
+                android:shadowDx="7.0"
+                android:shadowDy="7.0"
+                android:shadowColor="#000000"
+
+                />
+
+
+            <!--            <FrameLayout-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="match_parent"-->
+            <!--                android:layout_below="@+id/detailaddr">-->
+            <!--                &lt;!&ndash;liteMOde&ndash;&gt;-->
+            <!--                <fragment-->
+            <!--                    android:id="@+id/map"-->
+            <!--                    android:name="com.google.android.gms.maps.SupportMapFragment"-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="200dp"-->
+            <!--                    android:layout_marginLeft="10dp"-->
+            <!--                    android:layout_marginTop="5dp"-->
+            <!--                    android:layout_marginRight="10dp"-->
+            <!--                    map:cameraZoom="13"-->
+            <!--                    map:liteMode="true"-->
+            <!--                    map:mapType="normal"-->
+            <!--                    tools:context=".MapsActivity" />-->
+
+            <!--                <Button-->
+            <!--                    android:id="@+id/fullscreenBtn"-->
+            <!--                    android:layout_width="30dp"-->
+            <!--                    android:layout_height="30dp"-->
+            <!--                    android:layout_gravity="right|bottom"-->
+            <!--                    android:layout_marginRight="15dp"-->
+            <!--                    android:layout_marginBottom="5dp"-->
+            <!--                    android:background="@drawable/arrows_full_scale_screen_symbol_icon" />-->
+
+            <!--            </FrameLayout>-->
+
+
+            <!--지도 들어가야-->
+            <!--            <fragment-->
+            <!--                android:id="@+id/map"-->
+            <!--                android:name="com.google.android.gms.maps.SupportMapFragment"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="250dp"-->
+            <!--                android:layout_below="@+id/detailaddr"-->
+            <!--                android:layout_marginLeft="10dp"-->
+            <!--                android:layout_marginTop="5dp"-->
+            <!--                android:layout_marginRight="10dp"-->
+            <!--                map:cameraBearing="0"-->
+
+            <!--                map:cameraTilt="40"-->
+            <!--                map:mapType="normal"-->
+            <!--                map:uiCompass="true"-->
+            <!--                map:uiRotateGestures="true"-->
+            <!--                map:uiScrollGestures="true"-->
+            <!--                map:uiTiltGestures="true"-->
+            <!--                map:uiZoomControls="true"-->
+            <!--                map:uiZoomGestures="true"-->
+            <!--                tools:context=".MapsActivity" />-->
+
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+
+</RelativeLayout>
+
+<!--
+ map:cameraBearing="0"      타겟과 북쪽 사이의 각
+ map:cameraTargetLat="37.56"    위도
+ map:cameraTargetLng="126.97"   경도
+ map:cameraTilt="30"            카메라 각
+ map:cameraZoom="13"            카메라 줌
+ map:mapType="normal"           normal/hybrid/terrain
+ map:uiCompass="true"           지도위에 나침반
+ map:uiRotateGestures="true"    화면 돌리기
+ map:uiScrollGestures="false"   화면 이동
+ map:uiTiltGestures="true"      각 변경
+ map:uiZoomControls="true"      줌 버튼
+ map:uiZoomGestures="true"      줌
+
+-->

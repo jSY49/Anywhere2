@@ -14,4 +14,16 @@
     <string name="Gomap">지도로\n보기</string>
     <string name="beach_list">해수욕장</string>
     <string name="gotothebigmap">지도로 보기 이동 >></string>
+    <string name="community">커뮤니티</string>
+    <string name="themes">테마별</string>
+    <string name="updatemarker">이 지역에서 다시 검색하기</string>
+
+    <string name="tabpost">Posts</string>
+    <string name="tabReview">Review</string>
+    <string name="tabUser">My Posts</string>
+    <string name="writing">게시판</string>
+    <string name="POST">완료</string>
+
+    <string name="POST_name">제목</string>
+    <string name="POST_body">내용을 입력 하세요.</string>
 </resources>

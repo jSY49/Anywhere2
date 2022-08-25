@@ -50,47 +50,18 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }//btn2 클릭 리스너 닫음
 
-        //해수욕장
+        //커뮤니티
         Activity_main_btn3.setOnClickListener{
-            val intent = Intent(applicationContext,BeachListActivity::class.java)
+            val intent = Intent(applicationContext,CommunityActivity::class.java)
             startActivity(intent)
         }//btn3 클릭 리스너 닫음
 
-        //
+        //테마별 리스트
         Activity_main_btn4.setOnClickListener{
 //            val intent = Intent(applicationContext,listOfareatrip::class.java)
 //            startActivity(intent)
         }//btn4 클릭 리스너 닫음
-
-        //
-        Activity_main_btn5.setOnClickListener{
-//            val intent = Intent(applicationContext,listOfareatrip::class.java)
-//            startActivity(intent)
-        }//btn5 클릭 리스너 닫음
-
-        //
-        Activity_main_btn6.setOnClickListener{
-//            val intent = Intent(applicationContext,listOfareatrip::class.java)
-//            startActivity(intent)
-        }//btn6 클릭 리스너 닫음
-
-        //
-        Activity_main_btn7.setOnClickListener{
-//            val intent = Intent(applicationContext,listOfareatrip::class.java)
-//            startActivity(intent)
-        }//btn7 클릭 리스너 닫음
-
-        //
-        Activity_main_btn8.setOnClickListener{
-//            val intent = Intent(applicationContext,listOfareatrip::class.java)
-//            startActivity(intent)
-        }//btn8 클릭 리스너 닫음
-
-        //
-        Activity_main_btn9.setOnClickListener{
-//            val intent = Intent(applicationContext,listOfareatrip::class.java)
-//            startActivity(intent)
-        }//btn9 클릭 리스너 닫음
+        
 
         //
         Activity_main_SearchBtn.setOnClickListener {

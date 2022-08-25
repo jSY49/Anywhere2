@@ -34,4 +34,5 @@ public class ListViewItem {
         this.titleStr=titleStr;
         this.addrStr=addrStr;
     }
+
 }

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/re1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/closeBtn"
+            android:layout_alignParentLeft="true"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="5dp"
+            android:background="@drawable/x_circle_icon"
+            android:onClick="closeBtn"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/writing"
+            android:layout_toRightOf="@+id/closeBtn"
+            android:layout_centerVertical="true"
+            android:textSize="20dp"
+            android:layout_marginLeft="5dp"
+            />
+
+        <Button
+            android:id="@+id/POSTBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
+            android:onClick="POST"
+            android:text="@string/POST" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/li1"
+        android:layout_below="@id/re1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:orientation="vertical"
+        android:background="@color/gray"/>
+
+    <LinearLayout
+        android:id="@+id/li2"
+        android:layout_below="@+id/li1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:orientation="vertical"
+        >
+
+        <EditText
+            android:id="@+id/post_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/POST_name"
+            android:padding="10dp"
+            android:textSize="20dp"
+            android:background="#eeeeee"/>
+
+        <EditText
+            android:layout_marginTop="5dp"
+            android:id="@+id/post_body"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:hint="@string/POST_body"
+            android:background="#eeeeee"/>
+
+        <ImageView
+            android:layout_margin="5dp"
+            android:id="@+id/img"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:visibility="invisible"
+            />
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/li3"
+        android:layout_above="@+id/li4"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:orientation="vertical"
+        android:background="@color/gray"/>
+
+    <LinearLayout
+        android:id="@+id/li4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:padding="5dp">
+
+        <Button
+            android:id="@+id/addPic"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/ic_baseline_image_24"
+            android:onClick="getPhoto"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

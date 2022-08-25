@@ -1,16 +1,11 @@
 package com.example.anywhere;
 
-import static java.sql.DriverManager.println;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -19,40 +14,29 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
-
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
 import java.net.URL;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
 
-public class listOfareatrip extends Activity  {
+public class listOfareatrip extends Activity {
 
-    Button bckbtn,searchbtn;
-    String sp1="1",sp2="-1",srt="O";
-    ArrayAdapter<CharSequence> adspin1, adspin2,adsortspin;
-    ArrayList<String> listTitle,listimgUrl,listAddr,listId;
+    Button bckbtn, searchbtn;
+    String sp1 = "1", sp2 = "-1", srt = "O";
+    ArrayAdapter<CharSequence> adspin1, adspin2, adsortspin;
+    ArrayList<String> listTitle, listimgUrl, listAddr, listId;
     Spinner spin1;
     Spinner spin2;
     Spinner sortspin;
 
     //리스트 뷰
-    ListView listview ;
+    ListView listview;
     ListViewAdapter adapter;
-
 //    TourApi_ tourapi=new TourApi_("areaBasedList");
-
 
 
     @Override
@@ -63,28 +47,27 @@ public class listOfareatrip extends Activity  {
         CheckTypesTask task = new CheckTypesTask();
         task.execute();
 
-        bckbtn=findViewById(R.id.btnback);
-        searchbtn=findViewById(R.id.Areasearch_btn);
+        bckbtn = findViewById(R.id.btnback);
+        searchbtn = findViewById(R.id.Areasearch_btn);
         //text=findViewById(R.id.testTv);
-        spin1 = (Spinner)findViewById(R.id.spinner1);
-        spin2 = (Spinner)findViewById(R.id.spinner2);
-        sortspin = (Spinner)findViewById(R.id.sortspinenr);
+        spin1 = (Spinner) findViewById(R.id.spinner1);
+        spin2 = (Spinner) findViewById(R.id.spinner2);
+        sortspin = (Spinner) findViewById(R.id.sortspinenr);
 //        arealist= new String[3][30];
 
-        listTitle=new ArrayList<String>();
-        listAddr=new ArrayList<String>();
-        listimgUrl=new ArrayList<String>();
-        listId=new ArrayList<String>();
+        listTitle = new ArrayList<String>();
+        listAddr = new ArrayList<String>();
+        listimgUrl = new ArrayList<String>();
+        listId = new ArrayList<String>();
 
 
         // Adapter 생성
-        adapter = new ListViewAdapter() ;
+        adapter = new ListViewAdapter();
 
         // 리스트뷰 참조 및 Adapter달기
         listview = (ListView) findViewById(R.id.listview1);
         listview.setAdapter(adapter);
 
-        
 
         adspin1 = ArrayAdapter.createFromResource(this, R.array.firstSelect, android.R.layout.simple_spinner_dropdown_item);//R.layout.simple_~~~는 안드로이드에서 기본제공하는 spinner 모양
         adspin1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -116,12 +99,13 @@ public class listOfareatrip extends Activity  {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                if(i==0)
-                    sp2=String.valueOf(-1);
+                if (i == 0)
+                    sp2 = String.valueOf(-1);
                 else
-                    sp2= String.valueOf(i);
+                    sp2 = String.valueOf(i);
 
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
@@ -132,31 +116,28 @@ public class listOfareatrip extends Activity  {
 
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if(adsortspin.getItem(i).equals("제목순")){
-                    srt="O";
-                }
-                else if(adsortspin.getItem(i).equals("조회순")){
-                    srt="P";
-                }
-                else if(adsortspin.getItem(i).equals("수정일순")){
-                    srt="Q";
-                }
-                else if(adsortspin.getItem(i).equals("생성일순")){
-                    srt="R";
+                if (adsortspin.getItem(i).equals("제목순")) {
+                    srt = "O";
+                } else if (adsortspin.getItem(i).equals("조회순")) {
+                    srt = "P";
+                } else if (adsortspin.getItem(i).equals("수정일순")) {
+                    srt = "Q";
+                } else if (adsortspin.getItem(i).equals("생성일순")) {
+                    srt = "R";
                 }
                 runthread();
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
         });
 
 
-
         //ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, LIST_MENU) ;
 
         //검색 버튼
-        searchbtn.setOnClickListener(new View.OnClickListener(){
+        searchbtn.setOnClickListener(new View.OnClickListener() {
 
 
             @Override
@@ -170,7 +151,7 @@ public class listOfareatrip extends Activity  {
 
 
         //뒤로가기 버튼
-        bckbtn.setOnClickListener(new View.OnClickListener(){
+        bckbtn.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
@@ -184,26 +165,24 @@ public class listOfareatrip extends Activity  {
             @Override
             public void onItemClick(AdapterView parent, View v, int position, long id) {
                 Intent intent = new Intent(getApplicationContext(), areatripDetail.class);
-                intent.putExtra("contentId",listId.get(position));
+                intent.putExtra("contentId", listId.get(position));
 
                 startActivity(intent);
 
             }
-        }) ;
+        });
 
     }
 
 
+    public void runthread() {
+
+        TourApi_ tourapi = new TourApi_("areaBasedList");
+        tourapi.set_tourdataList_Url(sp1, sp2, srt);
+        String get_Url = tourapi.getUrl();
 
 
-    public void runthread(){
-
-        TourApi_ tourapi=new TourApi_("areaBasedList");
-        tourapi.set_tourdataList_Url(sp1,sp2,srt);
-        String get_Url=tourapi.getUrl();
-
-
-        Log.d("set_tourdataList_getURL",get_Url);
+        Log.d("set_tourdataList_getURL", get_Url);
 //        adapter.clearAll(); //리스트 뷰를 모두 지우는 함수 호출
 
 
@@ -226,12 +205,12 @@ public class listOfareatrip extends Activity  {
                     public void run() {
                         // TODO Auto-generated method stub
                         //아이템 추가.
-                        int i=0,j=0;
-                        for(i=0;i<listTitle.size();i++){
-                            if(listimgUrl.get(i)==null)
+                        int i = 0, j = 0;
+                        for (i = 0; i < listTitle.size(); i++) {
+                            if (listimgUrl.get(i) == null)
                                 break;
-                            else{
-                                adapter.addItem(new ListViewItem(listimgUrl.get(i), listTitle.get(i), listAddr.get(i))) ;
+                            else {
+                                adapter.addItem(new ListViewItem(listimgUrl.get(i), listTitle.get(i), listAddr.get(i)));
                             }
 
 
@@ -252,81 +231,81 @@ public class listOfareatrip extends Activity  {
     }
 
 
-    public void scndSpinner(int i){
+    public void scndSpinner(int i) {
 
-        int whichone=R.array.second_seoul;  //기본
-        switch(i){
+        int whichone = R.array.second_seoul;  //기본
+        switch (i) {
             case 0:
-                whichone=R.array.second_seoul;
-                sp1="1";
+                whichone = R.array.second_seoul;
+                sp1 = "1";
                 break;
             case 1:
-                whichone=R.array.second_incheon;
-                sp1="2";
+                whichone = R.array.second_incheon;
+                sp1 = "2";
                 break;
             case 2:
-                whichone=R.array.second_daejeon;
-                sp1="3";
+                whichone = R.array.second_daejeon;
+                sp1 = "3";
                 break;
             case 3:
-                whichone=R.array.second_daegu;
-                sp1="4";
+                whichone = R.array.second_daegu;
+                sp1 = "4";
                 break;
             case 4:
-                whichone=R.array.second_guangju;
-                sp1="5";
+                whichone = R.array.second_guangju;
+                sp1 = "5";
                 break;
             case 5:
-                whichone=R.array.second_busan;
-                sp1="6";
+                whichone = R.array.second_busan;
+                sp1 = "6";
                 break;
             case 6:
-                whichone=R.array.second_ulsan;
-                sp1="7";
+                whichone = R.array.second_ulsan;
+                sp1 = "7";
                 break;
             case 7:
-                whichone=R.array.second_sejong;
-                sp1="8";
+                whichone = R.array.second_sejong;
+                sp1 = "8";
                 break;
             case 8:
-                whichone=R.array.second_geonggi;
-                sp1="31";
+                whichone = R.array.second_geonggi;
+                sp1 = "31";
                 break;
             case 9:
-                whichone=R.array.second_gangwon;
-                sp1="32";
+                whichone = R.array.second_gangwon;
+                sp1 = "32";
                 break;
             case 10:
-                whichone=R.array.second_chungbuk;
-                sp1="33";
+                whichone = R.array.second_chungbuk;
+                sp1 = "33";
                 break;
             case 11:
-                whichone=R.array.second_chungnam;
-                sp1="34";
+                whichone = R.array.second_chungnam;
+                sp1 = "34";
                 break;
             case 12:
-                whichone=R.array.second_gyeongbuk;
-                sp1="35";
+                whichone = R.array.second_gyeongbuk;
+                sp1 = "35";
                 break;
             case 13:
-                whichone=R.array.second_gyeongnam;
-                sp1="36";
+                whichone = R.array.second_gyeongnam;
+                sp1 = "36";
                 break;
             case 14:
-                whichone=R.array.second_jeonbuk;
-                sp1="37";
+                whichone = R.array.second_jeonbuk;
+                sp1 = "37";
                 break;
             case 15:
-                whichone=R.array.second_jeonnam;
-                sp1="38";
+                whichone = R.array.second_jeonnam;
+                sp1 = "38";
                 break;
             case 16:
-                whichone=R.array.second_jeju;
-                sp1="39";
+                whichone = R.array.second_jeju;
+                sp1 = "39";
                 break;
         }
 
-        adspin2 = ArrayAdapter.createFromResource(listOfareatrip.this,whichone, android.R.layout.simple_spinner_dropdown_item);
+        adspin2 = ArrayAdapter.createFromResource(listOfareatrip.this, whichone, android.R.layout.simple_spinner_dropdown_item);
         adspin2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spin2.setAdapter(adspin2);
 
@@ -341,45 +320,42 @@ public class listOfareatrip extends Activity  {
         listId.clear();
 
         try {
-            Log.d("totalCount_newUrl1: ",newUrl);
-            URL url= new URL(newUrl);//문자열로 된 요청 url을 URL 객체로 생성.
+            Log.d("totalCount_newUrl1: ", newUrl);
+            URL url = new URL(newUrl);//문자열로 된 요청 url을 URL 객체로 생성.
 
-            InputStream is= url.openStream(); //url위치로 입력스트림 연결
+            InputStream is = url.openStream(); //url위치로 입력스트림 연결
 
             //xml파싱
-            XmlPullParserFactory factory= XmlPullParserFactory.newInstance();
+            XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
             factory.setNamespaceAware(true);
-            XmlPullParser xpp= factory.newPullParser();
-            xpp.setInput( new InputStreamReader(is, "UTF-8") ); //inputstream 으로부터 xml 입력받기
+            XmlPullParser xpp = factory.newPullParser();
+            xpp.setInput(new InputStreamReader(is, "UTF-8")); //inputstream 으로부터 xml 입력받기
 
             String tag;
 
             xpp.next();
-            int eventType= xpp.getEventType();
+            int eventType = xpp.getEventType();
 
-            while( eventType != XmlPullParser.END_DOCUMENT ){
-                switch( eventType ){
+            while (eventType != XmlPullParser.END_DOCUMENT) {
+                switch (eventType) {
                     case XmlPullParser.START_DOCUMENT:
-                        Log.d("start_document","start xml!");
+                        Log.d("start_document", "start xml!");
                         break;
 
                     case XmlPullParser.START_TAG:
-                        tag= xpp.getName();//태그 이름 얻어오기
+                        tag = xpp.getName();//태그 이름 얻어오기
 
-                        if(tag.equals("item")) ;// 첫번째 검색결과
-                        else if(tag.equals("firstimage")){
+                        if (tag.equals("item")) ;// 첫번째 검색결과
+                        else if (tag.equals("firstimage")) {
                             xpp.next();
                             listimgUrl.add(xpp.getText());
-                        }
-                        else if(tag.equals("title")){
+                        } else if (tag.equals("title")) {
                             xpp.next();
                             listTitle.add(xpp.getText());
-                        }
-                        else if(tag.equals("addr1")){
+                        } else if (tag.equals("addr1")) {
                             xpp.next();
                             listAddr.add(xpp.getText());
-                        }
-                        else if(tag.equals("contentid")){
+                        } else if (tag.equals("contentid")) {
                             xpp.next();
                             listId.add(xpp.getText());
                         }
@@ -390,15 +366,15 @@ public class listOfareatrip extends Activity  {
                         break;
 
                     case XmlPullParser.END_TAG:
-                        tag= xpp.getName(); //태그 이름 얻어오기
+                        tag = xpp.getName(); //태그 이름 얻어오기
 
-                        if(tag.equals("item")) //buffer.append("\n");// 첫번째 검색결과종료..줄바꿈
+                        if (tag.equals("item")) //buffer.append("\n");// 첫번째 검색결과종료..줄바꿈
 
                             break;
 
                 }
 
-                eventType= xpp.next();
+                eventType = xpp.next();
             }
 
         } catch (Exception e) {
@@ -408,7 +384,7 @@ public class listOfareatrip extends Activity  {
 
     }
 
-    private class CheckTypesTask extends AsyncTask<Void,Void, Void> {
+    private class CheckTypesTask extends AsyncTask<Void, Void, Void> {
         ProgressDialog asyncDialog = new ProgressDialog(listOfareatrip.this);
 
         @Override
@@ -423,7 +399,7 @@ public class listOfareatrip extends Activity  {
         @Override
         protected Void doInBackground(Void... voids) {  //진행중, 진행정도룰 표현해준다.
 
-            for (int i=0;i<5;i++) {
+            for (int i = 0; i < 5; i++) {
                 try {
                     Thread.sleep(100);
                 } catch (InterruptedException e) {

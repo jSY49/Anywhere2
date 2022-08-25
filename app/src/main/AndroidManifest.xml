@@ -2,10 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.anywhere">
 
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -15,6 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Anywhere"
         android:usesCleartextTraffic="true">
+
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -24,21 +25,25 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".emailsignupActivity"/>
-        <activity android:name=".emaillogin"/>
-        <activity android:name=".loginMenuActivity"/>
-        <activity android:name=".userActivity"/>
-        <activity android:name=".listOfareatrip"/>
-        <activity android:name=".areatripDetail"/>
-        <activity android:name=".MapFullscreen"/>
-        <activity android:name=".MapActivity"/>
-        <activity android:name=".BeachListActivity"/>
+        <activity android:name=".emailsignupActivity" />
+        <activity android:name=".emaillogin" />
+        <activity android:name=".loginMenuActivity" />
+        <activity android:name=".userActivity" />
+        <activity android:name=".listOfareatrip" />
+        <activity android:name=".areatripDetail" />
+        <activity android:name=".MapFullscreen" />
+        <activity android:name=".MapActivity" />
+        <activity android:name=".BeachListActivity" />
+        <activity android:name=".CommunityActivity" />
+        <activity android:name=".postWritingActivity" />
+        <activity android:name=".DetailPostActivity"/>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBNMsRymgMjUn8ppf82MDP9WkQqhe8pnow" />
-
-
+        <meta-data
+            android:name="com.kakao.sdk.AppKey"
+            android:value="2d3aad16f29293182d0469aa5f7ba9e2" />
     </application>
+
 </manifest>

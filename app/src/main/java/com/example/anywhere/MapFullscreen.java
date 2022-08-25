@@ -7,22 +7,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.example.anywhere.databinding.ActivitymapBinding;
 import com.example.anywhere.databinding.MapFullscreenBinding;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.GoogleMapOptions;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
+import net.daum.mf.map.api.MapPOIItem;
+import net.daum.mf.map.api.MapPoint;
+import net.daum.mf.map.api.MapView;
 
 
+public class MapFullscreen extends AppCompatActivity {
 
-public class MapFullscreen extends AppCompatActivity implements OnMapReadyCallback{
-
-    private GoogleMap mMap;
     double Lat,Lng;
     String Title;
     Button closebtn;
@@ -49,38 +41,32 @@ public class MapFullscreen extends AppCompatActivity implements OnMapReadyCallba
         });
 
 
-        //정적
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-        //맵 클릭 이벤트 작동 안하도록
-        View v = mapFragment.getView();
-        v.setClickable(true);
-        //여기까지
-        mapFragment.getMapAsync(this);
+        MapView mapView = new MapView(this);
 
+        ViewGroup mapViewContainer = (ViewGroup) findViewById(R.id.map_view);
+        mapViewContainer.addView(mapView);
+        // 중심점 변경
+        mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(Lat, Lng), true);
+        // 줌 레벨 변경
+        mapView.setZoomLevel(1, true);
+//        // 중심점 변경 + 줌 레벨 변경
+//        mapView.setMapCenterPointAndZoomLevel(MapPoint.mapPointWithGeoCoord(33.41, 126.52), 9, true);
+        // 줌 인
+        mapView.zoomIn(true);
+        // 줌 아웃
+        mapView.zoomOut(true);
 
-    }
+        MapPoint MARKER_POINT = MapPoint.mapPointWithGeoCoord(Lat, Lng);
+        MapPOIItem marker = new MapPOIItem();
+        marker.setItemName(Title);
+        marker.setTag(0);
+        marker.setMapPoint(MARKER_POINT);
+        marker.setMarkerType(MapPOIItem.MarkerType.YellowPin); // 기본으로 제공하는 BluePin 마커 모양.
+        marker.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin); // 마커를 클릭했을때, 기본으로 제공하는 RedPin 마커 모양.
 
-    @Override
-    public void onMapReady( GoogleMap googleMap) {
-
-        GoogleMapOptions options = new GoogleMapOptions().liteMode(true);
-
-        googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);                     // 지도 유형 설정
-
-        mMap = googleMap;
-        mMap.setBuildingsEnabled(true);
-        mMap.getUiSettings().setMapToolbarEnabled(false); // No toolbar needed in a lite preview
-
-
-        LatLng Point = new LatLng(Lat, Lng);
-
-        MarkerOptions markerOptions = new MarkerOptions();         // 마커 생성
-        markerOptions.position(Point);
-        markerOptions.title(Title);                                // 마커 제목
-//        markerOptions.snippet("한국의 수도");                      // 마커 설명
-        mMap.addMarker(markerOptions).showInfoWindow();            //showInfomedia는 처음부터 상세정보 출력
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(Point, 14));  //줌 오류 수정
+        mapView.addPOIItem(marker);
 
     }
+
 
 }

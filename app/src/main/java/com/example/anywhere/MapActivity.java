@@ -1,51 +1,38 @@
 package com.example.anywhere;
 
-import android.app.ProgressDialog;
 import android.graphics.Color;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
-
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.anywhere.databinding.ActivitymapBinding;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.GoogleMapOptions;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
-
+import net.daum.mf.map.api.MapPOIItem;
+import net.daum.mf.map.api.MapPoint;
+import net.daum.mf.map.api.MapView;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.lang.reflect.Array;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 
-public class MapActivity extends AppCompatActivity
-        implements OnMapReadyCallback,
-        GoogleMap.OnCameraIdleListener,
-        GoogleMap.OnMarkerClickListener
+
+public class MapActivity extends AppCompatActivity implements MapView.MapViewEventListener
 {
-    private GoogleMap mMap;
+    private MapView mapView;
+
     double Lat=37.510759,Lng=126.977943;
     private ActivitymapBinding binding;
     ArrayList<String> listTitle,listlat,listlng,listId;
     String lat,lng;
-    private ArrayList<Marker> markerList = new ArrayList();
-    private int tourflag=0; //0이면 off/ 1이면 on 상태
+    private int tourflag=0,foodflag=0; //0이면 off/ 1이면 on 상태
+
+    private ArrayList<MapPOIItem> POI_tour=new ArrayList<MapPOIItem>() ;
+    private ArrayList<MapPOIItem> POI_rest=new ArrayList<MapPOIItem>() ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,88 +41,100 @@ public class MapActivity extends AppCompatActivity
         View view = binding.getRoot();
         setContentView(view);
 
-
-
         listTitle=new ArrayList<String>();
         listlat=new ArrayList<String>();
         listlng=new ArrayList<String>();
         listId=new ArrayList<String>();
 
-        //정적
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-        View v = mapFragment.getView();
-        v.setClickable(true);
-        //여기까지
-        mapFragment.getMapAsync(this);
+        mapView = new MapView(MapActivity.this);
+        mapView.setMapViewEventListener(this);
 
-        //닫기버튼
-        binding.closeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
-        
-        //관광지 버튼 온오프
-        binding.activitymapReLYBtn1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(tourflag==0){
-                    tourflag=1;
-                   set_tour();
-                   binding.activitymapReLYBtn1.setBackgroundColor(Color.rgb(209,178,255));
-                }
-                else{
-                    tourflag=0;
-                    removeMarkerTour();
-                    binding.activitymapReLYBtn1.setBackgroundColor(Color.rgb(95,0,255));
-                }
-                Log.d("tourFlag", String.valueOf(tourflag));
-            }
-        });
-        //음식점 버튼 온오프
-        binding.activitymapReLYBtn2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
-
-    }
-    @Override
-    public void onMapReady( GoogleMap googleMap) {
-
-        googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);                     // 지도 유형 설정
-
-        mMap = googleMap;
-
-        mMap.setOnCameraIdleListener(this);
-        mMap.setOnMarkerClickListener(this);
-
-        mMap.setBuildingsEnabled(true); //3D buildings
-        mMap.getUiSettings().setMapToolbarEnabled(false); // No toolbar needed in a lite preview
-        mMap.getUiSettings().setMapToolbarEnabled(false);
-
-        LatLng Point = new LatLng(Lat, Lng);
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(Point, 13));  //줌 오류 수정
-
+        ViewGroup mapViewContainer = (ViewGroup) findViewById(R.id.map_view);
+        mapViewContainer.addView(mapView);
+        mapView.setMapCenterPointAndZoomLevel(MapPoint.mapPointWithGeoCoord(Lat, Lng), 5, true);
+        mapView.zoomIn(true);
+        mapView.zoomOut(true);
 
     }
 
+    public void closeBtn(View view) {
+        listTitle.clear();
+        listlat.clear();
+        listlng.clear();
+        listId.clear();
+        finish();
 
+    }
 
-    void set_tour() {
+    //각각 온오프를 빠르게 하면 마커 색상이 동일하게 변경되는 오류가 있음.
+    public void onofftour(View view){
+        if(tourflag==0){
+            tourflag=1; //현재 on
+            get_list("tour");
+            binding.activitymapReLYBtn1.setBackgroundColor(Color.rgb(255,255,255));
+        }
+        else{
+            tourflag=0; //현재 off
+            removeMarkerEach();
+            binding.activitymapReLYBtn1.setBackgroundColor(Color.rgb(187,134,252));
+        }
+    }
 
-        lat = String.valueOf(Math.round((mMap.getCameraPosition().target.latitude)*10000000)/10000000.0);
-        lng = String.valueOf(Math.round((mMap.getCameraPosition().target.longitude)*10000000)/10000000.0);
+    public void onofffood(View view){
+        if(foodflag==0){
+            foodflag=1; //현재 on
+            get_list("restaurant");
+            binding.activitymapReLYBtn2.setBackgroundColor(Color.rgb(255,255,255));
+        }
+        else{
+            foodflag=0; //현재 off
+            removeMarkerEach();
+            binding.activitymapReLYBtn2.setBackgroundColor(Color.rgb(187,134,252));
+        }
+    }
 
+    //여기 문제 있음
+    public void markerupdate(View view){
+        removeMarkerAll();
+        if(tourflag==1&&foodflag==1){
+            get_list("tour");
+            get_list("restaurant");
+        }
+//        else if(tourflag==1||foodflag==1){
+//            if(tourflag==1){
+//                get_list("tour");
+//            }
+//            else if(foodflag==1){
+//                get_list("restaurant");
+//            }
+//
+//        }
+
+        binding.updateBtn.setVisibility(View.INVISIBLE);
+    }
+
+    private void get_list(String w) {
+
+        String get_Url;
+        POI_rest.clear();
+        POI_tour.clear();
+
+        //현재 지도의 위.경도 받아오기
+        MapPoint mapPoint = mapView.getMapCenterPoint();
+        double x=mapPoint.getMapPointGeoCoord().latitude;
+        double y=mapPoint.getMapPointGeoCoord().longitude;
+        lat = String.valueOf((x*10000000)/10000000.0);
+        lng = String.valueOf((y*10000000)/10000000.0);
+
+        //해당하는 url 가져오기
         TourApi_ tourapi=new TourApi_("locationBasedList");
-        tourapi.set_tourList_forMap(lng,lat);
-        String get_Url=tourapi.getUrl();
-
-//        tourlist=new String[4][];   //title,lat,lng,contentid)
-
-        Log.d("set_maptour_getURL",get_Url);
+        if(w.equals("tour")){
+            tourapi.set_tourList_forMap(lng,lat);
+        }
+        else if(w.equals("restaurant")){
+            tourapi.set_foodList_forMap(lng,lat);
+        }
+        get_Url=tourapi.getUrl();
 
         new Thread(new Runnable() {
 
@@ -143,7 +142,7 @@ public class MapActivity extends AppCompatActivity
             public void run() {
                 // TODO Auto-generated method stub
                 try {
-                    get_area(get_Url);
+                    set_area(get_Url);
                 } catch (IOException e) {
                     Toast.makeText(getApplicationContext(), "호출에 실패하였습니다. 다시 시도해주세요.", Toast.LENGTH_LONG).show();
                     e.printStackTrace();
@@ -152,25 +151,45 @@ public class MapActivity extends AppCompatActivity
                     @Override
                     public void run() {
                         // TODO Auto-generated method stub
+
                         for(int i=0;i<listTitle.size();i++){
                             if(listTitle.get(i)!=null){
                                 double new_lat=Double.parseDouble(listlat.get(i));
                                 double new_lng=Double.parseDouble(listlng.get(i));
-//                                Marker marker = mMap.addMarker(new MarkerOptions()
-//                                        .position(new LatLng(new_lat,new_lng))
-//                                        .title(tourlist[0][i])
-//                                        .snippet(tourlist[3][i]));
-//                                markerList.add(marker);
-                                LatLng Point = new LatLng(new_lat, new_lng);
-                                MarkerOptions markerOptions = new MarkerOptions();
-                                markerOptions.position(Point);
-                                markerOptions.title(listTitle.get(i));
-                                markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
-                                markerOptions.alpha((float) 0.7);
-                                mMap.addMarker(markerOptions);
+                                MapPoint MARKER_POINT=MapPoint.mapPointWithGeoCoord(new_lat, new_lng);
+                                if(w.equals("tour")){
+                                    POI_tour.add(new MapPOIItem());
+                                    POI_tour.get(i).setItemName(listTitle.get(i));
+                                    POI_tour.get(i).setTag(0);
+                                    POI_tour.get(i).setMapPoint(MARKER_POINT);
+                                    POI_tour.get(i).setMarkerType(MapPOIItem.MarkerType.YellowPin);
+                                    POI_tour.get(i).setSelectedMarkerType(MapPOIItem.MarkerType.RedPin); // 마커를 클릭했을때, 기본으로 제공하는 RedPin 마커 모양.
+                                    mapView.addPOIItem(POI_tour.get(i));
+                                }
 
+                                else if(w.equals("restaurant")) {
+                                    POI_rest.add(new MapPOIItem());
+                                    POI_rest.get(i).setItemName(listTitle.get(i));
+                                    POI_rest.get(i).setTag(0);
+                                    POI_rest.get(i).setMapPoint(MARKER_POINT);
+                                    POI_rest.get(i).setMarkerType(MapPOIItem.MarkerType.BluePin);
+                                    POI_rest.get(i).setSelectedMarkerType(MapPOIItem.MarkerType.RedPin); // 마커를 클릭했을때, 기본으로 제공하는 RedPin 마커 모양.
+                                    mapView.addPOIItem(POI_rest.get(i));
+                                }
+
+//
+//                                MapPOIItem marker1 = new MapPOIItem();
+//
+//                                marker1.setItemName(listTitle.get(i));
+//                                marker1.setTag(0);
+//                                marker1.setMapPoint(MARKER_POINT);
+//                                if(w.equals("tour"))
+//                                    marker1.setMarkerType(MapPOIItem.MarkerType.YellowPin);
+//                                else if(w.equals("restaurant"))
+//                                    marker1.setMarkerType(MapPOIItem.MarkerType.BluePin);
+//                                marker1.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin); // 마커를 클릭했을때, 기본으로 제공하는 RedPin 마커 모양.
+//                                mapView.addPOIItem(marker1);
                             }
-
                         }
 
                     }
@@ -180,7 +199,8 @@ public class MapActivity extends AppCompatActivity
         }).start();
     }
 
-    void get_area(String newUrl) throws IOException {
+
+    private void set_area(String newUrl) throws IOException {
 
         listTitle.clear();
         listlat.clear();
@@ -255,33 +275,85 @@ public class MapActivity extends AppCompatActivity
 
     }
 
-    @Override
-    public void onCameraIdle() {
-        removeMarkerAll();
 
-        if(tourflag==1){
-            set_tour();
+    private void removeMarkerAll(){
+        mapView.removeAllPOIItems();
+
+    }
+
+    private void removeMarkerEach() {
+        //관광지 마커 제거
+        //각각 하나씩 on/off시
+        if(tourflag==0){
+            for(int i=0;i<POI_tour.size();i++)
+                mapView.removePOIItem(POI_tour.get(i));
+            POI_tour.clear();
         }
+
+        if(foodflag==0){
+            for(int i=0;i<POI_rest.size();i++)
+                mapView.removePOIItem(POI_rest.get(i));
+            POI_rest.clear();
+        }
+        else{
+            mapView.removeAllPOIItems();
+        }
+
     }
 
+//    public void removePOIItems(ArrayList<MapPOIItem> poiItems){
+//        removePOIItems(POI_tour);
+//        POI_tour.clear();
+//    }
 
     @Override
-    public boolean onMarkerClick(@NonNull Marker marker) {
-        return false;
-    }
-
-    private void removeMarkerAll() {
-//        for (Marker marker : markerList) {
-//            marker.remove();
-//        }
-        mMap.clear();
+    public void onMapViewInitialized(MapView mapView) {
 
     }
-    private void removeMarkerTour() {
-        mMap.clear();
+
+    @Override
+    public void onMapViewCenterPointMoved(MapView mapView, MapPoint mapPoint) {
+
+        if(tourflag==1||foodflag==1){
+            binding.updateBtn.setVisibility(View.VISIBLE);
+        }
+
     }
 
+    @Override
+    public void onMapViewZoomLevelChanged(MapView mapView, int i) {
 
+    }
+
+    @Override
+    public void onMapViewSingleTapped(MapView mapView, MapPoint mapPoint) {
+
+    }
+
+    @Override
+    public void onMapViewDoubleTapped(MapView mapView, MapPoint mapPoint) {
+
+    }
+
+    @Override
+    public void onMapViewLongPressed(MapView mapView, MapPoint mapPoint) {
+
+    }
+
+    @Override
+    public void onMapViewDragStarted(MapView mapView, MapPoint mapPoint) {
+
+    }
+
+    @Override
+    public void onMapViewDragEnded(MapView mapView, MapPoint mapPoint) {
+
+    }
+
+    @Override
+    public void onMapViewMoveFinished(MapView mapView, MapPoint mapPoint) {
+
+    }
 
 
 

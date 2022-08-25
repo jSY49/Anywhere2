@@ -18,17 +18,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/imageView1">
+
         <TextView
+            android:id="@+id/textView1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="title"
-            android:id="@+id/textView1"
-            android:textSize="24dp"
-
             android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
             android:layout_marginTop="5dp"
-            />
+
+            android:layout_marginRight="20dp"
+            android:text="title"
+            android:textSize="24dp" />
 
 
         <TextView

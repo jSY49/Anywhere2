@@ -14,6 +14,14 @@
 
     </HorizontalScrollView>
 
+    <LinearLayout
+        android:id="@+id/liLay1"
+        android:layout_below="@+id/Activity_main_HrScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray"
+        android:orientation="horizontal"/>
+
     <RelativeLayout
         android:id="@+id/Activity_main_ReLay4"
         android:layout_width="match_parent"
@@ -78,8 +86,9 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/Activity_main_SearchFramLy">
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Activity_main_SearchFramLy"
+        android:layout_alignParentBottom="true">
 
         <RelativeLayout
             android:id="@+id/Activity_main_ReLay1"
@@ -87,14 +96,15 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp">
+            android:layout_marginRight="10dp"
+            android:padding="30dp">
 
             <Button
                 android:id="@+id/Activity_main_btn1"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:background="@drawable/roundshape"
                 android:text="@string/AreaTrip"
                 android:textSize="20dp" />
@@ -103,19 +113,11 @@
                 android:id="@+id/Activity_main_btn2"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
-                android:layout_centerInParent="true"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_toRightOf="@+id/Activity_main_btn1"
                 android:background="@drawable/roundshape"
                 android:text="@string/Gomap"
-                android:textSize="20dp" />
-
-            <Button
-                android:id="@+id/Activity_main_btn3"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:background="@drawable/roundshape"
-                android:text="@string/beach_list"
                 android:textSize="20dp" />
 
         </RelativeLayout>
@@ -126,62 +128,32 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/Activity_main_ReLay1"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp">
+
+            android:layout_marginRight="10dp"
+            android:padding="30dp">
+
+            <Button
+                android:id="@+id/Activity_main_btn3"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/roundshape"
+                android:text="@string/community"
+                android:textSize="20dp" />
 
             <Button
                 android:id="@+id/Activity_main_btn4"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true" />
-
-            <Button
-                android:id="@+id/Activity_main_btn5"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:layout_centerInParent="true" />
-
-            <Button
-                android:id="@+id/Activity_main_btn6"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true" />
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_toRightOf="@+id/Activity_main_btn3"
+                android:background="@drawable/roundshape"
+                android:text="@string/themes"
+                android:textSize="20dp" />
 
         </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/Activity_main_ReLay3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/Activity_main_ReLay2"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp">
-
-            <Button
-                android:id="@+id/Activity_main_btn7"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true" />
-
-            <Button
-                android:id="@+id/Activity_main_btn8"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:layout_centerInParent="true" />
-
-            <Button
-                android:id="@+id/Activity_main_btn9"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true" />
-
-        </RelativeLayout>
-
 
     </RelativeLayout>
 

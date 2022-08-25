@@ -39,7 +39,8 @@ public class TourApi_ {
         //settingUrl += wantService + "?ServiceKey=" + BuildConfig.MY_API_KEY + "&numOfRows=30&pageNo=1&MobileOS=ETC&MobileApp=AppTest";
         return basicUrl;
     }
-    
+
+
     String set_tourdataList_Url(String sp1, @NonNull String sp2, String srt){
         Log.d("pr_set__Url: ",basicUrl);
         if(sp2.equals("-1")){
@@ -58,6 +59,11 @@ public class TourApi_ {
     }
     String set_tourList_forMap(String mapX,String mapY){
         basicUrl+="&contentTypeId=12"+"&mapX="+mapX+"&mapY="+mapY+"&radius=3000";
+        return basicUrl;
+    }
+
+    String set_foodList_forMap(String mapX,String mapY){
+        basicUrl+="&contentTypeId=39"+"&mapX="+mapX+"&mapY="+mapY+"&radius=3000";
         return basicUrl;
     }
 

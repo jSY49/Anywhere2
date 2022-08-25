@@ -5,14 +5,24 @@
       <map>
         <entry key="..\:/Users/jseun/AndroidStudioProjects/Anywhere/app/src/main/res/drawable-v24/ic_baseline_account_circle_24.xml" value="0.33425925925925926" />
         <entry key="..\:/Users/jseun/AndroidStudioProjects/Anywhere/app/src/main/res/drawable-v24/ic_baseline_search_24.xml" value="0.33425925925925926" />
+        <entry key="..\:/Users/jseun/AndroidStudioProjects/Anywhere/app/src/main/res/drawable-v24/roundshape.xml" value="0.3111111111111111" />
         <entry key="..\:/Users/jseun/AndroidStudioProjects/Anywhere/app/src/main/res/layout/activity_beachlist.xml" value="0.1" />
+        <entry key="..\:/Users/jseun/AndroidStudioProjects/Anywhere/app/src/main/res/layout/activity_community.xml" value="0.25" />
+        <entry key="..\:/Users/jseun/AndroidStudioProjects/Anywhere/app/src/main/res/layout/activity_detail_post.xml" value="0.18" />
         <entry key="..\:/Users/jseun/AndroidStudioProjects/Anywhere/app/src/main/res/layout/activity_main.xml" value="0.3496376811594203" />
+        <entry key="..\:/Users/jseun/AndroidStudioProjects/Anywhere/app/src/main/res/layout/activity_postwriting.xml" value="0.1" />
         <entry key="..\:/Users/jseun/AndroidStudioProjects/Anywhere/app/src/main/res/layout/activitymap.xml" value="0.33" />
+        <entry key="..\:/Users/jseun/AndroidStudioProjects/Anywhere/app/src/main/res/layout/arealistview_item.xml" value="0.5536458333333333" />
         <entry key="..\:/Users/jseun/AndroidStudioProjects/Anywhere/app/src/main/res/layout/areatrip.xml" value="0.34601449275362317" />
+        <entry key="..\:/Users/jseun/AndroidStudioProjects/Anywhere/app/src/main/res/layout/commnet_recycler.xml" value="0.25" />
         <entry key="..\:/Users/jseun/AndroidStudioProjects/Anywhere/app/src/main/res/layout/detail_for_areatrip.xml" value="0.3796875" />
         <entry key="..\:/Users/jseun/AndroidStudioProjects/Anywhere/app/src/main/res/layout/email_sign_in.xml" value="0.33" />
+        <entry key="..\:/Users/jseun/AndroidStudioProjects/Anywhere/app/src/main/res/layout/fragment_post.xml" value="0.33" />
+        <entry key="..\:/Users/jseun/AndroidStudioProjects/Anywhere/app/src/main/res/layout/fragment_review.xml" value="0.5536458333333333" />
+        <entry key="..\:/Users/jseun/AndroidStudioProjects/Anywhere/app/src/main/res/layout/fragment_user.xml" value="0.22421875" />
         <entry key="..\:/Users/jseun/AndroidStudioProjects/Anywhere/app/src/main/res/layout/loginmenu.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/jseun/AndroidStudioProjects/Anywhere/app/src/main/res/layout/map_fullscreen.xml" value="0.34479166666666666" />
+        <entry key="..\:/Users/jseun/AndroidStudioProjects/Anywhere/app/src/main/res/layout/postslistview.xml" value="0.28205128205128205" />
         <entry key="..\:/Users/jseun/AndroidStudioProjects/Anywhere/app/src/main/res/mipmap-anydpi-v26/anywhereIcon.xml" value="0.2212962962962963" />
         <entry key="..\:/Users/jseun/AndroidStudioProjects/Anywhere/app/src/main/res/mipmap-anydpi-v26/anywhereicon.xml" value="0.2212962962962963" />
         <entry key="..\:/Users/jseun/AndroidStudioProjects/Anywhere/app/src/main/res/mipmap-anydpi-v26/anywhereicon_round.xml" value="0.2212962962962963" />
@@ -26,5 +36,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.5" />
+      </ProjectState>
+    </option>
   </component>
 </project>

@@ -6,11 +6,13 @@ import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 
 class firebaseConnect {
 
     lateinit var auth: FirebaseAuth
+    lateinit var db:   FirebaseFirestore
 
 
     fun firbaseInit(): FirebaseAuth {
@@ -30,6 +32,11 @@ class firebaseConnect {
         val user = Firebase.auth.currentUser
         return user
     }
+    fun fb_uid(): String? {
+        val user = Firebase.auth.getUid()
+        return user
+    }
+
     fun fb_userEmail(): String? {
         val user = Firebase.auth.currentUser
         val Uemail=user?.email
@@ -38,4 +45,10 @@ class firebaseConnect {
 //    fun fb_logout():Unit{
 //        auth.signOut()
 //    }
+
+    fun firbaseDBInit(): FirebaseFirestore {
+        db = FirebaseFirestore.getInstance()
+        return db
+    }
+
 }

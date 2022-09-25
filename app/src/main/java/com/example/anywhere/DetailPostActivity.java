@@ -10,12 +10,17 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Rect;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.anywhere.databinding.ActivityCommunityBinding;
 import com.example.anywhere.databinding.ActivityDetailPostBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -28,6 +33,9 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.ListResult;
+import com.google.firebase.storage.StorageReference;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -43,11 +51,33 @@ public class DetailPostActivity extends AppCompatActivity {
     private String DocId;
     private firebaseConnect fbsconnect;
     private ActivityDetailPostBinding binding;
-    
+
     private RecyclerView recyclerView;
     private MyCommnetAdapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
-    ArrayList<String> cUser,myTime,comment;
+    ArrayList<String> cUser, myTime, comment;
+
+    ArrayList<Uri> uriList;
+    RecyclerView recyclerView_img;  // 이미지를 보여줄 리사이클러뷰
+    MyPostImgAdapter adapter;  // 리사이클러뷰에 적용시킬 어댑터
+    String img;
+
+    public class RecyclerViewDecoration extends RecyclerView.ItemDecoration {
+
+        private final int divWidth;
+
+        public RecyclerViewDecoration(int divWidth)
+        {
+            this.divWidth = divWidth;
+        }
+
+        @Override
+        public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state)
+        {
+            super.getItemOffsets(outRect, view, parent, state);
+            outRect.right = divWidth;
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,18 +86,30 @@ public class DetailPostActivity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
 
+        CheckTypesTask task = new CheckTypesTask();
+        task.execute();
+
         fbsconnect = new firebaseConnect();
         fbsconnect.firbaseInit();
         fbsconnect.firbaseDBInit();
+        fbsconnect.firebaseStorageInit();
+
 
         //글 세팅
         Intent secondIntent = getIntent();
-        DocId=secondIntent.getStringExtra("DocId");
+        DocId = secondIntent.getStringExtra("DocId");
         dbSetting();
+
+        //img 세팅
+        uriList = new ArrayList<>();
+        recyclerView_img = binding.recyclerViewImg;
+        //간격 세팅
+        RecyclerViewDecoration decoration_height = new RecyclerViewDecoration(15);
+        recyclerView_img.addItemDecoration(decoration_height);
 
 
         //댓글세팅
-        mAdapter=new MyCommnetAdapter();
+        mAdapter = new MyCommnetAdapter();
         recyclerView = binding.recycleview;
         //리사이클러뷰 경계선
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), new LinearLayoutManager(this).getOrientation());
@@ -78,11 +120,11 @@ public class DetailPostActivity extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        cUser= new ArrayList<>();
-        myTime= new ArrayList<>();
-        comment= new ArrayList<>();
+        cUser = new ArrayList<>();
+        myTime = new ArrayList<>();
+        comment = new ArrayList<>();
         commentSetting();
-    
+
         //로그인 시에만 글쓰기 기능 가능
         fbsconnect.firbaseInit();
         FirebaseUser user = fbsconnect.fb_user();
@@ -105,19 +147,19 @@ public class DetailPostActivity extends AppCompatActivity {
         });
 
     }
-    
+
     //코멘트 게시
     public void commentPOst(View view) {
-        if(binding.commentET.getText().toString().getBytes().length <= 0){
-            Toast.makeText(this.getApplicationContext(),"제목/본문을 입력해주세요.",Toast.LENGTH_LONG).show();
-        }
-        else{
+        if (binding.commentET.getText().toString().getBytes().length <= 0) {
+            Toast.makeText(this.getApplicationContext(), "코멘트를 입력해주세요.", Toast.LENGTH_LONG).show();
+        } else {
             dbCommentAdd();
+            binding.commentET.setText("");
         }
     }
 
     //해당 글 불러오기
-    void dbSetting(){
+    void dbSetting() {
         DocumentReference docRef = fbsconnect.db.collection("post").document(DocId);
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -129,6 +171,10 @@ public class DetailPostActivity extends AppCompatActivity {
                         binding.posttime.setText(String.valueOf(document.get("time")));
                         binding.postName.setText(String.valueOf(document.get("name")));
                         binding.postBody.setText(String.valueOf(document.get("body")));
+                        img = String.valueOf(document.get("img"));
+                        if (img.equals("o")) {
+                            loadImg();
+                        }
 
                     } else {
                         Log.d(TAG, "No such document");
@@ -142,11 +188,11 @@ public class DetailPostActivity extends AppCompatActivity {
     }
 
     //댓글 추가
-    void dbCommentAdd(){
+    void dbCommentAdd() {
         Map<String, Object> user = new HashMap<>();
         user.put("comment", binding.commentET.getText().toString());
         user.put("user", fbsconnect.fb_userEmail());
-        user.put("time",getTime());
+        user.put("time", getTime());
 
 // Add a new document with a generated ID
         fbsconnect.db.collection("post").document(DocId).collection("comment")
@@ -164,9 +210,9 @@ public class DetailPostActivity extends AppCompatActivity {
                     }
                 });
     }
-    
+
     //코멘트 불러오기
-    void commentSetting(){
+    void commentSetting() {
         fbsconnect.db.collection("post").document(DocId).collection("comment")
                 .orderBy("time")
                 .get()
@@ -177,14 +223,14 @@ public class DetailPostActivity extends AppCompatActivity {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 String user = String.valueOf(document.get("user"));
                                 String time = String.valueOf(document.get("time"));
-                                String cmt= String.valueOf(document.get("comment"));
-                                cUser.add(0,user);
-                                myTime.add(0,time);
-                                comment.add(0,cmt);
+                                String cmt = String.valueOf(document.get("comment"));
+                                cUser.add(0, user);
+                                myTime.add(0, time);
+                                comment.add(0, cmt);
                             }
 
                             // 어댑터 세팅
-                            mAdapter = new MyCommnetAdapter(cUser,myTime,comment);
+                            mAdapter = new MyCommnetAdapter(cUser, myTime, comment);
                             recyclerView.setAdapter(mAdapter);
 
                         } else {
@@ -194,6 +240,60 @@ public class DetailPostActivity extends AppCompatActivity {
 
                 });
     }
+
+    private void loadImg() {
+
+        try {
+            StorageReference storageRef = fbsconnect.storage.getReference();
+            StorageReference pathReference = storageRef.child("Postimages/" + DocId);
+
+            pathReference.listAll()
+                    .addOnSuccessListener(new OnSuccessListener<ListResult>() {
+                        @Override
+                        public void onSuccess(ListResult listResult) {
+
+                            for (StorageReference item : listResult.getItems()) {
+                                item.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Uri> task) {
+                                        if (task.isSuccessful()) {
+                                            uriList.add(task.getResult());
+
+                                        } else {
+                                            // URL을 가져오지 못하면 토스트 메세지
+                                            Toast.makeText(DetailPostActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                        }
+                                        Log.d("uriList", String.valueOf(uriList.size()));
+                                        adapter = new MyPostImgAdapter(uriList, getApplicationContext());
+                                        recyclerView_img.setAdapter(adapter);
+                                        recyclerView_img.setLayoutManager(new LinearLayoutManager(DetailPostActivity.this, LinearLayoutManager.HORIZONTAL, false));
+                                    }
+
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        // Uh-oh, an error occurred!
+                                    }
+                                });
+                            }
+
+
+                        }
+
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            // Uh-oh, an error occurred!
+                        }
+                    });
+        } catch (NullPointerException e) {
+            Log.d("NullPointerException", String.valueOf(e));
+        }
+
+
+    }
+
 
     public void closeBtn(View view) {
         finish();
@@ -208,7 +308,8 @@ public class DetailPostActivity extends AppCompatActivity {
         commentSetting();
 
     }
-    private String getTime(){
+
+    private String getTime() {
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd kk:mm:ss");
         Calendar calendar = Calendar.getInstance();
@@ -217,5 +318,37 @@ public class DetailPostActivity extends AppCompatActivity {
         String dateResult = sdf.format(date);
         return dateResult;
 
+    }
+
+    private class CheckTypesTask extends AsyncTask<Void, Void, Void> {
+        ProgressDialog asyncDialog = new ProgressDialog(DetailPostActivity.this);
+
+        @Override
+        protected void onPreExecute() { //작업시작, 객체를 생성하고 시작한다.
+            asyncDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            asyncDialog.setMessage("로딩중입니다.");
+            // Show dialog
+            asyncDialog.show();
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {  //진행중, 진행정도룰 표현해준다.
+
+            for (int i = 0; i < 5; i++) {
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {     //종료, 종료기능을 구현.
+            asyncDialog.dismiss();
+            super.onPostExecute(result);
+        }
     }
 }

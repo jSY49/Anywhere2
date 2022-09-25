@@ -14,12 +14,22 @@
 
         <TextView
             android:id="@+id/postNm"
-            android:layout_width="250dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="3dp"
             android:text="pstName"
             android:textSize="18dp" />
+
+        <ImageView
+            android:id="@+id/imgView"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/postNm"
+            android:src="@drawable/ic_baseline_image_24"
+            android:layout_marginLeft="15dp"
+            android:visibility="invisible"/>
 
 
         <TextView

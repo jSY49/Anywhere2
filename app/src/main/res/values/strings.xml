@@ -26,4 +26,10 @@
 
     <string name="POST_name">제목</string>
     <string name="POST_body">내용을 입력 하세요.</string>
+
+    <string name="festival">축제</string>
+
+    <string name="view_more"><u><i>더보기</i></u></string>
+    <string name="view_close"><u><i>닫기</i></u></string>
+
 </resources>

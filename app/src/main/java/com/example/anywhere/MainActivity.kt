@@ -58,8 +58,7 @@ class MainActivity : AppCompatActivity() {
 
         //테마별 리스트
         Activity_main_btn4.setOnClickListener{
-//            val intent = Intent(applicationContext,listOfareatrip::class.java)
-//            startActivity(intent)
+
         }//btn4 클릭 리스너 닫음
         
 
@@ -67,7 +66,7 @@ class MainActivity : AppCompatActivity() {
         Activity_main_SearchBtn.setOnClickListener {
 //            val intent = Intent(applicationContext,listOfareatrip::class.java)
 //            startActivity(intent)
-        }//검색버튼 닫음
+        }//검색 클릭 리스너 닫음
 
     }
 

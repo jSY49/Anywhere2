@@ -35,145 +35,148 @@
         android:id="@+id/refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/re1"
-        >
+        android:layout_below="@+id/re1">
 
-    <ScrollView
+        <ScrollView
 
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <LinearLayout
-                android:id="@+id/li1"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="match_parent">
 
-                android:background="@color/gray"
-                android:orientation="vertical" />
+                <LinearLayout
+                    android:id="@+id/li1"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
 
-            <LinearLayout
-                android:id="@+id/li2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/li1"
-                android:layout_margin="5dp"
-                android:orientation="vertical">
+                    android:background="@color/gray"
+                    android:orientation="vertical" />
+
+                <RelativeLayout
+                    android:id="@+id/re2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/li1"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:id="@+id/Header_rely"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:orientation="horizontal"
+                        android:padding="5dp">
+
+                        <TextView
+                            android:id="@+id/userid"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_centerVertical="true"
+                            android:text="id"
+                            android:textColor="@color/gray"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/posttime"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:text="timestamp"
+                            android:textColor="@color/gray" />
+
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:id="@+id/li3"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_below="@id/Header_rely"
+                        android:background="@color/gray"
+                        android:orientation="vertical" />
+
+                    <TextView
+                        android:id="@+id/post_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/li3"
+                        android:padding="10dp"
+                        android:text="post_name"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
+
+
+                    <TextView
+                        android:id="@+id/post_body"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/post_name"
+                        android:layout_marginTop="5dp"
+                        android:padding="10dp"
+                        android:text="Post_body" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerView_img"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:layout_below="@+id/post_body"
+                        android:layout_marginTop="10dp"
+                        tools:listitem="@layout/activity_post_img_recyclerview" />
+
+                    <LinearLayout
+                        android:id="@+id/li4"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_below="@id/recyclerView_img"
+                        android:layout_margin="10dp"
+                        android:background="@color/gray"
+                        android:orientation="vertical" />
+
+
+                </RelativeLayout>
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycleview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/re2" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:orientation="horizontal"
-                    android:padding="5dp">
+                    android:layout_below="@+id/recycleview">
 
-                    <TextView
-                        android:id="@+id/userid"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                    <EditText
+                        android:id="@+id/commentET"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
                         android:layout_alignParentLeft="true"
                         android:layout_centerVertical="true"
-                        android:text="id"
-                        android:textColor="@color/gray"
-                        android:textStyle="bold" />
+                        android:layout_margin="5dp"
+                        android:layout_toLeftOf="@id/commentPostBtn"
+                        android:background="#eeeeee"
 
-                    <TextView
-                        android:id="@+id/posttime"
+                        />
+
+                    <Button
+                        android:id="@+id/commentPostBtn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:text="timestamp"
-                        android:textColor="@color/gray" />
+                        android:onClick="commentPOst"
+                        android:text="@string/POST" />
+
 
                 </RelativeLayout>
-
-                <LinearLayout
-                    android:id="@+id/li3"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_below="@id/li2"
-                    android:background="@color/gray"
-                    android:orientation="vertical" />
-
-                <TextView
-                    android:id="@+id/post_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:textSize="20dp"
-                    android:textStyle="bold" />
-
-
-                <TextView
-                    android:id="@+id/post_body"
-                    android:layout_width="match_parent"
-                    android:layout_height="300dp"
-                    android:layout_marginTop="5dp"
-                    android:padding="10dp" />
-
-                <LinearLayout
-                    android:id="@+id/li4"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_below="@id/post_body"
-                    android:background="@color/gray"
-                    android:orientation="vertical" />
-
-                <HorizontalScrollView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <ImageView
-                        android:id="@+id/img"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:layout_margin="5dp"
-                        android:visibility="invisible" />
-                </HorizontalScrollView>
-
-
-            </LinearLayout>
-
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycleview"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/li2" />
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_below="@+id/recycleview">
-
-                <EditText
-                    android:id="@+id/commentET"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:layout_margin="5dp"
-                    android:layout_toLeftOf="@id/commentPostBtn"
-                    android:background="#eeeeee"
-
-                    />
-
-                <Button
-                    android:id="@+id/commentPostBtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:onClick="commentPOst"
-                    android:text="@string/POST" />
-
-
             </RelativeLayout>
-
-        </RelativeLayout>
-    </ScrollView>
+        </ScrollView>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </RelativeLayout>

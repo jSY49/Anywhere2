@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,7 +18,7 @@ import java.util.ArrayList;
 
 class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     private String[] mDataset;
-    private ArrayList<String> dbset,timeset,docname;
+    private ArrayList<String> dbset,timeset,docname,imgchk;
 
     public MyAdapter() {
 
@@ -38,11 +39,13 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     // 리사이클러뷰 안의 뷰를 참조하는 메소드
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView postTitle, postTime;
+        public ImageView img_IMG;
 
         public MyViewHolder(@NonNull View v) {
             super(v);
             postTitle = v.findViewById(R.id.postNm);
             postTime = v.findViewById(R.id.postTm);
+            img_IMG = v.findViewById(R.id.imgView);
 
             v.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -67,10 +70,11 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     public MyAdapter(String[] myDataset) {
         mDataset = myDataset;
     }
-    public MyAdapter(ArrayList<String> dbSet,ArrayList<String> timeSet,ArrayList<String> docName) {
+    public MyAdapter(ArrayList<String> dbSet,ArrayList<String> timeSet,ArrayList<String> docName,ArrayList<String> IMG) {
         dbset=dbSet;
         timeset=timeSet;
         docname=docName;
+        imgchk=IMG;
     }
 
     // 새로운 뷰 생성
@@ -95,6 +99,9 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 //        holder.postTime.setText(mDataset[position]);
         holder.postTitle.setText(dbset.get(position));
         holder.postTime.setText(timeset.get(position));
+        if(imgchk.get(position).equals("o")){
+            holder.img_IMG.setVisibility(View.VISIBLE);
+        }
 
     }
 

@@ -9,7 +9,10 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -34,7 +37,7 @@ public class CommunityActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private MyAdapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
-    ArrayList<String>  mydb,myTime,docname;
+    ArrayList<String>  mydb,myTime,docname,img;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +67,7 @@ public class CommunityActivity extends AppCompatActivity {
         mydb= new ArrayList<>();
         myTime= new ArrayList<>();
         docname= new ArrayList<>();
+        img=new ArrayList<>();
 
         dbsetting();
 
@@ -98,6 +102,8 @@ public class CommunityActivity extends AppCompatActivity {
     }
 
     void dbsetting(){
+        CheckTypesTask task = new CheckTypesTask();
+        task.execute();
         fbsconnect.db.collection("post")
                 .orderBy("time")
                 .get()
@@ -109,14 +115,17 @@ public class CommunityActivity extends AppCompatActivity {
 
                                 String title = String.valueOf(document.get("name"));
                                 String time = String.valueOf(document.get("time"));
-                                String docNm= String.valueOf(document.getId());
+                                String docNm= document.getId();
+                                String imgcheck=String.valueOf(document.get("img"));
                                 mydb.add(0,title);
                                 myTime.add(0,time);
                                 docname.add(0,docNm);
+                                img.add(0,imgcheck);
+                                Log.d("Img",imgcheck);
                             }
 
                             // 어댑터 세팅
-                            mAdapter = new MyAdapter(mydb,myTime,docname);
+                            mAdapter = new MyAdapter(mydb,myTime,docname,img);
                             recyclerView.setAdapter(mAdapter);
 
                         } else {
@@ -140,6 +149,38 @@ public class CommunityActivity extends AppCompatActivity {
     public void search(View view) {
 
 
+    }
+
+    private class CheckTypesTask extends AsyncTask<Void, Void, Void> {
+        ProgressDialog asyncDialog = new ProgressDialog(CommunityActivity.this);
+
+        @Override
+        protected void onPreExecute() { //작업시작, 객체를 생성하고 시작한다.
+            asyncDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            asyncDialog.setMessage("로딩중입니다.");
+            // Show dialog
+            asyncDialog.show();
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {  //진행중, 진행정도룰 표현해준다.
+
+            for (int i = 0; i < 5; i++) {
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {     //종료, 종료기능을 구현.
+            asyncDialog.dismiss();
+            super.onPostExecute(result);
+        }
     }
 }
 

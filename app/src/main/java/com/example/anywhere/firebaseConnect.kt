@@ -8,11 +8,13 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
 
 class firebaseConnect {
 
     lateinit var auth: FirebaseAuth
     lateinit var db:   FirebaseFirestore
+    lateinit var storage: FirebaseStorage
 
 
     fun firbaseInit(): FirebaseAuth {
@@ -49,6 +51,11 @@ class firebaseConnect {
     fun firbaseDBInit(): FirebaseFirestore {
         db = FirebaseFirestore.getInstance()
         return db
+    }
+
+    fun firebaseStorageInit():FirebaseStorage{
+        storage= FirebaseStorage.getInstance()
+        return storage
     }
 
 }

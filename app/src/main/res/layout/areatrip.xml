@@ -6,7 +6,8 @@
     <RelativeLayout
         android:id="@+id/relay2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/pageButtonView">
 
         <Button
             android:id="@+id/btnback"
@@ -69,14 +70,33 @@
 
         <ListView
             android:id="@+id/listview1"
+            android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/sortspinenr" />
 
 
-
     </RelativeLayout>
 
+    <HorizontalScrollView
+        android:id="@+id/pageButtonView"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:background="#F8F8F8"
+        android:scrollbars="none"
+        android:fillViewport="true"
+        >
+        <LinearLayout
+            android:id="@+id/innerLinear"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:gravity="center"
+
+            />
+
+    </HorizontalScrollView>
 
 <!--    <Button-->
 <!--        android:id="@+id/morebtn"-->

@@ -22,119 +22,75 @@ import java.util.ArrayList;
 
 public class TourApi_ {
 
-    String basicUrl="https://api.visitkorea.or.kr/openapi/service/rest/KorService/";
-    String[][] arealist;
-    int i;
+    //구버전 tourAPI 3.0
+//    String basicUrl="https://api.visitkorea.or.kr/openapi/service/rest/KorService/";
+    //신버전 tourAPI 4.0
+    String basicUrl="http://apis.data.go.kr/B551011/KorService/";
+
 
     public TourApi_() {
         //String settingUrl="https://api.visitkorea.or.kr/openapi/service/rest/KorService/";
     }
+
     public TourApi_(String wantService) {
-        basicUrl += wantService + "?ServiceKey=" + BuildConfig.MY_API_KEY + "&numOfRows=1000&pageNo=1&MobileOS=ETC&MobileApp=AppTest";
+        basicUrl += wantService + "?serviceKey=" + BuildConfig.MY_API_KEY;
     }
-
-
 
     String getUrl(){
         //settingUrl += wantService + "?ServiceKey=" + BuildConfig.MY_API_KEY + "&numOfRows=30&pageNo=1&MobileOS=ETC&MobileApp=AppTest";
         return basicUrl;
     }
-
-
-    String set_tourdataList_Url(String sp1, @NonNull String sp2, String srt){
-        Log.d("pr_set__Url: ",basicUrl);
+    String set_tourdataList_Count_URL(String sp1, @NonNull String sp2){
         if(sp2.equals("-1")){
-            basicUrl += "&areaCode="+sp1+"&contentTypeId=12"+"&arrange="+srt;
+            basicUrl += "&MobileOS=ETC&MobileApp=AppTest"+"&areaCode="+sp1+"&contentTypeId=12"+"&listYN=N";
         }
         else{
-            basicUrl += "&areaCode="+sp1+"&sigunguCode="+sp2+"&contentTypeId=12"+"&arrange="+srt;//contentTypeId 12는 관광지   arrange는 정렬
+            basicUrl += "&MobileOS=ETC&MobileApp=AppTest"+"&areaCode="+sp1+"&sigunguCode="+sp2+"&contentTypeId=12"+"&listYN=N";
         }
-        Log.d("set_tourdataList_Url: ",basicUrl);
+
+        return basicUrl;
+    }
+    String set_tourdataList_Url(String sp1, @NonNull String sp2, String srt,String page){
+        if(sp2.equals("-1")){
+            basicUrl += "&numOfRows=50&pageNo="+page+"&MobileOS=ETC&MobileApp=AppTest"+"&areaCode="+sp1+"&contentTypeId=12"+"&arrange="+srt;
+        }
+        else{
+            basicUrl += "&numOfRows=50&pageNo="+page+"&MobileOS=ETC&MobileApp=AppTest"+"&areaCode="+sp1+"&sigunguCode="+sp2+"&contentTypeId=12"+"&arrange="+srt;//contentTypeId 12는 관광지   arrange는 정렬
+        }
+
         return basicUrl;
     }
 
     String set_beachList_Url(String sp,String srt){
-        basicUrl += "&areaCode="+sp+"&contentTypeId=12"+"&arrange="+srt+"&cat1=A01&cat2=A0101&cat3=A01011200";
+        basicUrl += "&numOfRows=1000&pageNo=1&MobileOS=ETC&MobileApp=AppTest"+"&areaCode="+sp+"&contentTypeId=12"+"&arrange="+srt+"&cat1=A01&cat2=A0101&cat3=A01011200";
         return basicUrl;
     }
-    String set_tourList_forMap(String mapX,String mapY){
-        basicUrl+="&contentTypeId=12"+"&mapX="+mapX+"&mapY="+mapY+"&radius=3000";
-        return basicUrl;
-    }
-
-    String set_foodList_forMap(String mapX,String mapY){
-        basicUrl+="&contentTypeId=39"+"&mapX="+mapX+"&mapY="+mapY+"&radius=3000";
+    String set_tourList_forMap(String mapX,String mapY,int radius){
+        String rad=String.valueOf(radius);
+        basicUrl+="&numOfRows=200&pageNo=1&MobileOS=ETC&MobileApp=AppTest"+"&contentTypeId=12"+"&mapX="+mapX+"&mapY="+mapY+"&radius="+rad;
         return basicUrl;
     }
 
-//    //+ areaCode=??&sigunguCode=??
-//    String[][] get_area(String newUrl) throws IOException {
-//
-//
-//        arealist= new String[4][1000];
-//
-//        int i=0,j=0,k=0,c=0;
-//        //StringBuffer buffer=new StringBuffer();
-//
-//        try {
-//            Log.d("totalCount_newUrl1: ",newUrl);
-//            URL url= new URL(newUrl);//문자열로 된 요청 url을 URL 객체로 생성.
-//            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-//            conn.setReadTimeout(10000);
-//            conn.setConnectTimeout(15000);
-//            conn.setRequestMethod("GET");
-//            conn.setDoInput(true);
-//            conn.connect();
-//
-//            String line;
-//            String result = "";
-//
-//            BufferedReader bf;
-//            bf = new BufferedReader(new InputStreamReader(url.openStream()));
-//            while ((line = bf.readLine()) != null) {
-//                result = result.concat(line);
-//
-//            }
-//
-//            JSONObject root = new JSONObject(result);
-//            JSONArray arr = root.getJSONArray("items");
-//
-//            for(int i = 0; i< arr.length() ; i++){
-//                JSONObject item = arr.getJSONObject(i);
-//                Log.d("corona",item.getString("name"));
-//                corona_item corona_item = new corona_item(
-//                        item.getString("lat"),
-//                        item.getString("lng"),
-//                        item.getString("addr"),
-//                        item.getString("code"),
-//                        item.getString("created_at"),
-//                        item.getString("name"),
-//                        item.getString("remain_stat"),
-//                        item.getString("stock_at"),
-//                        item.getString("type")
-//                );
-//
-//
-//
-//
-//            }
-//
-//        } catch (Exception e) {
-//            // TODO Auto-generated catch blocke.printStackTrace();
-//            e.printStackTrace();
-//        }
-//
-//
-//        //return buffer.toString();//StringBuffer 문자열 객체 반환
-//        return arealist;
-//
-//    }
+    String set_foodList_forMap(String mapX,String mapY,int radius){
+        String rad=String.valueOf(radius);
+        basicUrl+="&numOfRows=1000&pageNo=1&MobileOS=ETC&MobileApp=AppTest"+"&contentTypeId=39"+"&mapX="+mapX+"&mapY="+mapY+"&radius=1000";
+        return basicUrl;
+    }
+    String set_leisure_Sports_List_forMap(String mapX,String mapY,int radius){
+        String rad=String.valueOf(radius);
+        basicUrl+="&numOfRows=1000&pageNo=1&MobileOS=ETC&MobileApp=AppTest"+"&contentTypeId=28"+"&mapX="+mapX+"&mapY="+mapY+"&radius=1000";
+        return basicUrl;
+    }
 
+
+    String set_fest_List_Url(){
+        basicUrl+="&numOfRows=10&pageNo=1&MobileOS=ETC&MobileApp=AppTest"+"&contentTypeId=15"+"&arrange=B&cat1=A02&cat2=A0207";
+        return basicUrl;
+    }
 
     String set_cIddetail_Url(String cId){
 
-        basicUrl +="&contentId="+cId+"&defaultYN=Y&firstImageYN=Y&areacodeYN=Y&catcodeYN=Y&addrinfoYN=Y&mapinfoYN=Y&overviewYN=Y";
-        Log.d("cId_url",basicUrl);
+        basicUrl +="&numOfRows=1&pageNo=1&MobileOS=ETC&MobileApp=AppTest"+"&contentId="+cId+"&defaultYN=Y&firstImageYN=Y&areacodeYN=Y&catcodeYN=Y&addrinfoYN=Y&mapinfoYN=Y&overviewYN=Y";
         return basicUrl;
     }
 

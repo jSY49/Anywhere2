@@ -1,4 +1,4 @@
-package com.example.anywhere;
+package com.example.anywhere.Community;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.ViewCompat;

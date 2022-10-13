@@ -1,44 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <RelativeLayout
         android:id="@+id/relay2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/pageButtonView">
+        android:layout_height="wrap_content">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/btnback"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/ic_baseline_arrow_back_24"
+            android:onClick="btnBack" />
 
-            <Button
-                android:id="@+id/btnback"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="5dp"
-                android:layout_marginBottom="5dp"
-                android:background="@drawable/ic_baseline_arrow_back_24" />
+        <TextView
+            android:id="@+id/appName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:text="@string/app_name"
 
-            <TextView
-                android:id="@+id/appName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp"
-                android:text="@string/app_name"/>
+            />
+
+        <Spinner
+            android:id="@+id/MonthSpinner"
+            android:layout_width="100dp"
+            android:layout_height="20dp"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@+id/appName"
+            android:popupBackground="@color/white"
+            android:spinnerMode="dropdown" />
+
+    </RelativeLayout>
 
 
-        </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/mainReLay"
+        android:layout_above="@+id/pageButtonView"
+        android:layout_below="@+id/relay2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <TableLayout
             android:id="@+id/tableLy"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
+
             android:stretchColumns="*">
 
             <TableRow>
@@ -61,28 +77,24 @@
                     android:id="@+id/Areasearch_btn"
                     android:layout_width="1dp"
                     android:layout_height="wrap_content"
+                    android:onClick="SearchBtn"
                     android:text="@string/search" />
+
             </TableRow>
         </TableLayout>
 
-        <Spinner
-            android:id="@+id/sortspinenr"
-            android:layout_width="150dp"
-            android:layout_height="30dp"
-            android:layout_below="@+id/tableLy"
-            android:layout_alignParentRight="true"
-            android:popupBackground="@color/white"
-            android:spinnerMode="dropdown" />
 
-        <ListView
-            android:id="@+id/listview1"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/sortspinenr"
-            android:layout_weight="1" />
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tableLy"
+            android:layout_marginHorizontal="10dp"
+            tools:listitem="@layout/activity_festival_recyclerview" />
 
 
     </RelativeLayout>
+
 
     <HorizontalScrollView
         android:id="@+id/pageButtonView"
@@ -90,28 +102,19 @@
         android:layout_height="40dp"
         android:layout_alignParentBottom="true"
         android:background="#F8F8F8"
-        android:scrollbars="none"
         android:fillViewport="true"
-        >
+        android:scrollbars="none">
+
         <LinearLayout
             android:id="@+id/innerLinear"
-            android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:gravity="center"
+            android:orientation="horizontal"
 
             />
 
     </HorizontalScrollView>
-
-<!--    <Button-->
-<!--        android:id="@+id/morebtn"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="30dp"-->
-<!--        android:layout_below="@+id/relay2"-->
-<!--        android:text="더보기"-->
-<!--        android:gravity="center"-->
-<!--        />-->
 
 
 </RelativeLayout>

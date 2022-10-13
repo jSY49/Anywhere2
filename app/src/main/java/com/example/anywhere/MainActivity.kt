@@ -3,16 +3,15 @@ package com.example.anywhere
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.anywhere.loginMenuActivity
-import com.example.anywhere.userActivity
 import kotlinx.android.synthetic.main.activity_main.*
-import android.content.pm.PackageManager
 
-import android.content.pm.PackageInfo
-import android.util.Base64
-import android.util.Log
-import java.security.MessageDigest
-import java.security.NoSuchAlgorithmException
+import com.example.anywhere.Community.CommunityActivity
+import com.example.anywhere.Connect.firebaseConnect
+import com.example.anywhere.Festival.FestivalActivity
+import com.example.anywhere.Map.MapActivity
+import com.example.anywhere.User.loginMenuActivity
+import com.example.anywhere.User.userActivity
+import com.example.anywhere.itemList.ListOfAreaTripActivity
 
 
 class MainActivity : AppCompatActivity() {
@@ -38,36 +37,51 @@ class MainActivity : AppCompatActivity() {
 
         }
 
-        //지역별 여행지 리스트 엑티비트
-        Activity_main_btn1.setOnClickListener{
-            val intent = Intent(applicationContext,listOfareatrip::class.java)
+        //관광지 리스트 엑티비트
+        Activity_main_TourBtn.setOnClickListener{
+            val intent = Intent(applicationContext,
+                ListOfAreaTripActivity::class.java)
+            intent.putExtra("wantService","areaBasedList")
+            intent.putExtra("cId","12")
             startActivity(intent)
         }//btn1 클릭 리스너 닫음
 
         //지도로 보기
-        Activity_main_btn2.setOnClickListener{
-            val intent = Intent(applicationContext,MapActivity::class.java)
+        Activity_main_MapBtn.setOnClickListener{
+            val intent = Intent(applicationContext,
+                MapActivity::class.java)
             startActivity(intent)
         }//btn2 클릭 리스너 닫음
 
         //커뮤니티
-        Activity_main_btn3.setOnClickListener{
-            val intent = Intent(applicationContext,CommunityActivity::class.java)
+        Activity_main_CommunityBtn.setOnClickListener{
+            val intent = Intent(applicationContext,
+                CommunityActivity::class.java)
             startActivity(intent)
         }//btn3 클릭 리스너 닫음
 
-        //테마별 리스트
-        Activity_main_btn4.setOnClickListener{
-
+        //축제
+        Activity_main_festivalBtn.setOnClickListener{
+            val intent = Intent(applicationContext,
+                FestivalActivity::class.java)
+            startActivity(intent)
         }//btn4 클릭 리스너 닫음
         
 
-        //
-        Activity_main_SearchBtn.setOnClickListener {
-//            val intent = Intent(applicationContext,listOfareatrip::class.java)
-//            startActivity(intent)
-        }//검색 클릭 리스너 닫음
+        //상품 예약/구매
+        Activity_main_BookingBtn.setOnClickListener {
+            val intent = Intent(applicationContext,BookingActivity::class.java)
+            startActivity(intent)
+        }
 
+        //음식점 리스트
+        Activity_main_RestaurantBtn.setOnClickListener {
+            val intent = Intent(applicationContext,
+                ListOfAreaTripActivity::class.java)
+            intent.putExtra("wantService","areaBasedList")
+            intent.putExtra("cId","39")
+            startActivity(intent)
+        }
     }
 
 

@@ -1,14 +1,12 @@
-package com.example.anywhere;
+package com.example.anywhere.Map;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
-import android.location.LocationManager;
-
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -16,13 +14,16 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-
+import androidx.core.content.ContextCompat;
 
 import com.bumptech.glide.Glide;
+import com.example.anywhere.Connect.TourApi_;
+import com.example.anywhere.PermissionUtils;
+import com.example.anywhere.R;
 import com.example.anywhere.databinding.ActivitymapBinding;
+import com.example.anywhere.itemDetail.AreaTripDetailActivity;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -40,7 +41,6 @@ import org.xml.sax.XMLReader;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
@@ -68,7 +68,8 @@ public class MapActivity extends AppCompatActivity
     private String Tag = "MapActivity";
     BottomSheetBehavior bottomSheetBehavior;
     String contentId;
-
+    private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
+    private boolean permissionDenied = false;
 
     public static class list {
         String title, lat, lng, id;
@@ -137,32 +138,7 @@ public class MapActivity extends AppCompatActivity
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(Lat, Lng), 16));
 
-        LocationManager locationManager;
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
-        //내위치로 이동
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(MapActivity.this, new String[]{
-                    android.Manifest.permission.ACCESS_FINE_LOCATION}, 0);
-        } else {
-            if (locationManager != null) {
-                location = locationManager
-                        .getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-                if (location != null) {
-//                    latitude = location.getLatitude();
-//                    longitude = location.getLongitude();
-//                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), 16));
-                    if (foodFlag == 1 || leisureFlag == 1 || tourFlag == 1) {
-                        updateMarker();
-                    }
-
-                }
-
-
-            }
-        }
-
-        mMap.setMyLocationEnabled(true);
         mMap.setOnMyLocationButtonClickListener(this);
         mMap.setOnMyLocationClickListener(this);
         mMap.setOnCameraIdleListener(this);
@@ -170,7 +146,7 @@ public class MapActivity extends AppCompatActivity
         mMap.setOnCameraIdleListener(this);
         mMap.setOnCameraMoveListener(this);
 
-
+        enableMyLocation();
 
 
     }
@@ -236,15 +212,6 @@ public class MapActivity extends AppCompatActivity
         }
     }
 
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-        if (requestCode == 10 && grantResults[0] == PackageManager.PERMISSION_DENIED) {
-            Toast.makeText(this, "위치 권한 성공", Toast.LENGTH_LONG).show();
-        }
-    }
 
     void removeMarker() {
 
@@ -393,13 +360,13 @@ public class MapActivity extends AppCompatActivity
     public void runthread(String contentId){
 
         TourApi_ tourapi2=new TourApi_("detailCommon");
-        String queryUrl=tourapi2.set_cIddetail_Url(contentId);
-        Log.d(Tag+"_detailUrl",queryUrl);
+        tourapi2.set_cIddetail_Url(contentId);
+        Log.d(Tag+"_detailUrl",tourapi2.getUrl());
 
         new Thread(() -> {
             String title=null,imgUrl=null,overview=null;
             try {
-                URL url= new URL(queryUrl);//문자열로 된 요청 url을 URL 객체로 생성.
+                URL url= new URL(tourapi2.getUrl());//문자열로 된 요청 url을 URL 객체로 생성.
                 InputStream is= url.openStream(); //url위치로 입력스트림 연결
 
                 XmlPullParserFactory factory= XmlPullParserFactory.newInstance();
@@ -470,19 +437,72 @@ public class MapActivity extends AppCompatActivity
     }
 
 
+    @SuppressLint("MissingPermission")
+    private void enableMyLocation() {
+        // 1. Check if permissions are granted, if so, enable the my location layer
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED
+                || ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            mMap.setMyLocationEnabled(true);
+            return;
+        }
+
+        // 2. Otherwise, request location permissions from the user.
+        PermissionUtils.requestLocationPermissions(this, LOCATION_PERMISSION_REQUEST_CODE, true);
+    }
+
+
+    @Override
+    public boolean onMyLocationButtonClick() {
+        Toast.makeText(this, "위치이동이 안될 시 위치를 켜주세요.", Toast.LENGTH_SHORT).show();
+        // Return false so that we don't consume the event and the default behavior still occurs
+        // (the camera animates to the user's current position).
+        return false;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode != LOCATION_PERMISSION_REQUEST_CODE) {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+            return;
+        }
+
+        if (PermissionUtils.isPermissionGranted(permissions, grantResults,
+                Manifest.permission.ACCESS_FINE_LOCATION) || PermissionUtils
+                .isPermissionGranted(permissions, grantResults,
+                        Manifest.permission.ACCESS_COARSE_LOCATION)) {
+            // Enable the my location layer if the permission has been granted.
+            enableMyLocation();
+        } else {
+            // Permission was denied. Display an error message
+            // Display the missing permission error dialog when the fragments resume.
+            permissionDenied = true;
+        }
+    }
+
+    @Override
+    protected void onResumeFragments() {
+        super.onResumeFragments();
+        if (permissionDenied) {
+            // Permission was not granted, display error dialog.
+            showMissingPermissionError();
+            permissionDenied = false;
+        }
+    }
+
+    /**
+     * Displays a dialog with error message explaining that the location permission is missing.
+     */
+    private void showMissingPermissionError() {
+        PermissionUtils.PermissionDeniedDialog
+                .newInstance(true).show(getSupportFragmentManager(), "dialog");
+    }
+
     @Override
     public void onMyLocationClick(@NonNull Location location) {
         Toast.makeText(this, "Current location:\n" + location, Toast.LENGTH_LONG)
                 .show();
-    }
-
-    @Override
-    public boolean onMyLocationButtonClick() {
-        Toast.makeText(this, "MyLocation button clicked", Toast.LENGTH_SHORT)
-                .show();
-        // Return false so that we don't consume the event and the default behavior still occurs
-        // (the camera animates to the user's current position).
-        return false;
     }
 
     @Override
@@ -503,7 +523,7 @@ public class MapActivity extends AppCompatActivity
     }
 
     public void moreSee(View view) {
-        Intent intent = new Intent(getApplicationContext(), areatripDetail.class);
+        Intent intent = new Intent(getApplicationContext(), AreaTripDetailActivity.class);
         intent.putExtra("contentId",contentId);
 
         startActivity(intent);

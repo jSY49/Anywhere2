@@ -1,4 +1,4 @@
-package com.example.anywhere;
+package com.example.anywhere.Map;
 
 public class DataGetterSetters {
 

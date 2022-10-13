@@ -1,4 +1,4 @@
-package com.example.anywhere;
+package com.example.anywhere.itemList;
 
 
 import android.app.Activity;
@@ -6,18 +6,20 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import com.example.anywhere.R;
+import com.example.anywhere.Connect.TourApi_;
+import com.example.anywhere.itemDetail.AreaTripDetailActivity;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
@@ -30,8 +32,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 
-public class listOfareatrip extends Activity {
-    String Tag = "listOfareatrip";
+public class ListOfAreaTripActivity extends Activity {
+    String Tag = "ListOfAreaTripActivity";
     Button bckbtn, searchbtn;
     String sp1 = "1", sp2 = "-1", srt = "O", totalCnt = "0", page = "1";
     int pageNum = 0, totalCntInteger = 0, tmpButton = 1;
@@ -45,11 +47,17 @@ public class listOfareatrip extends Activity {
     ListView listview;
     ListViewAdapter adapter;
     ProgressDialog dialog;
+    String wantService;
+    String contenttypeid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.areatrip);
+
+        Intent secondIntent = getIntent();
+        wantService=secondIntent.getStringExtra("wantService");
+        contenttypeid=secondIntent.getStringExtra("cId");
 
         bckbtn = findViewById(R.id.btnback);
         searchbtn = findViewById(R.id.Areasearch_btn);
@@ -81,6 +89,7 @@ public class listOfareatrip extends Activity {
         adsortspin = ArrayAdapter.createFromResource(this, R.array.sort_list, android.R.layout.simple_spinner_dropdown_item);
         adsortspin.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sortspin.setAdapter(adsortspin);
+        sortspin.setSelection(1);
 
 
         spin1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -152,51 +161,14 @@ public class listOfareatrip extends Activity {
 
         //리스트뷰 클릭 했을 때
         listview.setOnItemClickListener((parent, v, position, id) -> {
-            Intent intent = new Intent(getApplicationContext(), areatripDetail.class);
+            Intent intent = new Intent(getApplicationContext(), AreaTripDetailActivity.class);
             intent.putExtra("contentId", listId.get(position));
-
             startActivity(intent);
 
         });
 
     }
 
-    /*
-    public void runthread_pageNum() {
-
-        TourApi_ tourapi_listCount = new TourApi_("areaBasedList");
-        tourapi_listCount.set_tourdataList_Count_URL(sp1, sp2);
-        String get_Url_listCount = tourapi_listCount.getUrl();
-
-        new Thread(() -> {
-            // TODO Auto-generated method stub
-
-            //페이지 개수
-            get_listCount(get_Url_listCount);
-            totalCntInteger = Integer.parseInt(totalCnt);
-            if (totalCntInteger < 50) {
-                pageNum = 1;
-            } else if (totalCntInteger >= 50) {
-                pageNum = totalCntInteger / 50;
-                if (totalCntInteger % 50 != 0) {
-                    pageNum += 1;
-                }
-            }
-
-            Log.d(Tag, "pageNum : " + pageNum);
-
-
-            runOnUiThread(() -> {
-                // TODO Auto-generated method stub
-                //아이템 추가.
-                addButton();
-
-            });
-
-        }).start();
-
-    }
-    */
 
     public void runthread() {
 
@@ -204,20 +176,17 @@ public class listOfareatrip extends Activity {
         dialog.setMessage("로딩중입니다.");
         dialog.show();
 
-        TourApi_ tourapi_listCount = new TourApi_("areaBasedList");
-        tourapi_listCount.set_tourdataList_Count_URL(sp1, sp2);
+        TourApi_ tourapi_listCount = new TourApi_(wantService);
+        tourapi_listCount.set_tourdataList_Count_URL(sp1, sp2,contenttypeid);
         String get_Url_listCount = tourapi_listCount.getUrl();
 
-        TourApi_ tourapi = new TourApi_("areaBasedList");
-        tourapi.set_tourdataList_Url(sp1, sp2, srt, page);
+        TourApi_ tourapi = new TourApi_(wantService);
+        tourapi.set_tourdataList_Url(sp1, sp2, srt, page,contenttypeid);
         String get_Url = tourapi.getUrl();
 
 
         Log.d(Tag+"_getURL", get_Url);
-//        adapter.clearAll(); //리스트 뷰를 모두 지우는 함수 호출
 
-//        CheckTypesTask task = new CheckTypesTask();
-//        task.execute();
 
         new Thread(() -> {
             // TODO Auto-generated method stub
@@ -332,7 +301,7 @@ public class listOfareatrip extends Activity {
             case 16:whichone = R.array.second_jeju;     sp1 = "39"; break;
         }
 
-        adspin2 = ArrayAdapter.createFromResource(listOfareatrip.this, whichone, android.R.layout.simple_spinner_dropdown_item);
+        adspin2 = ArrayAdapter.createFromResource(ListOfAreaTripActivity.this, whichone, android.R.layout.simple_spinner_dropdown_item);
         adspin2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spin2.setAdapter(adspin2);
 

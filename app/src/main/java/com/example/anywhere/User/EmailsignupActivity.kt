@@ -1,4 +1,4 @@
-package com.example.anywhere
+package com.example.anywhere.User
 
 import android.content.ContentValues.TAG
 import android.os.Bundle
@@ -6,7 +6,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.anywhere.R
-import com.example.anywhere.firebaseConnect
+import com.example.anywhere.Connect.firebaseConnect
 import kotlinx.android.synthetic.main.email_sign_up.*
 
 

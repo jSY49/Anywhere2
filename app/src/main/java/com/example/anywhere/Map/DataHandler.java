@@ -1,4 +1,6 @@
-package com.example.anywhere;
+package com.example.anywhere.Map;
+
+import com.example.anywhere.Map.DataGetterSetters;
 
 import java.util.ArrayList;
 

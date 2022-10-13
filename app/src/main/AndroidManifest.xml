@@ -8,7 +8,6 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/anywhereicon"
@@ -19,10 +18,18 @@
         android:theme="@style/Theme.Anywhere"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".ThemeActivity"
+            android:name=".BookingActivity"
             android:exported="false" />
         <activity
-            android:name=".ImgFullScreenActivity"
+            android:name=".Festival.ThisMonthFestivalActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Festival.FestivalActivity"
+            android:exported="false"
+            android:label="@string/title_activity_festival"
+            android:theme="@style/Theme.Anywhere.NoActionBar" />
+        <activity
+            android:name=".Community.ImgFullScreenActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
@@ -33,20 +40,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".emailsignupActivity" />
-        <activity android:name=".emaillogin" />
-        <activity android:name=".loginMenuActivity" />
-        <activity android:name=".userActivity" />
-        <activity android:name=".listOfareatrip" />
-        <activity android:name=".areatripDetail" />
-        <activity android:name=".MapFullscreen" />
-        <activity android:name=".MapActivity" />
-        <activity android:name=".BeachListActivity" />
-        <activity android:name=".CommunityActivity" />
+        <activity android:name=".User.emailsignupActivity" />
+        <activity android:name=".User.emaillogin" />
+        <activity android:name=".User.loginMenuActivity" />
+        <activity android:name=".User.userActivity" />
+        <activity android:name=".itemList.ListOfAreaTripActivity" />
+        <activity android:name=".itemDetail.AreaTripDetailActivity" />
+        <activity android:name=".itemDetail.MapFullscreenActivity" />
+        <activity android:name=".Map.MapActivity" />
+        <activity android:name=".Community.CommunityActivity" />
         <activity
-            android:name=".postWritingActivity"
+            android:name=".Community.postWritingActivity"
             android:windowSoftInputMode="adjustNothing" />
-        <activity android:name=".DetailPostActivity" />
+        <activity android:name=".Community.DetailPostActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

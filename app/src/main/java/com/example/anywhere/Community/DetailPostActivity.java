@@ -1,4 +1,4 @@
-package com.example.anywhere;
+package com.example.anywhere.Community;
 
 import static android.content.ContentValues.TAG;
 import static android.view.View.VISIBLE;
@@ -20,20 +20,17 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.example.anywhere.databinding.ActivityCommunityBinding;
 import com.example.anywhere.databinding.ActivityDetailPostBinding;
+import com.example.anywhere.Connect.firebaseConnect;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.ListResult;
 import com.google.firebase.storage.StorageReference;
 

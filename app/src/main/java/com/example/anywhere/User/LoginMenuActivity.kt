@@ -1,4 +1,4 @@
-package com.example.anywhere
+package com.example.anywhere.User
 
 
 import android.content.Intent
@@ -10,8 +10,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import kotlinx.android.synthetic.main.loginmenu.*
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import android.widget.Toast
+import com.example.anywhere.R
 
-import androidx.annotation.NonNull
+import com.example.anywhere.Connect.firebaseConnect
 
 import com.google.android.gms.tasks.OnCompleteListener
 

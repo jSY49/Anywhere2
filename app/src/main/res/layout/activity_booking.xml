@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BookingActivity">
+    tools:context=".Booking.BookingActivity">
 
     <RelativeLayout
         android:id="@+id/basicLay"
@@ -59,8 +59,7 @@
 
                     <Spinner
                         android:id="@+id/sp1"
-
-                        android:layout_width="wrap_content"
+                        android:layout_width="100dp"
                         android:layout_height="25dp"
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="120dp" />
@@ -82,11 +81,11 @@
 
                     <Spinner
                         android:id="@+id/sp2"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginRight="120dp"
-                        android:layout_width="wrap_content"
+                        android:layout_width="100dp"
                         android:layout_height="25dp"
-                        android:layout_marginLeft="50dp"/>
+                        android:layout_alignParentRight="true"
+                        android:layout_marginLeft="50dp"
+                        android:layout_marginRight="120dp" />
                         />
 
                 </RelativeLayout>
@@ -107,7 +106,7 @@
 
                     <Spinner
                         android:id="@+id/sp3"
-                        android:layout_width="wrap_content"
+                        android:layout_width="100dp"
                         android:layout_height="25dp"
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="120dp"
@@ -119,6 +118,7 @@
 
                 <Button
                     android:id="@+id/searchBtn"
+                    android:onClick="search"
                     android:layout_width="100dp"
                     android:layout_height="40dp"
                     android:layout_below="@+id/spin3Lay"
@@ -139,9 +139,12 @@
                 android:background="?android:attr/listDivider" />
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/BookingRecyclerView"
                 android:layout_below="@+id/divider1"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                tools:listitem="@layout/activity_festival_recyclerview" />
+
 
         </RelativeLayout>
 

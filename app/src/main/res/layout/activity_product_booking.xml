@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/TopLay"
     android:layout_width="match_parent"
@@ -34,150 +33,220 @@
 
     </RelativeLayout>
 
-    <RelativeLayout
-        android:id="@+id/dateLay"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/TopMenu"
-        android:layout_marginTop="50dp">
-
-        <TextView
-            android:id="@+id/date_text"
-            android:layout_marginRight="10dp"
-            android:textStyle="bold"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_toLeftOf="@+id/date_text_pick"
-            android:gravity="center"
-            android:text="예약 날짜" />
-
-        <TextView
-            android:id="@+id/date_text_pick"
-            android:layout_width="150dp"
-            android:layout_height="40dp"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/outline"
-            android:gravity="center" />
-
-        <ImageView
-            android:id="@+id/date_btn"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="5dp"
-            android:layout_toEndOf="@+id/date_text_pick"
-            android:clickable="true"
-            android:focusable="true"
-            android:src="@drawable/ic_baseline_calendar_month_24" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/timeLay"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/dateLay"
-        android:layout_marginTop="15dp">
-
-        <TextView
-            android:id="@+id/time_text"
-            android:layout_marginRight="10dp"
-            android:textStyle="bold"
-            android:layout_toLeftOf="@+id/time_text_pick"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:gravity="center"
-            android:text="예약 시간" />
-
-        <TextView
-            android:id="@+id/time_text_pick"
-            android:layout_width="150dp"
-            android:layout_height="40dp"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/outline"
-            android:gravity="center" />
-
-        <ImageView
-            android:id="@+id/time_btn"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="5dp"
-            android:layout_toEndOf="@+id/time_text_pick"
-            android:clickable="true"
-            android:focusable="true"
-            android:src="@drawable/ic_baseline_access_time_24" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/humanLay"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/timeLay"
-        android:layout_marginTop="15dp">
-
-        <TextView
-            android:id="@+id/human_text"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_marginRight="10dp"
-            android:layout_toLeftOf="@id/human_text_pick"
-            android:gravity="center"
-            android:text="예약 인원"
-            android:textStyle="bold" />
-
-        <EditText
-            android:id="@+id/human_text_pick"
-            android:layout_width="150dp"
-            android:layout_height="40dp"
-            android:layout_centerInParent="true"
-            android:background="@drawable/outline"
-            android:gravity="center"
-            android:inputType="number" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/NameLay"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/humanLay"
-        android:layout_marginTop="15dp">
-
-        <TextView
-            android:id="@+id/name_text"
-            android:textStyle="bold"
-            android:layout_marginRight="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_toLeftOf="@id/name_text_pick"
-            android:gravity="center"
-            android:text="예약자 이름" />
-
-        <EditText
-            android:id="@+id/name_text_pick"
-            android:layout_width="150dp"
-            android:layout_height="40dp"
-            android:layout_centerInParent="true"
-            android:background="@drawable/outline"
-            android:gravity="center"
-            android:inputType="text" />
-
-    </RelativeLayout>
-
-
     <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/price_text"
-        android:layout_below="@+id/NameLay"
+        android:layout_below="@+id/TopMenu"
         android:layout_marginVertical="20dp">
 
-        <LinearLayout
-            android:id="@+id/timeDataLay"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:gravity="center"
-            android:orientation="vertical" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/TopMenu">
+
+            <RelativeLayout
+                android:id="@+id/dateLay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="50dp">
+
+                <TextView
+                    android:id="@+id/date_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_toLeftOf="@+id/date_text_pick"
+                    android:gravity="center"
+                    android:text="예약 날짜"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/date_text_pick"
+                    android:layout_width="150dp"
+                    android:layout_height="40dp"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/outline"
+                    android:gravity="center" />
+
+                <ImageView
+                    android:id="@+id/date_btn"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_toEndOf="@+id/date_text_pick"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:src="@drawable/ic_baseline_calendar_month_24" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/timeLay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/dateLay"
+                android:layout_marginTop="15dp">
+
+                <TextView
+                    android:id="@+id/time_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_toLeftOf="@+id/time_text_pick"
+                    android:gravity="center"
+                    android:text="예약 시간"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/time_text_pick"
+                    android:layout_width="150dp"
+                    android:layout_height="40dp"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/outline"
+                    android:gravity="center" />
+
+                <ImageView
+                    android:id="@+id/time_btn"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="5dp"
+                    android:layout_toEndOf="@+id/time_text_pick"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:src="@drawable/ic_baseline_access_time_24" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/humanLay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/timeLay"
+                android:layout_marginTop="15dp">
+
+                <TextView
+                    android:id="@+id/human_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_toLeftOf="@id/human_text_pick"
+                    android:gravity="center"
+                    android:text="예약 인원"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/human_text_pick"
+                    android:layout_width="150dp"
+                    android:layout_height="40dp"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/outline"
+                    android:gravity="center"
+                    android:inputType="number" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/NameLay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/humanLay"
+                android:layout_marginTop="15dp">
+
+                <TextView
+                    android:id="@+id/name_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_toLeftOf="@id/name_text_pick"
+                    android:gravity="center"
+                    android:text="예약자 이름"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/name_text_pick"
+                    android:layout_width="150dp"
+                    android:layout_height="40dp"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/outline"
+                    android:gravity="center"
+                    android:inputType="text" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/PhoneNumberLay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/NameLay"
+                android:layout_marginTop="15dp">
+
+                <TextView
+                    android:id="@+id/PhoneNumber_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_toLeftOf="@id/PhoneNumber_text_pick"
+                    android:gravity="center"
+                    android:text="핸드폰 번호"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/PhoneNumber_text_pick"
+                    android:layout_width="150dp"
+                    android:layout_height="40dp"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/outline"
+                    android:gravity="center"
+                    android:maxLength="13"
+                    android:hint="010-0000-0000"
+                    android:inputType="phone" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/PaymethodLay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/PhoneNumberLay"
+                android:layout_marginTop="15dp">
+
+                <TextView
+                    android:id="@+id/Paymethod_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_toLeftOf="@id/spinner1"
+                    android:gravity="center"
+                    android:text="결제 방법"
+                    android:textStyle="bold" />
+
+                <Spinner
+                    android:id="@+id/spinner1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:entries="@array/method"
+                    android:minHeight="40dp"
+                    android:spinnerMode="dropdown" />
+
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/timeDataLay"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_below="@+id/PaymethodLay"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:orientation="vertical" />
+
+
+        </RelativeLayout>
+
 
     </ScrollView>
 
@@ -201,5 +270,4 @@
         android:layout_alignParentBottom="true"
         android:onClick="BookBtn"
         android:text="@string/Booking" />
-
 </RelativeLayout>

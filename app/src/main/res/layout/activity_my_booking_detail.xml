@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".User.MyBookingDetailActivity">
+
+    <RelativeLayout
+        android:id="@+id/basicLay"
+        android:background="@drawable/shadow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btnback"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/ic_baseline_arrow_back_24"
+            android:onClick="backBtn" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:text="@string/myBooking" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/li1"
+        android:layout_below="@+id/basicLay"
+        android:layout_above="@+id/cancel_button"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_weight="2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/bookingCode"
+                android:layout_margin="5dp"
+                android:text="@string/myCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:text="@string/myComTime"
+                android:layout_margin="5dp"
+                android:id="@+id/bookingComplete"
+                android:layout_below="@+id/bookingCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:text="@string/myItemNm"
+                android:layout_margin="5dp"
+                android:id="@+id/bookingItemName"
+                android:layout_below="@+id/bookingComplete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:text="@string/myNm"
+                android:layout_margin="5dp"
+                android:id="@+id/bookingUserName"
+                android:layout_below="@+id/bookingItemName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:text="@string/myDate"
+                android:layout_margin="5dp"
+                android:id="@+id/bookingDate"
+                android:layout_below="@+id/bookingUserName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:text="@string/myTime"
+                android:layout_margin="5dp"
+                android:id="@+id/bookingTime"
+                android:layout_below="@+id/bookingDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:text="@string/myNum"
+                android:layout_margin="5dp"
+                android:id="@+id/bookingPeopleNum"
+                android:layout_below="@+id/bookingTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:text="@string/myPrice"
+                android:layout_margin="5dp"
+                android:id="@+id/bookingTotalPrice"
+                android:layout_below="@+id/bookingPeopleNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </RelativeLayout>
+        
+
+        <RelativeLayout
+            android:layout_weight="1"
+            android:layout_below="@+id/basicLay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/bookingCode_TextView"
+                android:layout_margin="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/bookingComplete_TextView"
+                android:layout_margin="5dp"
+                android:layout_below="@+id/bookingCode_TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/bookingItemName_TextView"
+                android:layout_margin="5dp"
+                android:layout_below="@+id/bookingComplete_TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/bookingUserName_TextView"
+                android:layout_margin="5dp"
+                android:layout_below="@+id/bookingItemName_TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/bookingDate_TextView"
+                android:layout_margin="5dp"
+                android:layout_below="@+id/bookingUserName_TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/bookingTime_TextView"
+                android:layout_margin="5dp"
+                android:layout_below="@+id/bookingDate_TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/bookingPeopleNum_TextView"
+                android:layout_margin="5dp"
+                android:layout_below="@+id/bookingTime_TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/bookingTotalPrice_TextView"
+                android:layout_margin="5dp"
+                android:layout_below="@+id/bookingPeopleNum_TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </RelativeLayout>    
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/cancel_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#FF4D4D"
+        android:layout_alignParentBottom="true"
+        android:onClick="cancelBtn"
+        android:text="예약 취소" />
+    
+</RelativeLayout>
+
+<!--
+들어가야할 사항
+-예약번호
+-예약완료 시간
+
+
+-에약 항목 이름
+-예약자 이름
+-예약 날짜
+-예약 시간
+-예약 인원
+-결제 금액
+
+
+-->

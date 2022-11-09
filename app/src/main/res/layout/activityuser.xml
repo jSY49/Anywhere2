@@ -1,22 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <RelativeLayout
-        android:id="@+id/relativeLayout2"
+        android:id="@+id/basicLay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shadow">
+
+        <Button
+            android:id="@+id/btnback"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/ic_baseline_arrow_back_24"
+            android:onClick="backBtn" />
+
+        <TextView
+            android:id="@+id/TopText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:text="@string/User" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout1"
         android:layout_width="match_parent"
         android:layout_height="130dp"
+        android:layout_below="@+id/basicLay"
         tools:ignore="MissingConstraints">
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profileImg"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_alignParentLeft="true"
-            android:layout_margin="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+
             android:src="@drawable/ic_baseline_account_circle_24"
             tools:ignore="MissingConstraints" />
 
@@ -31,42 +62,131 @@
 
             />
 
+
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/divider1"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@+id/relativeLayout1"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginVertical="10dp"
+        android:background="?android:attr/listDivider"
+        tools:ignore="MissingConstraints" />
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/divider1"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="3dp"
+        android:layout_marginBottom="3dp"
+        android:background="@drawable/user_layout_outline">
+
+        <TextView
+            android:id="@+id/LogText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:text="이용내역"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/myPostBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/LogText"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginEnd="3dp"
+            android:layout_marginBottom="3dp"
+            android:backgroundTint="#EAE7E7"
+            android:onClick="myPostBtn"
+            android:text="@string/myPost"
+            android:textColor="@color/gray" />
+
+        <Button
+            android:id="@+id/myBookingBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/myPostBtn"
+            android:layout_margin="3dp"
+            android:backgroundTint="#EAE7E7"
+            android:onClick="myBookingBtn"
+            android:text="내 예약 보기"
+            android:textColor="@color/gray" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/relativeLayout2"
+        android:layout_margin="3dp"
+        android:background="@drawable/user_layout_outline">
+
+        <TextView
+            android:id="@+id/accountText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:text="계정"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
         <Button
             android:id="@+id/logoutBtn"
-            android:layout_width="100dp"
-            android:layout_height="40dp"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
-            android:background="#00ff0000"
-            android:shadowColor="#0f0f0f"
-            android:shadowDx="1.9"
-            android:shadowDy="1.9"
-            android:shadowRadius="2.0"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/accountText"
+            android:layout_margin="3dp"
+            android:backgroundTint="#EAE7E7"
             android:text="로그아웃"
-            android:textAllCaps="false"
-            android:textColor="@color/black"
-            android:textSize="12dp" />
+            android:textColor="@color/gray" />
 
+    </RelativeLayout>
 
-<!--        <Button-->
-<!--            android:id="@+id/btnmytrip"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="55dp"-->
-<!--            android:text="내 여행지"-->
-<!--            android:textAllCaps="false" />-->
+    <RelativeLayout
+        android:id="@+id/relativeLayout4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/relativeLayout3"
+        android:layout_margin="3dp"
+        android:background="@drawable/user_layout_outline"
+        android:visibility="gone">
 
-<!--        <Button-->
-<!--            android:id="@+id/btnmypurchase"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="55dp"-->
-<!--            android:layout_toRightOf="@+id/btnmytrip"-->
-<!--            android:text="구매한 상품"-->
-<!--            android:textAllCaps="false" />-->
+        <TextView
+            android:id="@+id/enterPriseText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:text="사업자"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
+        <Button
+            android:id="@+id/enterPriseBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/enterPriseText"
+            android:layout_margin="3dp"
+            android:onClick="enterPriseBtn"
+            android:backgroundTint="#EAE7E7"
+            android:text="업체 예약 리스트"
+            android:textColor="@color/gray" />
 
     </RelativeLayout>
 
 
+</RelativeLayout>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <!--    android:shadowColor="#0f0f0f"-->
+    <!--    android:shadowDx="1.9"-->
+    <!--    android:shadowDy="1.9"-->
+    <!--    android:shadowRadius="2.0"-->

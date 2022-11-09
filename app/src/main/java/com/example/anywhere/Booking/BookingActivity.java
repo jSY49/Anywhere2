@@ -1,5 +1,6 @@
 package com.example.anywhere.Booking;
 
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.anywhere.Connect.firebaseConnect;
+import com.example.anywhere.CustomProgressDialog;
 import com.example.anywhere.R;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
@@ -33,7 +35,7 @@ public class BookingActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager layoutManager;
     private firebaseConnect fbsconnect;
     private ArrayList<item> list;
-
+    CustomProgressDialog customProgressDialog;
 
     public static class item {
         String title, price,addr,img,code;
@@ -73,7 +75,8 @@ public class BookingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_booking);
-
+        customProgressDialog = new CustomProgressDialog(this);
+        customProgressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         SpinnerSetting();
         ItemSetting();
         dbSetting(sp1,sp2,sp3);
@@ -85,6 +88,7 @@ public class BookingActivity extends AppCompatActivity {
     }
 
     private void ItemSetting() {
+
 //        Adapter=new BookingAdapter();
         fbsconnect = new firebaseConnect();
         fbsconnect.firbaseInit();
@@ -101,7 +105,7 @@ public class BookingActivity extends AppCompatActivity {
 
     private void dbSetting(String SP1,String SP2,String SP3) {
         list=new ArrayList<>();
-
+        customProgressDialog.show();
         fbsconnect.db.collection("product")
                 .get()
                 .addOnCompleteListener(task -> {
@@ -148,6 +152,7 @@ public class BookingActivity extends AppCompatActivity {
                         Adapter = new BookingAdapter(list,getApplicationContext());
                         recyclerView.setAdapter(Adapter);
 
+                        customProgressDialog.dismiss();
                     } else {
 
                         Log.d(Tag, "Error getting documents: ", task.getException());

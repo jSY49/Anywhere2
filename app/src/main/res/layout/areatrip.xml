@@ -11,7 +11,8 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@drawable/shadow">
 
             <Button
                 android:id="@+id/btnback"
@@ -29,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dp"
-                android:text="@string/app_name"/>
+                android:text="@string/app_name" />
 
 
         </RelativeLayout>
@@ -90,28 +91,28 @@
         android:layout_height="40dp"
         android:layout_alignParentBottom="true"
         android:background="#F8F8F8"
-        android:scrollbars="none"
         android:fillViewport="true"
-        >
+        android:scrollbars="none">
+
         <LinearLayout
             android:id="@+id/innerLinear"
-            android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:gravity="center"
+            android:orientation="horizontal"
 
             />
 
     </HorizontalScrollView>
 
-<!--    <Button-->
-<!--        android:id="@+id/morebtn"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="30dp"-->
-<!--        android:layout_below="@+id/relay2"-->
-<!--        android:text="더보기"-->
-<!--        android:gravity="center"-->
-<!--        />-->
+    <!--    <Button-->
+    <!--        android:id="@+id/morebtn"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="30dp"-->
+    <!--        android:layout_below="@+id/relay2"-->
+    <!--        android:text="더보기"-->
+    <!--        android:gravity="center"-->
+    <!--        />-->
 
 
 </RelativeLayout>

@@ -3,7 +3,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="WhereIsNext">다음 여행, 이곳은 어때요?</string>
     <string name="howisthisitem">예약 상품 추천</string>
-    <string name="emailsingIn"><u>아직 이메일 계정이 없으신가요?</u></string>
+    <string name="emailsingIn">이메일로 회원가입</string>
     <string name="GoMoreTrip"><u>더 많은 여행지 보기>></u></string>
     <string name="GoAreaList">지역별 여행지 보기</string>
     <string name="GowhetherIsGood">날씨 좋은 여행지 보기</string>
@@ -27,6 +27,7 @@
     <string name="POST_body">내용을 입력 하세요.</string>
 
     <string name="festival">축제/행사</string>
+    <string name="duringMonthFest">전국 축제/행사 Top30🎈</string>
 
     <string name="view_more"><u><i>더보기</i></u></string>
     <string name="view_close"><u><i>닫기</i></u></string>
@@ -37,6 +38,24 @@
     <string name="Booking">상품 예약</string>
     <string name="bookingBtn">예약 하기</string>
     <string name="Food">음식점</string>
+
+    <string name="myPost">내 글 보기</string>
+    <string name="myBooking">내 예약 보기</string>
+    <string name="User">내 정보</string>
+
+    <string name="myCode">예약 번호</string>
+    <string name="myComTime">예약 완료 시간</string>
+    <string name="myItemNm">예약 상품</string>
+    <string name="myNm">예약자 이름</string>
+    <string name="myDate">예약 날짜</string>
+    <string name="myTime">예약 시간</string>
+    <string name="myNum">예약 인원</string>
+    <string name="myPrice">결제 금액</string>
+
+    <string name="searchResIsNon">검색 결과가 없습니다.</string>
+
+    <string name="accommodations">숙박</string>
+
 
     <!--    <string name="contentType12">-->
     <!--        &#160;세계문화유산유무 : %1$s\n-->

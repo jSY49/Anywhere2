@@ -1,7 +1,19 @@
 package com.example.anywhere.Community;
 
 import static android.content.ContentValues.TAG;
+import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
+
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Rect;
+import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,18 +22,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import android.app.ProgressDialog;
-import android.content.Intent;
-import android.graphics.Rect;
-import android.net.Uri;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.Toast;
-
-import com.example.anywhere.databinding.ActivityDetailPostBinding;
 import com.example.anywhere.Connect.firebaseConnect;
+import com.example.anywhere.CustomProgressDialog;
+import com.example.anywhere.databinding.ActivityDetailPostBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -45,7 +48,7 @@ import java.util.TimeZone;
 public class DetailPostActivity extends AppCompatActivity {
 
 
-    private String DocId;
+    private String DocId,userEmail;
     private firebaseConnect fbsconnect;
     private ActivityDetailPostBinding binding;
 
@@ -58,6 +61,11 @@ public class DetailPostActivity extends AppCompatActivity {
     RecyclerView recyclerView_img;  // 이미지를 보여줄 리사이클러뷰
     MyPostImgAdapter adapter;  // 리사이클러뷰에 적용시킬 어댑터
     String img;
+    FirebaseUser user;
+    CustomProgressDialog customProgressDialog;
+    public void backBtn(View view) {    finish();
+    }
+
 
     public class RecyclerViewDecoration extends RecyclerView.ItemDecoration {
 
@@ -82,15 +90,17 @@ public class DetailPostActivity extends AppCompatActivity {
         binding = ActivityDetailPostBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
-
-        CheckTypesTask task = new CheckTypesTask();
-        task.execute();
+        customProgressDialog = new CustomProgressDialog(this);
+        customProgressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
 
         fbsconnect = new firebaseConnect();
         fbsconnect.firbaseInit();
         fbsconnect.firbaseDBInit();
         fbsconnect.firebaseStorageInit();
 
+        //로그인 시에만 글쓰기 기능 가능
+        fbsconnect.firbaseInit();
+        user = fbsconnect.fb_user();
 
         //글 세팅
         Intent secondIntent = getIntent();
@@ -122,16 +132,14 @@ public class DetailPostActivity extends AppCompatActivity {
         comment = new ArrayList<>();
         commentSetting();
 
-        //로그인 시에만 글쓰기 기능 가능
-        fbsconnect.firbaseInit();
-        FirebaseUser user = fbsconnect.fb_user();
+
 
         if (user != null) {
             binding.commentET.setVisibility(VISIBLE);
             binding.commentPostBtn.setVisibility(VISIBLE);
         } else {
-            binding.commentET.setVisibility(View.INVISIBLE);
-            binding.commentPostBtn.setVisibility(View.INVISIBLE);
+            binding.commentET.setVisibility(INVISIBLE);
+            binding.commentPostBtn.setVisibility(INVISIBLE);
         }
 
 
@@ -143,8 +151,32 @@ public class DetailPostActivity extends AppCompatActivity {
             }
         });
 
-    }
 
+
+    }
+    //글 삭제
+    public void deletePostBtn(View view) {
+        customProgressDialog.show();
+        fbsconnect.db.collection("post").document(DocId)
+                .delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "DocumentSnapshot successfully deleted!");
+                        Toast.makeText(getApplicationContext(),"내 글이 삭제 되었습니다.",Toast.LENGTH_LONG).show();
+                        finish();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error deleting document", e);
+                        Toast.makeText(getApplicationContext(),"내 글이 삭제 되었습니다.",Toast.LENGTH_LONG).show();
+                    }
+                });
+
+        customProgressDialog.dismiss();
+    }
     //코멘트 게시
     public void commentPOst(View view) {
         if (binding.commentET.getText().toString().getBytes().length <= 0) {
@@ -157,6 +189,7 @@ public class DetailPostActivity extends AppCompatActivity {
 
     //해당 글 불러오기
     void dbSetting() {
+        customProgressDialog.show();
         DocumentReference docRef = fbsconnect.db.collection("post").document(DocId);
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -164,6 +197,7 @@ public class DetailPostActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
+                        userEmail=String.valueOf(document.get("user"));
                         binding.userid.setText(String.valueOf(document.get("user")));
                         binding.posttime.setText(String.valueOf(document.get("time")));
                         binding.postName.setText(String.valueOf(document.get("name")));
@@ -173,14 +207,25 @@ public class DetailPostActivity extends AppCompatActivity {
                             loadImg();
                         }
 
+                        if(userEmail.equals(fbsconnect.fb_userEmail())){
+//                            binding.modifyBtn.setVisibility(VISIBLE);
+                            binding.deleteBtn.setVisibility(VISIBLE);
+                        }else{
+//                            binding.modifyBtn.setVisibility(INVISIBLE);
+                            binding.deleteBtn.setVisibility(INVISIBLE);
+                        }
                     } else {
                         Log.d(TAG, "No such document");
                     }
+
+                    customProgressDialog.dismiss();
                 } else {
                     Log.d(TAG, "get failed with ", task.getException());
                 }
             }
         });
+
+
 
     }
 
@@ -206,6 +251,7 @@ public class DetailPostActivity extends AppCompatActivity {
                         Log.w(TAG, "Error adding document", e);
                     }
                 });
+
     }
 
     //코멘트 불러오기
@@ -229,6 +275,7 @@ public class DetailPostActivity extends AppCompatActivity {
                             // 어댑터 세팅
                             mAdapter = new MyCommnetAdapter(cUser, myTime, comment);
                             recyclerView.setAdapter(mAdapter);
+                            hideKeyboard();
 
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
@@ -236,6 +283,13 @@ public class DetailPostActivity extends AppCompatActivity {
                     }
 
                 });
+
+
+    }
+    void hideKeyboard() {
+        InputMethodManager inputManager = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputManager.hideSoftInputFromWindow(this.recyclerView.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+
     }
 
     private void loadImg() {
@@ -291,11 +345,6 @@ public class DetailPostActivity extends AppCompatActivity {
 
     }
 
-
-    public void closeBtn(View view) {
-        finish();
-    }
-
     @Override
     protected void onRestart() {
         super.onRestart();
@@ -317,35 +366,5 @@ public class DetailPostActivity extends AppCompatActivity {
 
     }
 
-    private class CheckTypesTask extends AsyncTask<Void, Void, Void> {
-        ProgressDialog asyncDialog = new ProgressDialog(DetailPostActivity.this);
 
-        @Override
-        protected void onPreExecute() { //작업시작, 객체를 생성하고 시작한다.
-            asyncDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            asyncDialog.setMessage("로딩중입니다.");
-            // Show dialog
-            asyncDialog.show();
-            super.onPreExecute();
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {  //진행중, 진행정도룰 표현해준다.
-
-            for (int i = 0; i < 5; i++) {
-                try {
-                    Thread.sleep(100);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {     //종료, 종료기능을 구현.
-            asyncDialog.dismiss();
-            super.onPostExecute(result);
-        }
-    }
 }

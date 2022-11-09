@@ -59,6 +59,11 @@ public class TourApi_ {
         String rad=String.valueOf(radius);
         basicUrl+="&numOfRows=1000&pageNo=1&MobileOS=ETC&MobileApp=AppTest"+"&contentTypeId=28"+"&mapX="+mapX+"&mapY="+mapY+"&radius=1000";
     }
+    public void set_accommodations_List_forMap(String mapX,String mapY,int radius){
+        String rad=String.valueOf(radius);
+        basicUrl+="&numOfRows=1000&pageNo=1&MobileOS=ETC&MobileApp=AppTest"+"&contentTypeId=32"+"&mapX="+mapX+"&mapY="+mapY+"&radius=1000";
+    }
+
 
     public void set_fest_List_Top30_Url(String startDate,String endDate){
         basicUrl+="&numOfRows=30&pageNo=1&MobileOS=ETC&MobileApp=AppTest&listYN=Y&eventStartDate="+startDate+"&eventEndDate="+endDate+"&arrange=P";
@@ -94,6 +99,11 @@ public class TourApi_ {
 
     public void set_detailintro_Url(String cId,String ctId){
         basicUrl +="&MobileOS=ETC&MobileApp=AppTest"+"&contentId="+cId+"&contentTypeId="+ctId;
+    }
+
+    public void set_totalList_URL(String cId,String keyword){
+        basicUrl += "&MobileOS=ETC&MobileApp=AppTest&numOfRows=50"+"&contentTypeId="+cId+"&listYN=Y"+"&keyword="+keyword;
+
     }
 }
 

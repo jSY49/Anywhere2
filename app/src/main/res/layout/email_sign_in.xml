@@ -42,21 +42,26 @@
     <Button
         android:id="@+id/emailmakebtn"
         android:layout_width="250dp"
-        android:layout_height="55dp"
-        android:textAllCaps="false"
-        android:background="#00ff0000"
-        android:shadowColor ="#0f0f0f"
-        android:shadowRadius="2.0"
-        android:shadowDx="1.9"
-        android:shadowDy="1.9"
-        android:text="@string/emailsingIn"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btn_googleSignIn"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/loginButton"
-        android:layout_marginTop="20dp"
-        android:textColor="@color/black"
-        />
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/roundshape"
+        android:text="@string/emailsingIn" />
+<!--    android:textAllCaps="false"-->
+    <!--        android:shadowColor="#0f0f0f"-->
+<!--        android:shadowDx="1.9"-->
+<!--        android:shadowDy="1.9"-->
+<!--        android:shadowRadius="2.0"-->
+/>
 
-
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/btn_googleSignIn"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="30dp"/>
 
 </RelativeLayout>
 

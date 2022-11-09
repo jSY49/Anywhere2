@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -117,7 +118,7 @@ public class MyPostImgAdapter extends RecyclerView.Adapter<MyPostImgAdapter.MyVi
 //                .fitCenter()
 //                .override(Target.SIZE_ORIGINAL)
                 .into(holder.image);
-
+        Log.d("Booking Ada","imgUrl="+image_uri);
 
 
     }

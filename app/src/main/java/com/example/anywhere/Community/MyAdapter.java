@@ -15,7 +15,7 @@ import com.example.anywhere.R;
 
 import java.util.ArrayList;
 
-class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
+public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     private String[] mDataset;
     private ArrayList<String> dbset,timeset,docname,imgchk;
 
@@ -70,10 +70,15 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         mDataset = myDataset;
     }
     public MyAdapter(ArrayList<String> dbSet,ArrayList<String> timeSet,ArrayList<String> docName,ArrayList<String> IMG) {
-        dbset=dbSet;
-        timeset=timeSet;
-        docname=docName;
-        imgchk=IMG;
+        dbset=new ArrayList<>(dbSet);
+        timeset=new ArrayList<>(timeSet);
+        docname=new ArrayList<>(docName);
+        imgchk=new ArrayList<>(IMG);
+
+//        dbset=dbSet;
+//        timeset=timeSet;
+//        docname=docName;
+//        imgchk=IMG;
     }
 
     // 새로운 뷰 생성
@@ -109,7 +114,6 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     @Override
     public int getItemCount() {
 //        return mDataset.length;
-
         return dbset.size();
     }
 }

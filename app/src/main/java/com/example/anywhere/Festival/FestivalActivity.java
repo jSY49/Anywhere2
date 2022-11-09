@@ -3,6 +3,7 @@ package com.example.anywhere.Festival;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Rect;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.anywhere.Connect.TourApi_;
+import com.example.anywhere.CustomProgressDialog;
 import com.example.anywhere.R;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -43,6 +45,8 @@ public class FestivalActivity extends AppCompatActivity {
     ArrayList<FestivalList> festivalList;
     TextView thisDate;
 
+    CustomProgressDialog customProgressDialog;
+
     private String Tag="FestivalActivity";
 
 
@@ -56,6 +60,8 @@ public class FestivalActivity extends AppCompatActivity {
         festivalList=new ArrayList<>();
         thisDate=findViewById(R.id.thisDate);
 
+        customProgressDialog = new CustomProgressDialog(this);
+        customProgressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         RecyclerViewSetting();
 
     }
@@ -105,6 +111,8 @@ public class FestivalActivity extends AppCompatActivity {
 
     public void runthread() {
 
+        customProgressDialog.show();
+
         festivalList.clear();
         startDateInt=getDate("total");
         startDateStr= String.valueOf(startDateInt);
@@ -130,28 +138,6 @@ public class FestivalActivity extends AppCompatActivity {
         }else{
             endDateInt=endDateInt+getDate("day");
         }
-//        startDateInt=Integer.parseInt(nowDate);
-//        startDateInt=startDateInt-(startDateInt%100)+1;
-//        startDateStr=String.valueOf(startDateInt);
-//
-//        endDateInt=Integer.parseInt(nowDate);
-//        int monthcheck;
-//        monthcheck = (endDateInt / 100);
-//        monthcheck %= 100;
-//
-//        switch(monthcheck){
-//            case 1: case 3: case 5: case 7: case 8: case 10: case 12:
-//                 endDateInt=endDateInt-(endDateInt%100)+31;
-//                 break;
-//            case 4: case 6: case 9: case 11:
-//                endDateInt=endDateInt-(endDateInt%100)+30;
-//                break;
-//            case 2:
-//                endDateInt=endDateInt-(endDateInt%100)+28;
-//                break;
-//
-//
-//        }
 
         endDateStr=String.valueOf(endDateInt);
 
@@ -165,23 +151,27 @@ public class FestivalActivity extends AppCompatActivity {
         Log.d(Tag+"_getURL", get_Url);
 
         new Thread(() -> {
-            
+
             try {
                 get_area(get_Url);
             } catch (IOException e) {
                 Toast.makeText(getApplicationContext(), "호출에 실패하였습니다. 다시 시도해주세요.", Toast.LENGTH_LONG).show();
                 e.printStackTrace();
             }
-            
+
             runOnUiThread(() -> {
-                thisDate.setText(startDateStr+"~"+endDateStr);
+              
+                String startDStr,endDStr;
+                startDStr=(startDateInt/1000)+"."+(startDateInt%10000)/100+"."+(startDateInt%100);
+                endDStr=(endDateInt/1000)+"."+(endDateInt%10000)/100+"."+(endDateInt%100);
+                thisDate.setText(startDStr+"~"+endDStr);
                 //이거 리사이클러용
                 mAdapter = new FestivalAdapter(festivalList,getApplicationContext());
                 recyclerView1.setAdapter(mAdapter);
                 recyclerView1.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
             });
-
+            customProgressDialog.dismiss();
         }).start();
 
 

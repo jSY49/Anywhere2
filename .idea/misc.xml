@@ -9,33 +9,53 @@
         <entry key="..\:/Users/jseun/AndroidStudioProjects/Anywhere/app/src/main/res/drawable-v24/ic_baseline_arrow_back_24.xml" value="0.42734375" />
         <entry key="..\:/Users/jseun/AndroidStudioProjects/Anywhere/app/src/main/res/drawable-v24/ic_baseline_search_24.xml" value="0.33425925925925926" />
         <entry key="..\:/Users/jseun/AndroidStudioProjects/Anywhere/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.42734375" />
-        <entry key="..\:/Users/jseun/AndroidStudioProjects/Anywhere/app/src/main/res/drawable-v24/roundshape.xml" value="0.3111111111111111" />
+        <entry key="..\:/Users/jseun/AndroidStudioProjects/Anywhere/app/src/main/res/drawable-v24/roundshape.xml" value="0.2" />
+        <entry key="..\:/Users/jseun/AndroidStudioProjects/Anywhere/app/src/main/res/drawable/bookmark_rotate.xml" value="0.29915611814345994" />
+        <entry key="..\:/Users/jseun/AndroidStudioProjects/Anywhere/app/src/main/res/drawable/circlebutton.xml" value="0.3824074074074074" />
         <entry key="..\:/Users/jseun/AndroidStudioProjects/Anywhere/app/src/main/res/drawable/circularprogressbar.xml" value="0.42734375" />
         <entry key="..\:/Users/jseun/AndroidStudioProjects/Anywhere/app/src/main/res/drawable/ic_baseline_add_comment_24.xml" value="0.42734375" />
+        <entry key="..\:/Users/jseun/AndroidStudioProjects/Anywhere/app/src/main/res/drawable/ic_baseline_bookmark_24.xml" value="0.29915611814345994" />
         <entry key="..\:/Users/jseun/AndroidStudioProjects/Anywhere/app/src/main/res/drawable/ic_baseline_fullscreen_24.xml" value="0.3489177489177489" />
         <entry key="..\:/Users/jseun/AndroidStudioProjects/Anywhere/app/src/main/res/drawable/ic_baseline_image_24.xml" value="0.384375" />
         <entry key="..\:/Users/jseun/AndroidStudioProjects/Anywhere/app/src/main/res/drawable/ic_baseline_my_location_24.xml" value="0.42734375" />
         <entry key="..\:/Users/jseun/AndroidStudioProjects/Anywhere/app/src/main/res/drawable/ic_baseline_open_in_full_24.xml" value="1.5" />
         <entry key="..\:/Users/jseun/AndroidStudioProjects/Anywhere/app/src/main/res/drawable/ic_launcher_background.xml" value="0.42734375" />
+        <entry key="..\:/Users/jseun/AndroidStudioProjects/Anywhere/app/src/main/res/drawable/outline.xml" value="0.3378995433789954" />
+        <entry key="..\:/Users/jseun/AndroidStudioProjects/Anywhere/app/src/main/res/drawable/progress_bg.xml" value="0.42362869198312236" />
+        <entry key="..\:/Users/jseun/AndroidStudioProjects/Anywhere/app/src/main/res/drawable/shadow.xml" value="0.3143518518518518" />
+        <entry key="..\:/Users/jseun/AndroidStudioProjects/Anywhere/app/src/main/res/drawable/user_layout_outline.xml" value="0.5105022831050229" />
+        <entry key="..\:/Users/jseun/AndroidStudioProjects/Anywhere/app/src/main/res/layout/activity_Booking_recyclerview.xml" value="0.21" />
         <entry key="..\:/Users/jseun/AndroidStudioProjects/Anywhere/app/src/main/res/layout/activity_beachlist.xml" value="0.1" />
         <entry key="..\:/Users/jseun/AndroidStudioProjects/Anywhere/app/src/main/res/layout/activity_booking.xml" value="0.33" />
+        <entry key="..\:/Users/jseun/AndroidStudioProjects/Anywhere/app/src/main/res/layout/activity_booking_detail.xml" value="0.25" />
+        <entry key="..\:/Users/jseun/AndroidStudioProjects/Anywhere/app/src/main/res/layout/activity_booking_recyclerview.xml" value="0.36342592592592593" />
         <entry key="..\:/Users/jseun/AndroidStudioProjects/Anywhere/app/src/main/res/layout/activity_community.xml" value="0.25" />
+        <entry key="..\:/Users/jseun/AndroidStudioProjects/Anywhere/app/src/main/res/layout/activity_date_picker.xml" value="0.31567028985507245" />
         <entry key="..\:/Users/jseun/AndroidStudioProjects/Anywhere/app/src/main/res/layout/activity_detail_post.xml" value="0.22" />
         <entry key="..\:/Users/jseun/AndroidStudioProjects/Anywhere/app/src/main/res/layout/activity_festival.xml" value="0.31786542923433875" />
         <entry key="..\:/Users/jseun/AndroidStudioProjects/Anywhere/app/src/main/res/layout/activity_festival_list.xml" value="0.4662280701754386" />
-        <entry key="..\:/Users/jseun/AndroidStudioProjects/Anywhere/app/src/main/res/layout/activity_festival_recyclerview.xml" value="0.4662280701754386" />
+        <entry key="..\:/Users/jseun/AndroidStudioProjects/Anywhere/app/src/main/res/layout/activity_festival_recyclerview.xml" value="0.4444444444444444" />
         <entry key="..\:/Users/jseun/AndroidStudioProjects/Anywhere/app/src/main/res/layout/activity_img_full_screen.xml" value="0.412109375" />
-        <entry key="..\:/Users/jseun/AndroidStudioProjects/Anywhere/app/src/main/res/layout/activity_main.xml" value="0.3496376811594203" />
+        <entry key="..\:/Users/jseun/AndroidStudioProjects/Anywhere/app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="..\:/Users/jseun/AndroidStudioProjects/Anywhere/app/src/main/res/layout/activity_my_booking.xml" value="0.2" />
+        <entry key="..\:/Users/jseun/AndroidStudioProjects/Anywhere/app/src/main/res/layout/activity_my_booking_detail.xml" value="0.3" />
+        <entry key="..\:/Users/jseun/AndroidStudioProjects/Anywhere/app/src/main/res/layout/activity_my_post.xml" value="0.35714285714285715" />
         <entry key="..\:/Users/jseun/AndroidStudioProjects/Anywhere/app/src/main/res/layout/activity_post_img_recyclerview.xml" value="0.415234375" />
         <entry key="..\:/Users/jseun/AndroidStudioProjects/Anywhere/app/src/main/res/layout/activity_postwriting.xml" value="0.33" />
+        <entry key="..\:/Users/jseun/AndroidStudioProjects/Anywhere/app/src/main/res/layout/activity_product_booking.xml" value="0.33" />
         <entry key="..\:/Users/jseun/AndroidStudioProjects/Anywhere/app/src/main/res/layout/activity_theme.xml" value="0.25" />
         <entry key="..\:/Users/jseun/AndroidStudioProjects/Anywhere/app/src/main/res/layout/activity_this_month_festival.xml" value="0.22" />
-        <entry key="..\:/Users/jseun/AndroidStudioProjects/Anywhere/app/src/main/res/layout/activitymap.xml" value="0.25" />
+        <entry key="..\:/Users/jseun/AndroidStudioProjects/Anywhere/app/src/main/res/layout/activity_total_search.xml" value="0.238256549232159" />
+        <entry key="..\:/Users/jseun/AndroidStudioProjects/Anywhere/app/src/main/res/layout/activitymap.xml" value="0.33" />
+        <entry key="..\:/Users/jseun/AndroidStudioProjects/Anywhere/app/src/main/res/layout/activityuser.xml" value="0.33" />
         <entry key="..\:/Users/jseun/AndroidStudioProjects/Anywhere/app/src/main/res/layout/arealistview_item.xml" value="0.5536458333333333" />
         <entry key="..\:/Users/jseun/AndroidStudioProjects/Anywhere/app/src/main/res/layout/areatrip.xml" value="0.25" />
+        <entry key="..\:/Users/jseun/AndroidStudioProjects/Anywhere/app/src/main/res/layout/booking_recyclerview.xml" value="0.5074074074074074" />
         <entry key="..\:/Users/jseun/AndroidStudioProjects/Anywhere/app/src/main/res/layout/commnet_recycler.xml" value="0.33" />
-        <entry key="..\:/Users/jseun/AndroidStudioProjects/Anywhere/app/src/main/res/layout/detail_for_areatrip.xml" value="0.20454545454545456" />
+        <entry key="..\:/Users/jseun/AndroidStudioProjects/Anywhere/app/src/main/res/layout/custom_dialog.xml" value="0.41581196581196583" />
+        <entry key="..\:/Users/jseun/AndroidStudioProjects/Anywhere/app/src/main/res/layout/detail_for_areatrip.xml" value="0.1" />
         <entry key="..\:/Users/jseun/AndroidStudioProjects/Anywhere/app/src/main/res/layout/email_sign_in.xml" value="0.33" />
+        <entry key="..\:/Users/jseun/AndroidStudioProjects/Anywhere/app/src/main/res/layout/email_sign_up.xml" value="0.350462962962963" />
         <entry key="..\:/Users/jseun/AndroidStudioProjects/Anywhere/app/src/main/res/layout/festival_frame.xml" value="0.4662280701754386" />
         <entry key="..\:/Users/jseun/AndroidStudioProjects/Anywhere/app/src/main/res/layout/festival_recycler.xml" value="0.4662280701754386" />
         <entry key="..\:/Users/jseun/AndroidStudioProjects/Anywhere/app/src/main/res/layout/fragment_post.xml" value="0.33" />

@@ -1,13 +1,9 @@
 package com.example.anywhere.Festival;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -18,8 +14,14 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.example.anywhere.R;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.anywhere.Connect.TourApi_;
+import com.example.anywhere.CustomProgressDialog;
+import com.example.anywhere.R;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
@@ -54,12 +56,17 @@ public class ThisMonthFestivalActivity extends AppCompatActivity {
     int monthcheck;
     int mon;
 
+    CustomProgressDialog customProgressDialog;
+
     private String Tag="ThisMonthFestivalActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_this_month_festival);
+
+        customProgressDialog = new CustomProgressDialog(this);
+        customProgressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
 
         innerLinear=findViewById(R.id.innerLinear);
         list=new ArrayList<>();
@@ -255,7 +262,7 @@ public class ThisMonthFestivalActivity extends AppCompatActivity {
 
 
     public void runthread() {
-
+        customProgressDialog.show();
         list.clear();
 
         TourApi_ tourapi_listCount = new TourApi_("searchFestival");
@@ -300,6 +307,7 @@ public class ThisMonthFestivalActivity extends AppCompatActivity {
 
             });
 
+            customProgressDialog.dismiss();
         }).start();
 
 

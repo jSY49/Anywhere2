@@ -2,6 +2,7 @@ package com.example.anywhere.Booking;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -18,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.bumptech.glide.Glide;
 import com.example.anywhere.BuildConfig;
 import com.example.anywhere.Connect.firebaseConnect;
+import com.example.anywhere.CustomProgressDialog;
 import com.example.anywhere.R;
 import com.example.anywhere.itemDetail.MapFullscreenActivity;
 import com.example.anywhere.itemDetail.weatherCalculate;
@@ -55,12 +57,13 @@ public class BookingDetailActivity extends AppCompatActivity {
 
     ArrayList<String> category, obsrValue;
     weatherCalculate weather;
-
+    CustomProgressDialog customProgressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_booking_detail);
-
+        customProgressDialog = new CustomProgressDialog(this);
+        customProgressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
 
         Intent intent = getIntent();
         code = intent.getStringExtra("code");
@@ -87,7 +90,7 @@ public class BookingDetailActivity extends AppCompatActivity {
     }
 
     private void settingData() {
-
+        customProgressDialog.show();
         DocumentReference docRef = fbsconnect.db.collection("product").document(code);
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -115,6 +118,8 @@ public class BookingDetailActivity extends AppCompatActivity {
                 } else {
                     Log.d(Tag, "get failed with ", task.getException());
                 }
+
+                customProgressDialog.dismiss();
             }
         });
 
@@ -319,6 +324,7 @@ public class BookingDetailActivity extends AppCompatActivity {
             intent.putExtra("code",code);
             intent.putExtra("price",price);
             intent.putExtra("epEmail",epEmail);
+            intent.putExtra("itemName",name);
             startActivity(intent);
         }
 

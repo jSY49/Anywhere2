@@ -2,10 +2,10 @@ package com.example.anywhere.itemList;
 
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -17,8 +17,9 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.example.anywhere.R;
 import com.example.anywhere.Connect.TourApi_;
+import com.example.anywhere.CustomProgressDialog;
+import com.example.anywhere.R;
 import com.example.anywhere.itemDetail.AreaTripDetailActivity;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -46,14 +47,21 @@ public class ListOfAreaTripActivity extends Activity {
     //리스트 뷰
     ListView listview;
     ListViewAdapter adapter;
-    ProgressDialog dialog;
+
     String wantService;
     String contenttypeid;
+
+    CustomProgressDialog customProgressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.areatrip);
+
+        //로딩창 객체 생성
+        customProgressDialog = new CustomProgressDialog(this);
+        //로딩창을 투명하게
+        customProgressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
 
         Intent secondIntent = getIntent();
         wantService=secondIntent.getStringExtra("wantService");
@@ -66,12 +74,10 @@ public class ListOfAreaTripActivity extends Activity {
         sortspin = (Spinner) findViewById(R.id.sortspinenr);
         innerLinear = findViewById(R.id.innerLinear);
 
-
         listTitle = new ArrayList<>();
         listAddr = new ArrayList<>();
         listimgUrl = new ArrayList<>();
         listId = new ArrayList<>();
-
 
         // Adapter 생성
         adapter = new ListViewAdapter();
@@ -172,9 +178,8 @@ public class ListOfAreaTripActivity extends Activity {
 
     public void runthread() {
 
-        dialog = new ProgressDialog(this);
-        dialog.setMessage("로딩중입니다.");
-        dialog.show();
+        customProgressDialog.show();
+
 
         TourApi_ tourapi_listCount = new TourApi_(wantService);
         tourapi_listCount.set_tourdataList_Count_URL(sp1, sp2,contenttypeid);
@@ -226,8 +231,10 @@ public class ListOfAreaTripActivity extends Activity {
                 listview.setAdapter(adapter);
 
 
-                //페이지 이동 버튼
-                dialog.dismiss();
+
+//                dialog.dismiss();
+                customProgressDialog.dismiss();
+
 
             });
 
@@ -438,41 +445,6 @@ public class ListOfAreaTripActivity extends Activity {
 
     }
 
-
-    /*
-    private class CheckTypesTask extends AsyncTask<Void, Void, Void> {
-        ProgressDialog asyncDialog = new ProgressDialog(listOfareatrip.this);
-
-        @Override
-        protected void onPreExecute() {
-            asyncDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            asyncDialog.setMessage("로딩중입니다.");
-            // Show dialog
-            asyncDialog.show();
-            super.onPreExecute();
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-
-            for (int i = 0; i < 5; i++) {
-                try {
-                    Thread.sleep(100);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            asyncDialog.dismiss();
-            super.onPostExecute(result);
-        }
-    }
-
-     */
 
 }
 

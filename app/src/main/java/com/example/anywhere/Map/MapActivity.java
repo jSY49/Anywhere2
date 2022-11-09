@@ -2,15 +2,18 @@ package com.example.anywhere.Map;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
+import android.graphics.Bitmap;
+import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
+import android.os.Build;
 import android.os.Bundle;
+import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -20,6 +23,7 @@ import androidx.core.content.ContextCompat;
 
 import com.bumptech.glide.Glide;
 import com.example.anywhere.Connect.TourApi_;
+import com.example.anywhere.CustomProgressDialog;
 import com.example.anywhere.PermissionUtils;
 import com.example.anywhere.R;
 import com.example.anywhere.databinding.ActivitymapBinding;
@@ -52,7 +56,7 @@ import javax.xml.parsers.SAXParserFactory;
 
 public class MapActivity extends AppCompatActivity
         implements OnMapReadyCallback, GoogleMap.OnCameraIdleListener, GoogleMap.OnMarkerClickListener,
-        GoogleMap.OnMyLocationButtonClickListener, GoogleMap.OnMyLocationClickListener,GoogleMap.OnCameraMoveListener,
+        GoogleMap.OnMyLocationButtonClickListener, GoogleMap.OnMyLocationClickListener, GoogleMap.OnCameraMoveListener,
         ActivityCompat.OnRequestPermissionsResultCallback {
 
     private GoogleMap mMap;
@@ -60,16 +64,18 @@ public class MapActivity extends AppCompatActivity
     double Lat = 37.56556895, Lng = 126.97801979;
     private ActivitymapBinding binding;
     ArrayList<list> arrList;    //xml 파싱 데이터 저장
-    int tourFlag = 0, foodFlag = 0, leisureFlag = 0;
+    int tourFlag = 0, foodFlag = 0, leisureFlag = 0, accomFlag = 0;
     private ArrayList<DataGetterSetters> dataList;
-    ProgressDialog dialog;
-    Location location; // location
-    int radius=1000;
+    int radius = 1000;
     private String Tag = "MapActivity";
     BottomSheetBehavior bottomSheetBehavior;
     String contentId;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
     private boolean permissionDenied = false;
+    CustomProgressDialog customProgressDialog;
+
+    int preWidth = 100, preHeight = 100, afterWidth = 130, afterHeight = 130;
+    Bitmap TourMarker, AccomMarker, SportsMarker, FoodMarker;
 
     public static class list {
         String title, lat, lng, id;
@@ -106,7 +112,21 @@ public class MapActivity extends AppCompatActivity
         View view = binding.getRoot();
         setContentView(view);
 
+//        BitmapDrawable bitmapTour = (BitmapDrawable) getResources().getDrawable(R.drawable.ic_baseline_tour_24);
+//        BitmapDrawable bitmapAccom = (BitmapDrawable) getResources().getDrawable(R.drawable.ic_baseline_home_24);
+//        BitmapDrawable bitmapSports = (BitmapDrawable) getResources().getDrawable(R.drawable.ic_baseline_sports_24);
+//        BitmapDrawable bitmapFood = (BitmapDrawable) getResources().getDrawable(R.drawable.ic_baseline_food_bank_24);
+//        Bitmap T = bitmapTour.getBitmap();
+//        Bitmap A = bitmapAccom.getBitmap();
+//        Bitmap S = bitmapSports.getBitmap();
+//        Bitmap F = bitmapFood.getBitmap();
+//        TourMarker = Bitmap.createScaledBitmap(T, 200, 200, false);
+//        AccomMarker = Bitmap.createScaledBitmap(A, 200, 200, false);
+//        SportsMarker = Bitmap.createScaledBitmap(S, 200, 200, false);
+//        FoodMarker = Bitmap.createScaledBitmap(F, 200, 200, false);
 
+        customProgressDialog = new CustomProgressDialog(this);
+        customProgressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
 
 
         // Get a handle to the fragment and register the callback.
@@ -159,59 +179,112 @@ public class MapActivity extends AppCompatActivity
 
     //관광지on/off
     public void onofftour(View view) throws SAXException {
-
+        RelativeLayout.LayoutParams params2 = (RelativeLayout.LayoutParams) binding.activitymapReLYBtn1.getLayoutParams();
         if (tourFlag == 0) {
             removeMarker();
             set_area_Sax("tour");
             tourFlag = 1; //현재 on
             foodFlag = 0;
             leisureFlag = 0;
-            binding.activitymapReLYBtn1.setBackgroundColor(Color.WHITE);
-            binding.activitymapReLYBtn2.setBackgroundColor(Color.GRAY);
-            binding.activitymapReLYBtn3.setBackgroundColor(Color.GRAY);
+            accomFlag = 0;
+            params2.height = afterHeight;
+            params2.width = afterWidth;
+            binding.activitymapReLYBtn1.setLayoutParams(params2);
+//            binding.activitymapReLYBtn1.setWidth
+//            binding.activitymapReLYBtn1.setBackgroundColor(Color.WHITE);
+//            binding.activitymapReLYBtn2.setBackgroundColor(Color.GRAY);
+//            binding.activitymapReLYBtn3.setBackgroundColor(Color.GRAY);
+//            binding.activitymapReLYBtn4.setBackgroundColor(Color.GRAY);
         } else {
             tourFlag = 0; //현재 off
             removeMarker();
-            binding.activitymapReLYBtn1.setBackgroundColor(Color.GRAY);
+//            binding.activitymapReLYBtn1.setBackgroundColor(Color.GRAY);
+            params2.height = preHeight;
+            params2.width = preWidth;
+            binding.activitymapReLYBtn1.setLayoutParams(params2);
         }
     }
 
     //음식점 on/off
     public void onofffood(View view) throws SAXException {
+        RelativeLayout.LayoutParams params2 = (RelativeLayout.LayoutParams) binding.activitymapReLYBtn2.getLayoutParams();
         if (foodFlag == 0) {
             removeMarker();
             set_area_Sax("restaurant");
             foodFlag = 1; //현재 on
             tourFlag = 0;
             leisureFlag = 0;
-            binding.activitymapReLYBtn1.setBackgroundColor(Color.GRAY);
-            binding.activitymapReLYBtn2.setBackgroundColor(Color.WHITE);
-            binding.activitymapReLYBtn3.setBackgroundColor(Color.GRAY);
+            accomFlag = 0;
+            params2.height = afterHeight;
+            params2.width = afterWidth;
+            binding.activitymapReLYBtn2.setLayoutParams(params2);
+//            binding.activitymapReLYBtn1.setBackgroundColor(Color.GRAY);
+//            binding.activitymapReLYBtn2.setBackgroundColor(Color.WHITE);
+//            binding.activitymapReLYBtn3.setBackgroundColor(Color.GRAY);
+//            binding.activitymapReLYBtn4.setBackgroundColor(Color.GRAY);
         } else {
             foodFlag = 0; //현재 off
             removeMarker();
-            binding.activitymapReLYBtn3.setBackgroundColor(Color.GRAY);
+//            binding.activitymapReLYBtn3.setBackgroundColor(Color.GRAY);
+            params2.height = preHeight;
+            params2.width = preWidth;
+            binding.activitymapReLYBtn2.setLayoutParams(params2);
         }
     }
 
     //레저 on/off
     public void onoffleisure(View view) throws SAXException {
+        RelativeLayout.LayoutParams params2 = (RelativeLayout.LayoutParams) binding.activitymapReLYBtn3.getLayoutParams();
         if (leisureFlag == 0) {
             removeMarker();
             set_area_Sax("leisure");
             leisureFlag = 1; //현재 on
             tourFlag = 0;
             foodFlag = 0;
-            binding.activitymapReLYBtn1.setBackgroundColor(Color.GRAY);
-            binding.activitymapReLYBtn2.setBackgroundColor(Color.GRAY);
-            binding.activitymapReLYBtn3.setBackgroundColor(Color.WHITE);
+            accomFlag = 0;
+            params2.height = afterHeight;
+            params2.width = afterWidth;
+            binding.activitymapReLYBtn3.setLayoutParams(params2);
+//            binding.activitymapReLYBtn1.setBackgroundColor(Color.GRAY);
+//            binding.activitymapReLYBtn2.setBackgroundColor(Color.GRAY);
+//            binding.activitymapReLYBtn3.setBackgroundColor(Color.WHITE);
+//            binding.activitymapReLYBtn4.setBackgroundColor(Color.GRAY);
         } else {
             leisureFlag = 0; //현재 off
             removeMarker();
-            binding.activitymapReLYBtn3.setBackgroundColor(Color.GRAY);
+//            binding.activitymapReLYBtn3.setBackgroundColor(Color.GRAY);
+            params2.height = preHeight;
+            params2.width = preWidth;
+            binding.activitymapReLYBtn3.setLayoutParams(params2);
         }
     }
 
+    //숙박 on/off
+    public void onoffAccom(View view) throws SAXException {
+        RelativeLayout.LayoutParams params2 = (RelativeLayout.LayoutParams) binding.activitymapReLYBtn4.getLayoutParams();
+        if (accomFlag == 0) {
+            removeMarker();
+            set_area_Sax("accommodations");
+            accomFlag = 1;
+            leisureFlag = 0;
+            tourFlag = 0;
+            foodFlag = 0;
+            params2.height = afterHeight;
+            params2.width = afterWidth;
+            binding.activitymapReLYBtn4.setLayoutParams(params2);
+//            binding.activitymapReLYBtn1.setBackgroundColor(Color.GRAY);
+//            binding.activitymapReLYBtn2.setBackgroundColor(Color.GRAY);
+//            binding.activitymapReLYBtn3.setBackgroundColor(Color.GRAY);
+//            binding.activitymapReLYBtn4.setBackgroundColor(Color.WHITE);
+        } else {
+            accomFlag = 0; //현재 off
+            removeMarker();
+//            binding.activitymapReLYBtn4.setBackgroundColor(Color.GRAY);
+            params2.height = preHeight;
+            params2.width = preWidth;
+            binding.activitymapReLYBtn4.setLayoutParams(params2);
+        }
+    }
 
     void removeMarker() {
 
@@ -225,10 +298,10 @@ public class MapActivity extends AppCompatActivity
     }
 
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     private void set_area_Sax(String w) throws SAXException {
-        dialog = new ProgressDialog(MapActivity.this);
-        dialog.setMessage("로딩중입니다.");
-        dialog.show();
+
+        customProgressDialog.show();
 
 
         String get_Url;
@@ -247,18 +320,21 @@ public class MapActivity extends AppCompatActivity
         TourApi_ tourapi = new TourApi_("locationBasedList");
         switch (w) {
             case "tour":
-                tourapi.set_tourList_forMap(lng, lat,radius);
+                tourapi.set_tourList_forMap(lng, lat, radius);
                 break;
             case "restaurant":
-                tourapi.set_foodList_forMap(lng, lat,radius);
+                tourapi.set_foodList_forMap(lng, lat, radius);
                 break;
             case "leisure":
-                tourapi.set_leisure_Sports_List_forMap(lng, lat,radius);
+                tourapi.set_leisure_Sports_List_forMap(lng, lat, radius);
+                break;
+            case "accommodations":
+                tourapi.set_accommodations_List_forMap(lng, lat, radius);
                 break;
         }
 
         get_Url = tourapi.getUrl();
-        Log.d(Tag+"Maplist_Url", get_Url);
+        Log.d(Tag + "Maplist_Url", get_Url);
 
 
         new Thread(() -> {
@@ -287,18 +363,26 @@ public class MapActivity extends AppCompatActivity
                         MarkerOptions markerOptions = new MarkerOptions();
                         markerOptions.position(Point);
                         markerOptions.title(dataList.get(i).getTitle());
-                        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
-                        markerOptions.alpha((float) 0.7);
-                        markerOptions.snippet(dataList.get(i).getTitle()+"#"+dataList.get(i).getContentId());
-                        mMap.addMarker(markerOptions);
+                        if (tourFlag == 1)
+                            markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+                        else if(foodFlag==1)
+                            markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE));
+                        else if(leisureFlag==1)
+                            markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
+                        else if (accomFlag==1)
+                            markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW));
 
+//                        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
+                        markerOptions.alpha((float) 0.7);
+                        markerOptions.snippet(dataList.get(i).getTitle() + "#" + dataList.get(i).getContentId());
+                        mMap.addMarker(markerOptions);
 
                     } catch (IndexOutOfBoundsException e) {
                         Log.d("marker error : ", String.valueOf(e));
                     }
 
                 }
-                dialog.dismiss();
+                customProgressDialog.dismiss();
 
             });
 
@@ -334,6 +418,15 @@ public class MapActivity extends AppCompatActivity
                 e.printStackTrace();
             }
         }
+
+        if (accomFlag == 1) {
+            removeMarker();
+            try {
+                set_area_Sax("accommodations");
+            } catch (SAXException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
@@ -341,12 +434,15 @@ public class MapActivity extends AppCompatActivity
         updateMarker();
     }
 
+
     @Override
     public boolean onMarkerClick(@NonNull Marker marker) {
-        Log.d(Tag+"_onMarkerClick", "click");
+        Log.d(Tag + "_onMarkerClick", "click");
+//        marker.showInfoWindow();
+//        marker.isInfoWindowShown();
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
         binding.bottomsheet.setVisibility(View.VISIBLE);
-        contentId=marker.getSnippet().split("#")[1]; //콘텐트아이디 가져옴
+        contentId = marker.getSnippet().split("#")[1]; //콘텐트아이디 가져옴
         runthread(contentId);
 
         /*
@@ -357,33 +453,33 @@ public class MapActivity extends AppCompatActivity
         return true;
     }
 
-    public void runthread(String contentId){
-
-        TourApi_ tourapi2=new TourApi_("detailCommon");
+    public void runthread(String contentId) {
+        customProgressDialog.show();
+        TourApi_ tourapi2 = new TourApi_("detailCommon");
         tourapi2.set_cIddetail_Url(contentId);
-        Log.d(Tag+"_detailUrl",tourapi2.getUrl());
+        Log.d(Tag + "_detailUrl", tourapi2.getUrl());
 
         new Thread(() -> {
-            String title=null,imgUrl=null,overview=null;
+            String title = null, imgUrl = null, overview = null;
             try {
-                URL url= new URL(tourapi2.getUrl());//문자열로 된 요청 url을 URL 객체로 생성.
-                InputStream is= url.openStream(); //url위치로 입력스트림 연결
+                URL url = new URL(tourapi2.getUrl());//문자열로 된 요청 url을 URL 객체로 생성.
+                InputStream is = url.openStream(); //url위치로 입력스트림 연결
 
-                XmlPullParserFactory factory= XmlPullParserFactory.newInstance();
-                XmlPullParser xpp= factory.newPullParser();
-                xpp.setInput( new InputStreamReader(is, StandardCharsets.UTF_8) ); //inputstream 으로부터 xml 입력받기
+                XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
+                XmlPullParser xpp = factory.newPullParser();
+                xpp.setInput(new InputStreamReader(is, StandardCharsets.UTF_8)); //inputstream 으로부터 xml 입력받기
 
                 String tag;
 
                 xpp.next();
-                int eventType= xpp.getEventType();
+                int eventType = xpp.getEventType();
 
-                while( eventType != XmlPullParser.END_DOCUMENT ){
-                    switch( eventType ){
+                while (eventType != XmlPullParser.END_DOCUMENT) {
+                    switch (eventType) {
                         case XmlPullParser.START_DOCUMENT:
                             break;
                         case XmlPullParser.START_TAG:
-                            tag= xpp.getName();//태그 이름 얻어오기
+                            tag = xpp.getName();//태그 이름 얻어오기
 
                             switch (tag) {
                                 case "item":
@@ -407,23 +503,29 @@ public class MapActivity extends AppCompatActivity
                             break;
 
                         case XmlPullParser.END_TAG:
-                            tag= xpp.getName(); //태그 이름 얻어오기
+                            tag = xpp.getName(); //태그 이름 얻어오기
                             break;
 
                     }
 
-                    eventType= xpp.next();
+                    eventType = xpp.next();
                 }
 
             } catch (Exception e) {
                 // TODO Auto-generated catch blocke.printStackTrace();
-                Log.d(Tag+"_xmlError", String.valueOf(e));
+                Log.d(Tag + "_xmlError", String.valueOf(e));
             }
 
 
             String finalTitle = title;
             String finalImgUrl = imgUrl;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                overview = Html.fromHtml(overview, Html.FROM_HTML_MODE_LEGACY).toString();
+            } else {
+                overview = Html.fromHtml(overview).toString();
+            }
             String finalOverview = overview;
+
             runOnUiThread(() -> {
                 binding.sheetTitle.setText(finalTitle);
                 Glide.with(this).load(finalImgUrl).centerCrop().placeholder(R.drawable.brankimg).into(binding.sheetImg);
@@ -432,7 +534,7 @@ public class MapActivity extends AppCompatActivity
                 binding.sheetOverview.setText(finalOverview);
 
             });
-
+            customProgressDialog.dismiss();
         }).start();
     }
 
@@ -507,16 +609,15 @@ public class MapActivity extends AppCompatActivity
 
     @Override
     public void onCameraMove() {
-        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-        binding.bottomsheet.setVisibility(View.INVISIBLE);
+        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HALF_EXPANDED);
         CameraPosition cameraPosition = mMap.getCameraPosition();
 
-        if(16<=cameraPosition.zoom &&cameraPosition.zoom<=18) {
-            radius=1000;
-        }else if(13<=cameraPosition.zoom &&cameraPosition.zoom<=15){
-            radius=3000;
-        }else{
-            radius=5000;
+        if (16 <= cameraPosition.zoom && cameraPosition.zoom <= 18) {
+            radius = 1000;
+        } else if (13 <= cameraPosition.zoom && cameraPosition.zoom <= 15) {
+            radius = 3000;
+        } else {
+            radius = 5000;
         }
 
 
@@ -524,11 +625,10 @@ public class MapActivity extends AppCompatActivity
 
     public void moreSee(View view) {
         Intent intent = new Intent(getApplicationContext(), AreaTripDetailActivity.class);
-        intent.putExtra("contentId",contentId);
+        intent.putExtra("contentId", contentId);
 
         startActivity(intent);
     }
-
 
 
 }

@@ -18,7 +18,25 @@
         android:theme="@style/Theme.Anywhere"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".BookingActivity"
+            android:name=".main.TotalSearchActivity"
+            android:exported="false" />
+        <activity
+            android:name=".User.MyBookingDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".User.MyBookingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".User.MyPostActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Booking.productBookingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Booking.BookingDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Booking.BookingActivity"
             android:exported="false" />
         <activity
             android:name=".Festival.ThisMonthFestivalActivity"
@@ -32,7 +50,7 @@
             android:name=".Community.ImgFullScreenActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".main.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -9,56 +9,46 @@
 
 
     <RelativeLayout
-        android:id="@+id/re1"
+        android:id="@+id/basicLay"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@drawable/shadow">
+
+        <Button
+            android:id="@+id/btnback"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/ic_baseline_arrow_back_24"
+            android:onClick="backBtn" />
 
         <TextView
-            android:id="@+id/postTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="3dp"
-            android:layout_marginRight="3dp"
-            android:text="@string/writing"
-            android:textSize="25dp" />
-
-        <EditText
-            android:id="@+id/searchET"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="3dp"
-            android:layout_marginTop="3dp"
-            android:layout_marginEnd="3dp"
-            android:layout_marginBottom="3dp"
-            android:layout_toLeftOf="@+id/search"
-            android:layout_toRightOf="@+id/postTitle"
-            android:hint="검색"
-            android:textSize="13dp" />
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:text="@string/writing" />
 
         <Button
             android:id="@+id/search"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:background="@drawable/ic_baseline_search_24"
             android:onClick="search" />
 
     </RelativeLayout>
 
-    <LinearLayout
-        android:id="@+id/li1"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_below="@+id/re1"
-        android:background="@color/gray"
-        android:orientation="horizontal" />
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/li1"
+        android:layout_below="@+id/basicLay"
         >
 
         <androidx.recyclerview.widget.RecyclerView

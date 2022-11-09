@@ -3,9 +3,8 @@ package com.example.anywhere.Community;
 import static android.content.ContentValues.TAG;
 import static android.view.View.VISIBLE;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
-import android.os.AsyncTask;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -18,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.anywhere.Connect.firebaseConnect;
+import com.example.anywhere.CustomProgressDialog;
 import com.example.anywhere.R;
 import com.example.anywhere.databinding.ActivityCommunityBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -41,13 +41,16 @@ public class CommunityActivity extends AppCompatActivity {
     private MyAdapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
     ArrayList<String>  mydb,myTime,docname,img;
-
+    CustomProgressDialog customProgressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityCommunityBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
+
+        customProgressDialog = new CustomProgressDialog(this);
+        customProgressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
 
         mAdapter=new MyAdapter();
 
@@ -105,15 +108,17 @@ public class CommunityActivity extends AppCompatActivity {
     }
 
     void dbsetting(){
-        CheckTypesTask task = new CheckTypesTask();
-        task.execute();
+        customProgressDialog.show();
         fbsconnect.db.collection("post")
                 .orderBy("time")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
+
                         if (task.isSuccessful()) {
+
                             for (QueryDocumentSnapshot document : task.getResult()) {
 
                                 String title = String.valueOf(document.get("name"));
@@ -134,6 +139,8 @@ public class CommunityActivity extends AppCompatActivity {
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
                         }
+
+                        customProgressDialog.dismiss();
                     }
 
                 });
@@ -154,37 +161,10 @@ public class CommunityActivity extends AppCompatActivity {
 
     }
 
-    private class CheckTypesTask extends AsyncTask<Void, Void, Void> {
-        ProgressDialog asyncDialog = new ProgressDialog(CommunityActivity.this);
-
-        @Override
-        protected void onPreExecute() { //작업시작, 객체를 생성하고 시작한다.
-            asyncDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            asyncDialog.setMessage("로딩중입니다.");
-            // Show dialog
-            asyncDialog.show();
-            super.onPreExecute();
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {  //진행중, 진행정도룰 표현해준다.
-
-            for (int i = 0; i < 5; i++) {
-                try {
-                    Thread.sleep(100);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {     //종료, 종료기능을 구현.
-            asyncDialog.dismiss();
-            super.onPostExecute(result);
-        }
+    public void backBtn(View view) {    finish();
     }
+
+
 }
 
 

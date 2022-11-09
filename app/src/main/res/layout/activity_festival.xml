@@ -9,6 +9,7 @@
 
     <RelativeLayout
         android:id="@+id/basicLay"
+        android:background="@drawable/shadow"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -40,7 +41,7 @@
         android:layout_below="@+id/basicLay"
         android:layout_marginHorizontal="10dp"
         android:layout_marginVertical="10dp"
-        android:text="한달간 진행되는 축제/행사 Top30🎈" />
+        android:text="@string/duringMonthFest" />
 
     <TextView
         android:id="@+id/thisDate"

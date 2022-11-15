@@ -128,7 +128,9 @@ class MainActivity : AppCompatActivity() {
             if (keyword.isNullOrEmpty()) {
                 Toast.makeText(this, "검색어를 입력해 주세요", Toast.LENGTH_LONG).show()
             } else {
-                hideKeyboard()
+                if(Activity_main_EditText.requestFocus()){
+                    hideKeyboard()
+                }
                 val intent = Intent(applicationContext, TotalSearchActivity::class.java)
                 intent.putExtra("keyWord", keyword)
                 startActivity(intent)
@@ -177,10 +179,13 @@ class MainActivity : AppCompatActivity() {
 
     fun hideKeyboard() {
         val inputManager = this.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-        inputManager.hideSoftInputFromWindow(
-            this.currentFocus!!.windowToken,
-            InputMethodManager.HIDE_NOT_ALWAYS
-        )
+        if(inputManager.isAcceptingText){
+            inputManager.hideSoftInputFromWindow(
+                this.currentFocus!!.windowToken,
+                InputMethodManager.HIDE_NOT_ALWAYS
+            )
+        }
+
     }
 
     override fun onBackPressed() {
@@ -215,7 +220,7 @@ class MainActivity : AppCompatActivity() {
                         //스토리지 참조
                         getStorage()
                     } else{
-                        Glide.with(this).load(profilePhoto).placeholder(R.drawable.ic_baseline_account_circle_24).into(Activity_main_userBtn)
+                        Glide.with(this).load(profilePhoto).placeholder(R.drawable.free_icon_profile_4646084).into(Activity_main_userBtn)
                     }
 
                 } else {
@@ -239,13 +244,13 @@ class MainActivity : AppCompatActivity() {
         pathReference.downloadUrl.addOnSuccessListener { uri ->
             Glide.with(this)
                 .load(uri)
-                .placeholder(R.drawable.ic_baseline_account_circle_24)
+                .placeholder(R.drawable.free_icon_profile_4646084)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .centerCrop()
                 .into(Activity_main_userBtn)
         }
         pathReference.downloadUrl.addOnFailureListener {
-            profileImg.setImageResource(R.drawable.ic_baseline_account_circle_24)
+            profileImg.setImageResource(R.drawable.free_icon_profile_4646084)
         }
 
     }
@@ -255,7 +260,7 @@ class MainActivity : AppCompatActivity() {
         val user = fbsconnect.fb_user()
 
         if (user == null) {
-            Activity_main_userBtn.setImageResource(R.drawable.ic_baseline_account_circle_24)
+            Activity_main_userBtn.setImageResource(R.drawable.free_icon_profile_4646084)
         }else{
             getDb()
         }

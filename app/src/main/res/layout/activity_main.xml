@@ -1,19 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@id/layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@id/layout"
     tools:context=".main.MainActivity">
-
-<!--    <HorizontalScrollView-->
-<!--        android:id="@+id/Activity_main_HrScrollView"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="150dp">-->
-
-<!--    </HorizontalScrollView>-->
-
 
     <RelativeLayout
         android:id="@+id/Activity_main_ReLay4"
@@ -44,7 +35,7 @@
             android:layout_marginTop="20dp"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="20dp"
-            android:background="@drawable/ic_baseline_account_circle_24" />
+            android:background="@drawable/free_icon_profile_4646084" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -80,11 +71,11 @@
 
 
     <RelativeLayout
-        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/Activity_main_SearchFramLy"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="10dp">
 
         <RelativeLayout
             android:id="@+id/Activity_main_ReLay1"
@@ -95,34 +86,76 @@
             android:layout_marginRight="10dp"
             android:padding="30dp">
 
-            <Button
-                android:id="@+id/Activity_main_TourBtn"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_toLeftOf="@+id/Activity_main_RestaurantBtn"
-                android:background="@drawable/roundshape"
-                android:elevation="20dp"
-                android:text="@string/AreaTrip"
-                android:textSize="15dp" />
+            <RelativeLayout
+                android:id="@+id/TourLay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toStartOf="@+id/RestaurantLay">
 
-            <Button
-                android:id="@+id/Activity_main_RestaurantBtn"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                <ImageButton
+                    android:id="@+id/Activity_main_TourBtn"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:background="@drawable/free_icon_map_1836671"
+                    android:elevation="20dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/Activity_main_TourBtn"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/AreaTrip" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/RestaurantLay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:layout_marginHorizontal="40dp"
-                android:background="@drawable/roundshape"
-                android:text="@string/Food"
-                android:textSize="15dp" />
+                android:layout_marginHorizontal="40dp">
 
-            <Button
-                android:id="@+id/Activity_main_festivalBtn"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_toRightOf="@+id/Activity_main_RestaurantBtn"
-                android:background="@drawable/roundshape"
-                android:text="@string/festival"
-                android:textSize="15dp" />
+                <ImageButton
+                    android:id="@+id/Activity_main_RestaurantBtn"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:background="@drawable/free_icon_bibimbap_8740490"
+                    android:text="@string/Food"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/Activity_main_RestaurantBtn"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/Food" />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/FestivalLay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/RestaurantLay"
+                android:layout_centerInParent="true">
+
+                <ImageButton
+                    android:id="@+id/Activity_main_festivalBtn"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:background="@drawable/free_icon_garlands_4321598" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/Activity_main_festivalBtn"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="5dp"
+                    android:textSize="15dp"
+                    android:text="@string/festival" />
+            </RelativeLayout>
+
 
 
         </RelativeLayout>
@@ -136,60 +169,83 @@
             android:layout_marginRight="10dp"
             android:padding="30dp">
 
+            <RelativeLayout
+                android:id="@+id/MapLay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toStartOf="@+id/CommunityLay">
 
-            <Button
-                android:id="@+id/Activity_main_MapBtn"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_toLeftOf="@+id/Activity_main_CommunityBtn"
-                android:background="@drawable/roundshape"
-                android:text="@string/Gomap"
-                android:textSize="15dp" />
+                <ImageButton
+                    android:id="@+id/Activity_main_MapBtn"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:background="@drawable/free_icon_map_2086172" />
 
-            <Button
-                android:id="@+id/Activity_main_CommunityBtn"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/Activity_main_MapBtn"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/Gomap"
+                    android:textSize="15sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/CommunityLay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:layout_marginHorizontal="40dp"
-                android:background="@drawable/roundshape"
-                android:text="@string/community"
-                android:textSize="15dp" />
+                android:layout_marginHorizontal="40dp">
 
-            <Button
-                android:id="@+id/Activity_main_BookingBtn"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_toRightOf="@+id/Activity_main_CommunityBtn"
-                android:background="@drawable/roundshape"
-                android:text="@string/Booking"
-                android:textSize="15dp" />
+                <ImageButton
+                    android:id="@+id/Activity_main_CommunityBtn"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:background="@drawable/free_icon_group_745205"
+                  />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/Activity_main_CommunityBtn"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/community"
+                    android:textSize="15sp"  />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/BookingLay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/CommunityLay"
+                android:layout_centerInParent="true">
+
+                <ImageButton
+                    android:id="@+id/Activity_main_BookingBtn"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:background="@drawable/free_icon_calendar_1574045" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/Activity_main_BookingBtn"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/Booking"
+                    android:textSize="15sp" />
+            </RelativeLayout>
+
+
+
 
 
         </RelativeLayout>
 
-        <RelativeLayout
-            android:id="@+id/Activity_main_ReLay3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/Activity_main_ReLay2"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:padding="30dp">
-
-
-            <Button
-                android:id="@+id/Activity_main_Ready"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_marginHorizontal="20dp"
-                android:background="@drawable/roundshape"
-                android:text="준비중"
-                android:textSize="15dp"
-                android:visibility="gone" />
-
-
-        </RelativeLayout>
 
     </RelativeLayout>
 

@@ -105,6 +105,11 @@ public class TourApi_ {
         basicUrl += "&MobileOS=ETC&MobileApp=AppTest&numOfRows=50"+"&contentTypeId="+cId+"&listYN=Y"+"&keyword="+keyword;
 
     }
+    public void set_total_URL(String keyword){
+        basicUrl += "&MobileOS=ETC&MobileApp=AppTest&numOfRows=50&listYN=Y&keyword="+keyword;
+
+    }
+
 }
 
 

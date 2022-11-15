@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:map="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/TopLay"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -33,6 +34,7 @@
 
     </RelativeLayout>
 
+
     <fragment
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
@@ -49,15 +51,47 @@
         map:uiZoomControls="true"
         map:uiZoomGestures="true"
         tools:context=".MapsActivity" />
+    <RelativeLayout
+        android:id="@+id/Activity_main_SearchFramLy"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_below="@+id/basicLay"
+        android:layout_marginHorizontal="80dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/user_layout_outline"
+        android:backgroundTint="#9EFFFFFF"
+        android:paddingHorizontal="10dp">
+
+        <EditText
+            android:id="@+id/searchEditText"
+            android:layout_width="180dp"
+            android:layout_height="50dp"
+            android:layout_centerVertical="true"
+            android:textSize="14dp"
+            android:hint="무엇을 검색 할까요?"
+            android:maxLines="1"
+            android:maxLength="15"
+            android:singleLine="true" />
+        <Button
+            android:id="@+id/searchBtn"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:onClick="searchBtn"
+            android:layout_toEndOf="@+id/searchEditText"
+            android:background="@drawable/ic_baseline_search_24" />
+
+    </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/activitymap_ReLY"
         android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/basicLay"
-        android:layout_marginRight="10dp"
         android:layout_alignParentRight="true"
         android:layout_marginTop="60dp"
+        android:layout_marginRight="10dp"
         android:gravity="center">
 
         <ImageButton
@@ -75,8 +109,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/activitymap_ReLY_btn1"
             android:layout_centerHorizontal="true"
-            android:text="관광"
             android:layout_marginBottom="10dp"
+            android:text="관광"
             android:textSize="10dp" />
 
 
@@ -96,8 +130,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/activitymap_ReLY_btn2"
             android:layout_centerHorizontal="true"
-            android:text="음식"
             android:layout_marginBottom="10dp"
+            android:text="음식"
             android:textSize="10dp" />
 
         <ImageButton
@@ -114,9 +148,9 @@
             android:id="@+id/activitymap_ReLY_btn3_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
             android:layout_below="@+id/activitymap_ReLY_btn3"
             android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp"
             android:text="레저"
             android:textSize="10dp" />
 
@@ -133,12 +167,31 @@
         <TextView
             android:id="@+id/activitymap_ReLY_btn4_tv"
             android:layout_width="wrap_content"
-            android:layout_marginBottom="10dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/activitymap_ReLY_btn4"
             android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp"
             android:text="숙박"
             android:textSize="10dp" />
+
+<!--        <ImageButton-->
+<!--            android:id="@+id/activitymap_ReLY_btn5"-->
+<!--            android:layout_width="35dp"-->
+<!--            android:layout_height="35dp"-->
+<!--            android:layout_below="@+id/activitymap_ReLY_btn4_tv"-->
+<!--            android:layout_centerHorizontal="true"-->
+<!--            android:background="@drawable/free_icon_google_symbol_2875331"-->
+<!--            android:onClick="PlacePicker" />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/activitymap_ReLY_btn5_tv"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_below="@+id/activitymap_ReLY_btn5"-->
+<!--            android:layout_centerHorizontal="true"-->
+<!--            android:layout_marginBottom="10dp"-->
+<!--            android:text="구글로 검색"-->
+<!--            android:textSize="10dp" />-->
 
     </RelativeLayout>
 
@@ -152,7 +205,15 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/bottomsheetshape"
-            app:layout_behavior="@string/bottom_sheet_behavior">
+            app:layout_behavior="@string/bottom_sheet_behavior"
+            app:behavior_hideable="true">
+
+            <ImageView
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="20dp"
+                android:src="@drawable/kto_logo" />
 
             <ImageView
                 android:id="@+id/sheetImg"

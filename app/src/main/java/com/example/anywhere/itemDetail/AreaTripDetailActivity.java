@@ -1,7 +1,6 @@
 package com.example.anywhere.itemDetail;
 
 import android.annotation.SuppressLint;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
@@ -48,13 +47,12 @@ public class AreaTripDetailActivity extends AppCompatActivity {
     double Lat, Lng;
     weatherCalculate weather;
     private final String Tag = "AreaTripDetailActivity";
-    ProgressDialog dialog;
     RelativeLayout fullImg_Lay;
     PhotoView fullImg;
     CustomProgressDialog customProgressDialog;
-    String[] Tag_12, Tag_15, Tag_28, Tag_32, Tag_39;
-    String[] TagName_12, TagName_15, TagName_28, TagName_32, TagName_39;
-    String[] element_12, element_15, element_28, element_32, element_39;
+    String[] Tag_12,Tag_14, Tag_15, Tag_28, Tag_32,Tag_38, Tag_39;
+    String[] TagName_12,TagName_14, TagName_15, TagName_28, TagName_32,TagName_38, TagName_39;
+    String[] element_12,element_14, element_15, element_28, element_32,element_38, element_39;
 
     @SuppressLint("CutPasteId")
     @Override
@@ -109,6 +107,8 @@ public class AreaTripDetailActivity extends AppCompatActivity {
     private void settingTag() {
         Tag_12 = new String[]{"heritage1", "heritage2", "heritage3", "infocenter", "opendate", "restdate", "expguide", "expagerange",
                 "accomcount", "useseason", "usetime", "parking", "chkbabycarriage", "chkpet", "chkcreditcard"};
+        Tag_14= new String[]{"accomcountculture","chkbabycarriageculture","chkcreditcardculture","chkpetculture","discountinfo","infocenterculture",
+                "parkingculture","parkingfee","restdateculture","usefee","usetimeculture","scale","spendtime"};
         Tag_15 = new String[]{"sponsor1", "sponsor1tel", "sponsor2", "sponsor2tel", "eventenddate", "playtime", "eventhomepage", "agelimit", "bookingplace", "placeinfo", "subevent", "program", "eventstartdate", "usetimefestival"
                 , "discountinfofestival", "spendtimefestival", "festivalgrade", "eventplace"};
         Tag_28 = new String[]{"openperiod", "reservation", "infocenterleports", "scaleleports", "accomcountleports", "restdateleports", "usetimeleports",
@@ -116,25 +116,33 @@ public class AreaTripDetailActivity extends AppCompatActivity {
         Tag_32 = new String[]{"accomcountlodging", "benikia", "checkintime", "checkouttime", "chkcooking", "foodplace", "goodstay", "hanok", "infocenterlodging",
                 "parkinglodging", "pickup", "roomcount", "reservationlodging", "reservationurl", "roomtype", "scalelodging", "subfacility", "barbecue", "beauty", "beverage"
                 , "bicycle", "campfire", "fitness", "karaoke", "publicbath", "publicpc", "sauna", "seminar", "sports", "refundregulation"};
+        Tag_38=new String[]{"chkbabycarriage shopping","chkcreditcard shopping","chkpetshopping","culturecenter","fairday","infocentershopping","opendateshopping","opentime"
+                ,"parkingshopping","restdateshopping","restroom","saleitem","saleitemcost","scaleshopping","shopguide"};
         Tag_39 = new String[]{"seat", "kidsfacility", "firstmenu", "smoking", "packing", "infocenterfood", "scalefood", "parkingfood", "opendatefood", "opentimefood", "restdatefood", "discountinfofood", "chkcreditcardfood",
                 "reservationfood", "lcnsno"};
 
         TagName_12 = new String[]{"세계문화유산유무", "세계자연유산유무", "세계기록유산유무", "문의 및 안내", "개장일", "쉬는날", "체험안내", "체험 가능 연령", "수용 인원", "이용시기", "이용 시간", "주차시설", "유모차 대여 점보",
                 "애완동물 동반 가능 정보", "신용카드 가능정보"};
+        TagName_14=new String[]{"수용인원","유모차대여정보","신용카드가능정보","애완동물동반가능정보","할인정보","문의및안내","주차시설"
+                ,"주차요금","쉬는날","이용요금","이용시간","규모","관람소요시간"};
         TagName_15 = new String[]{"주최자정보1", "주최자연락처1", "주최자정보2", "주최자연락처2", "행사종료일", "공연시간", "행사홈페이지", "관람가능연령", "예매처", "행사장 위치 안내", "부대행사", "행사프로그램", "행사시작일",
                 "이용요금", "할인정보", "관란소요시간", "축제등급", "행사장소"};
         TagName_28 = new String[]{"개장시간", "예약안내", "문의 및 안내", "규모", "수용인원", "쉬는날", "이용시간", "입장료", "체험가능연령", "주차시설", "주차요금", "유모차 대여정보", "애완동물동반 가능정보", "신용카드 가능정보"};
         TagName_32 = new String[]{"수용가능인원", "베니키아여부", "입실시간", "퇴실시간", "객실내취사여부", "식음료장", "굿스테이여부", "한옥여부", "문의및안내", "주차시설", "픽업서비스", "객실수"
                 , "예약안내", "예약안내홈페이지", "객실유형", "규모", " 부대시설 (기타)", "바비큐장여부", "뷰티시설정보", "식음료장여부", "자전거대여여부", "캠프파이어여부", "휘트니스센터여부", "노래방여부", "공용샤워실여부"
                 , "공용 PC실여부", "사우나실여부", "세미나실여부", "스포츠시설여부", "환불규정"};
+        TagName_38=new String[]{"유모차대여정보","신용카드가능정보","애완동물동반가능정보","문화센터바로가기","장서는날","문의및안내","개장일","영업시간","주차시설","쉬는날","화장실설명","판매품목","판매품목별가격","규모","매장안내"};
         TagName_39 = new String[]{"좌석 수", "어린이놀이방여부", "대표메뉴", "금연/흡연여부", "포장가능", "문의 및 안내", "규모", "주차시설", "개업일", "영업시간", "쉬는 날", "할인정보", "신용카드정보", "예약안내", "인허가번호"};
 
 
         element_12 = new String[15];
+        element_14 = new String[13];
         element_15 = new String[18];
         element_28 = new String[14];
         element_32 = new String[30];
+        element_38 = new String[15];
         element_39 = new String[15];
+
 
     }
 
@@ -496,6 +504,31 @@ public class AreaTripDetailActivity extends AppCompatActivity {
                             }
                         }
                         break;
+                    case "14":
+                        while (eventType != XmlPullParser.END_DOCUMENT) {
+                            switch (eventType) {
+                                case XmlPullParser.START_DOCUMENT:
+                                    break;
+                                case XmlPullParser.START_TAG:
+                                    tag = xpp.getName();//태그 이름 얻어오기
+                                    for (int i = 0; i < 13; i++) {
+                                        if (Tag_14[i].equals(tag)) {
+                                            xpp.next();
+                                            element_14[i] = xpp.getText();
+                                            break;
+                                        }
+                                    }
+                                    break;
+                            }
+                            eventType = xpp.next();
+                        }
+                        for (int j = 0; j < 13; j++) {
+                            if (element_14[j] != null) {
+                                element_14[j] = Html.fromHtml(element_14[j]).toString();
+                                detailTag += (TagName_14[j] + " : " + element_14[j] + "\n");
+                            }
+                        }
+                        break;
                     case "15":
                         while (eventType != XmlPullParser.END_DOCUMENT) {
                             switch (eventType) {
@@ -516,7 +549,7 @@ public class AreaTripDetailActivity extends AppCompatActivity {
                         }
                         for (int j = 0; j < 18; j++) {
                             if (element_15[j] != null) {
-                                TagName_15[j] = Html.fromHtml(TagName_15[j]).toString();
+                                element_15[j] = Html.fromHtml(element_15[j]).toString();
                                 detailTag += (TagName_15[j] + " : " + element_15[j] + "\n");
                             }
                         }
@@ -541,7 +574,7 @@ public class AreaTripDetailActivity extends AppCompatActivity {
                         }
                         for (int j = 0; j < 14; j++) {
                             if (element_28[j] != null) {
-                                TagName_28[j] = Html.fromHtml(TagName_28[j]).toString();
+                                element_28[j] = Html.fromHtml(element_28[j]).toString();
                                 detailTag += (TagName_28[j] + " : " + element_28[j] + "\n");
                             }
                         }
@@ -576,6 +609,31 @@ public class AreaTripDetailActivity extends AppCompatActivity {
                             }
                         }
                         break;
+                    case "38":
+                        while (eventType != XmlPullParser.END_DOCUMENT) {
+                            switch (eventType) {
+                                case XmlPullParser.START_DOCUMENT:
+                                    break;
+                                case XmlPullParser.START_TAG:
+                                    tag = xpp.getName();//태그 이름 얻어오기
+                                    for (int i = 0; i < 15; i++) {
+                                        if (Tag_38[i].equals(tag)) {
+                                            xpp.next();
+                                            element_38[i] = xpp.getText();
+                                            break;
+                                        }
+                                    }
+                                    break;
+                            }
+                            eventType = xpp.next();
+                        }
+                        for (int j = 0; j < 15; j++) {
+                            if (element_38[j] != null) {
+                                element_38[j] = Html.fromHtml(element_38[j]).toString();
+                                detailTag += (TagName_38[j] + " : " + element_38[j] + "\n");
+                            }
+                        }
+                        break;
                     case "39":
                         while (eventType != XmlPullParser.END_DOCUMENT) {
                             switch (eventType) {
@@ -596,7 +654,7 @@ public class AreaTripDetailActivity extends AppCompatActivity {
                         }
                         for (int j = 0; j < 15; j++) {
                             if (element_39[j] != null) {
-                                TagName_39[j] = Html.fromHtml(TagName_39[j]).toString();
+                                element_39[j] = Html.fromHtml(element_39[j]).toString();
                                 detailTag += (TagName_39[j] + " : " + element_39[j] + "\n");
                             }
                         }

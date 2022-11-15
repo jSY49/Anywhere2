@@ -4,7 +4,6 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
 import android.os.Build;
@@ -13,6 +12,7 @@ import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -73,9 +73,52 @@ public class MapActivity extends AppCompatActivity
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
     private boolean permissionDenied = false;
     CustomProgressDialog customProgressDialog;
-
+//    private static int AUTOCOMPLETE_REQUEST_CODE = 1;
     int preWidth = 100, preHeight = 100, afterWidth = 130, afterHeight = 130;
-    Bitmap TourMarker, AccomMarker, SportsMarker, FoodMarker;
+    TourApi_ tourapi = new TourApi_("locationBasedList");
+    TourApi_ keywrdApi;
+    public void backBtn(View view) {
+        finish();
+    }
+
+    public void searchBtn(View view) throws SAXException {
+
+        String keyword=binding.searchEditText.getText().toString();
+        if(keyword.length()>0) {
+            keywrdApi=new TourApi_("searchKeyword");
+            keywrdApi.set_total_URL(keyword);
+            try {
+                dataList.clear();
+            }catch (Exception e){
+
+            }
+
+            removeMarker();
+            tourFlag = 1;foodFlag = 1;leisureFlag = 1;accomFlag = 1;
+            onofftour(view);onofffood(view);onoffleisure(view);onoffAccom(view);
+            if(binding.searchEditText.requestFocus()){
+                hideKeyboard();
+                binding.searchEditText.clearFocus();
+            }
+
+            set_area_Sax("search");
+        }else{
+            Toast.makeText(this, "검색어를 입력해 주세요", Toast.LENGTH_LONG).show();
+        }
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(36.6604297,127.7373157),7));
+    }
+
+//    public void PlacePicker(View view) {
+//        Log.d(Tag,"placePicker clicked!");
+//        // Set the fields to specify which types of place data to
+//        // return after the user has made a selection.
+//        List<Place.Field> fields = Arrays.asList(Place.Field.ID, Place.Field.NAME);
+//
+//        // Start the autocomplete intent.
+//        Intent intent = new Autocomplete.IntentBuilder(AutocompleteActivityMode.FULLSCREEN, fields)
+//                .build(this);
+//        startActivityForResult(intent, AUTOCOMPLETE_REQUEST_CODE);
+//    }
 
     public static class list {
         String title, lat, lng, id;
@@ -112,18 +155,14 @@ public class MapActivity extends AppCompatActivity
         View view = binding.getRoot();
         setContentView(view);
 
-//        BitmapDrawable bitmapTour = (BitmapDrawable) getResources().getDrawable(R.drawable.ic_baseline_tour_24);
-//        BitmapDrawable bitmapAccom = (BitmapDrawable) getResources().getDrawable(R.drawable.ic_baseline_home_24);
-//        BitmapDrawable bitmapSports = (BitmapDrawable) getResources().getDrawable(R.drawable.ic_baseline_sports_24);
-//        BitmapDrawable bitmapFood = (BitmapDrawable) getResources().getDrawable(R.drawable.ic_baseline_food_bank_24);
-//        Bitmap T = bitmapTour.getBitmap();
-//        Bitmap A = bitmapAccom.getBitmap();
-//        Bitmap S = bitmapSports.getBitmap();
-//        Bitmap F = bitmapFood.getBitmap();
-//        TourMarker = Bitmap.createScaledBitmap(T, 200, 200, false);
-//        AccomMarker = Bitmap.createScaledBitmap(A, 200, 200, false);
-//        SportsMarker = Bitmap.createScaledBitmap(S, 200, 200, false);
-//        FoodMarker = Bitmap.createScaledBitmap(F, 200, 200, false);
+//        binding.map.setOnClickListener(v -> {
+//            try{
+//                hideKeyboard();
+//                binding.searchEditText.clearFocus();
+//            }catch (Exception e){
+//                Log.d(Tag, "layTouchException", e);
+//            }
+//        });
 
         customProgressDialog = new CustomProgressDialog(this);
         customProgressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
@@ -136,7 +175,6 @@ public class MapActivity extends AppCompatActivity
 
         binding.bottomsheet.setVisibility(View.INVISIBLE);
         bottomSheetBehavior = BottomSheetBehavior.from(binding.bottomsheet);
-
         //필요?
         bottomSheetBehavior.addBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override
@@ -151,13 +189,28 @@ public class MapActivity extends AppCompatActivity
         });
     }
 
-
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        if (requestCode == AUTOCOMPLETE_REQUEST_CODE) {
+//            if (resultCode == RESULT_OK) {
+//                Place place = Autocomplete.getPlaceFromIntent(data);
+//                Log.i(Tag, "Place: " + place.getName() + ", " + place.getId());
+//            } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
+//                // TODO: Handle the error.
+//                Status status = Autocomplete.getStatusFromIntent(data);
+//                Log.i(Tag, status.getStatusMessage());
+//            } else if (resultCode == RESULT_CANCELED) {
+//                // The user canceled the operation.
+//            }
+//            return;
+//        }
+//        super.onActivityResult(requestCode, resultCode, data);
+//    }
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
         mMap = googleMap;
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(Lat, Lng), 16));
-
 
         mMap.setOnMyLocationButtonClickListener(this);
         mMap.setOnMyLocationClickListener(this);
@@ -303,10 +356,8 @@ public class MapActivity extends AppCompatActivity
 
         customProgressDialog.show();
 
-
         String get_Url;
         String lat, lng;
-
 
         //현재 지도의 위.경도 받아오기
 
@@ -316,24 +367,32 @@ public class MapActivity extends AppCompatActivity
         lng = String.valueOf((y * 10000000) / 10000000.0);
 
 
-        //해당하는 url 가져오기
-        TourApi_ tourapi = new TourApi_("locationBasedList");
+
         switch (w) {
             case "tour":
                 tourapi.set_tourList_forMap(lng, lat, radius);
+                get_Url = tourapi.getUrl();
                 break;
             case "restaurant":
                 tourapi.set_foodList_forMap(lng, lat, radius);
+                get_Url = tourapi.getUrl();
                 break;
             case "leisure":
                 tourapi.set_leisure_Sports_List_forMap(lng, lat, radius);
+                get_Url = tourapi.getUrl();
                 break;
             case "accommodations":
                 tourapi.set_accommodations_List_forMap(lng, lat, radius);
+                get_Url = tourapi.getUrl();
                 break;
+            case "search":
+                get_Url = keywrdApi.getUrl();
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + w);
         }
 
-        get_Url = tourapi.getUrl();
+
         Log.d(Tag + "Maplist_Url", get_Url);
 
 
@@ -371,7 +430,8 @@ public class MapActivity extends AppCompatActivity
                             markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
                         else if (accomFlag==1)
                             markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW));
-
+                        else
+                            markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
 //                        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
                         markerOptions.alpha((float) 0.7);
                         markerOptions.snippet(dataList.get(i).getTitle() + "#" + dataList.get(i).getContentId());
@@ -609,7 +669,7 @@ public class MapActivity extends AppCompatActivity
 
     @Override
     public void onCameraMove() {
-        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HALF_EXPANDED);
+        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
         CameraPosition cameraPosition = mMap.getCameraPosition();
 
         if (16 <= cameraPosition.zoom && cameraPosition.zoom <= 18) {
@@ -629,6 +689,14 @@ public class MapActivity extends AppCompatActivity
 
         startActivity(intent);
     }
+    public void hideKeyboard() {
+        InputMethodManager inputManager = (InputMethodManager) this.getSystemService(INPUT_METHOD_SERVICE);
+        if(inputManager.isAcceptingText()){
+            inputManager.hideSoftInputFromWindow(
+                    this.getCurrentFocus().getWindowToken(),InputMethodManager.HIDE_NOT_ALWAYS
+            );
+        }
 
+    }
 
 }

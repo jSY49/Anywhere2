@@ -22,21 +22,22 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 
 import kr.co.bootpay.Bootpay;
-import kr.co.bootpay.android.BootpayAnalytics;
 import kr.co.bootpay.model.request.Cancel;
 
 public class MyBookingDetailActivity extends AppCompatActivity {
     String Tag = "MyBookingDetailActivity";
     String pCode,productCode,orderId;//pCode=주문번호 productCode=상품 코드 orderId=영수증ID
-    private String bootKey= BuildConfig.BOOT_APP_ID;
+    private final String bootRestKey= BuildConfig.BOOT_REST_KEY;
     private String bootPrivateKey=BuildConfig.BOOT_PRIVATE_KEY;
 
     private firebaseConnect fbsconnect;
     TextView Code, CompleteTime, itemName, userName, date, time, pNum, price;
     CustomProgressDialog customProgressDialog;
+    boolean cancleCheck=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,23 +62,7 @@ public class MyBookingDetailActivity extends AppCompatActivity {
         fbsconnect.firbaseDBInit();
         fbsconnect.firebaseStorageInit();
 
-        BootpayAnalytics.init(this,bootKey);
         dbSetting();
-
-
-//        try {
-//            Bootpay bootpay = new Bootpay(bootKey, bootPrivateKey);
-//            HashMap res = bootpay.getAccessToken();
-//            if(res.get("error_code") == null) { //success
-//                Log.d(Tag, "goGetToken success: " + res);
-////                System.out.println("goGetToken success: " + res);
-//            } else {
-//                Log.d(Tag, "goGetToken false: " + res);
-////                System.out.println("goGetToken false: " + res);
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
 
 
     }
@@ -122,7 +107,15 @@ public class MyBookingDetailActivity extends AppCompatActivity {
         //bookingIdList 랑 bookingPaydone db 삭제
         //페이부트 결제 취소 요청
 
-        //cancelPay();
+//        cancelPay();
+//        if(cancleCheck){
+//            deleteBookingPaydonDb();
+//            deletebookingIdListDb();
+//            finish();
+//        }
+//        else{
+//            Log.d(Tag, "다시 취소를 시도해 주세요.");
+//        }
         deleteBookingPaydonDb();
         deletebookingIdListDb();
         finish();
@@ -132,7 +125,7 @@ public class MyBookingDetailActivity extends AppCompatActivity {
     private void cancelPay() {
 
         try {
-            Bootpay bootpay = new Bootpay(bootKey, bootPrivateKey);
+            Bootpay bootpay = new Bootpay(bootRestKey, bootPrivateKey);
             HashMap token = bootpay.getAccessToken();
             if(token.get("error_code") != null) { //failed
                 return;
@@ -146,12 +139,17 @@ public class MyBookingDetailActivity extends AppCompatActivity {
             HashMap res = bootpay.receiptCancel(cancel);
             if(res.get("error_code") == null) { //success
                 Log.d(Tag, "receiptCancel success: "+ res);
+                cancleCheck=true;
             } else {
                 Log.d(Tag, "receiptCancel false: "+ res);
+                cancleCheck=false;
             }
+        }catch (NoSuchFieldError | InvocationTargetException Ne){
+            cancleCheck=false;
+            Log.d(Tag, String.valueOf(Ne));
         } catch (Exception e) {
-            e.printStackTrace();
-            finish();
+            cancleCheck=false;
+            Log.d(Tag, String.valueOf(e));
         }
     }
 

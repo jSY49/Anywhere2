@@ -66,6 +66,7 @@
             </TableRow>
         </TableLayout>
 
+
         <Spinner
             android:id="@+id/sortspinenr"
             android:layout_width="150dp"

@@ -16,6 +16,7 @@
         android:roundIcon="@mipmap/anywhereicon_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Anywhere"
+        android:requestLegacyExternalStorage="true"
         android:usesCleartextTraffic="true">
         <activity
             android:name=".main.TotalSearchActivity"
@@ -60,7 +61,6 @@
         </activity>
         <activity android:name=".User.emailsignupActivity" />
         <activity android:name=".User.emaillogin" />
-        <activity android:name=".User.loginMenuActivity" />
         <activity android:name=".User.userActivity" />
         <activity android:name=".itemList.ListOfAreaTripActivity" />
         <activity android:name=".itemDetail.AreaTripDetailActivity" />
@@ -74,10 +74,8 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyBNMsRymgMjUn8ppf82MDP9WkQqhe8pnow" />
-        <meta-data
-            android:name="com.kakao.sdk.AppKey"
-            android:value="2d3aad16f29293182d0469aa5f7ba9e2" />
+            android:value="${MAPS_API_KEY}" />
+        <uses-library android:name="org.apache.http.legacy" android:required="false"/>
     </application>
 
 </manifest>

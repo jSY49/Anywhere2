@@ -69,7 +69,7 @@ class userActivity : AppCompatActivity() {
                         //스토리지 참조
                         getStorage()
                     } else{
-                        Glide.with(this).load(profilePhoto).placeholder(R.drawable.ic_baseline_account_circle_24).into(profileImg)
+                        Glide.with(this).load(profilePhoto).placeholder(R.drawable.free_icon_profile_4646084).into(profileImg)
                     }
                     if(document["enterPrise"].toString().equals("o")){
                         TopText.setText("내정보(사업자)")

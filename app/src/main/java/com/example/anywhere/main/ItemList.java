@@ -1,5 +1,6 @@
 package com.example.anywhere.main;
 
+
 public class ItemList {
 
     String ImgUrl,title,addr,id;

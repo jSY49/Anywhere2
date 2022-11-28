@@ -75,7 +75,7 @@ public class MapActivity extends AppCompatActivity
     CustomProgressDialog customProgressDialog;
 //    private static int AUTOCOMPLETE_REQUEST_CODE = 1;
     int preWidth = 100, preHeight = 100, afterWidth = 130, afterHeight = 130;
-    TourApi_ tourapi = new TourApi_("locationBasedList");
+    TourApi_ tourapi ;
     TourApi_ keywrdApi;
     public void backBtn(View view) {
         finish();
@@ -353,7 +353,7 @@ public class MapActivity extends AppCompatActivity
 
     @SuppressLint("UseCompatLoadingForDrawables")
     private void set_area_Sax(String w) throws SAXException {
-
+        tourapi = new TourApi_("locationBasedList");
         customProgressDialog.show();
 
         String get_Url;

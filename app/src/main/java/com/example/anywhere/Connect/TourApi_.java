@@ -33,6 +33,10 @@ public class TourApi_ {
         }
 
     }
+    public void set_dataList_Count_URL(String keyWord){
+        basicUrl += "&MobileOS=ETC&MobileApp=AppTest&numOfRows=50"+"&keyword="+keyWord+"&listYN=N";
+
+    }
     public void set_tourdataList_Url(String sp1, @NonNull String sp2, String srt,String page,String cId){
         if(sp2.equals("-1")){
             basicUrl += "&numOfRows=50&pageNo="+page+"&MobileOS=ETC&MobileApp=AppTest"+"&areaCode="+sp1+"&contentTypeId="+cId+"&arrange="+srt;
@@ -41,10 +45,6 @@ public class TourApi_ {
             basicUrl += "&numOfRows=50&pageNo="+page+"&MobileOS=ETC&MobileApp=AppTest"+"&areaCode="+sp1+"&sigunguCode="+sp2+"&contentTypeId="+cId+"&arrange="+srt;//contentTypeId 12는 관광지   arrange는 정렬
         }
 
-    }
-
-    public void set_beachList_Url(String sp,String srt){
-        basicUrl += "&numOfRows=1000&pageNo=1&MobileOS=ETC&MobileApp=AppTest"+"&areaCode="+sp+"&contentTypeId=12"+"&arrange="+srt+"&cat1=A01&cat2=A0101&cat3=A01011200";
     }
     public void set_tourList_forMap(String mapX, String mapY, int radius){
         String rad=String.valueOf(radius);
@@ -101,12 +101,12 @@ public class TourApi_ {
         basicUrl +="&MobileOS=ETC&MobileApp=AppTest"+"&contentId="+cId+"&contentTypeId="+ctId;
     }
 
-    public void set_totalList_URL(String cId,String keyword){
-        basicUrl += "&MobileOS=ETC&MobileApp=AppTest&numOfRows=50"+"&contentTypeId="+cId+"&listYN=Y"+"&keyword="+keyword;
+    public void set_totalList_URL(String keyword){
+        basicUrl += "&MobileOS=ETC&MobileApp=AppTest&numOfRows=50&listYN=Y"+"&keyword="+keyword;
 
     }
     public void set_total_URL(String keyword){
-        basicUrl += "&MobileOS=ETC&MobileApp=AppTest&numOfRows=50&listYN=Y&keyword="+keyword;
+        basicUrl += "&MobileOS=ETC&MobileApp=AppTest&numOfRows=10000&listYN=Y&keyword="+keyword;
 
     }
 

@@ -21,3 +21,29 @@
 📌 Google Map Api, Tour 4.0 Api, bootPay 결제 api 사용
 
 
+##### [회원가입/ 로그인]
+<img width="30%" src="https://user-images.githubusercontent.com/96411866/222951263-f130d75d-e144-417d-9dcf-fb9a5e9395eb.gif"/>
+
+##### [정보 조회_관광지]
+<img width="30%" src="https://user-images.githubusercontent.com/96411866/222952582-c0398e68-bdc5-4f4e-9556-73aa28456eff.gif"/>
+
+##### [정보조회_음식점/축제]
+<img width="30%" src="https://user-images.githubusercontent.com/96411866/222952585-147706db-4688-4ff9-9dda-f59badae8014.gif"/>
+
+##### [지도로 보기]
+<img width="30%" src="https://user-images.githubusercontent.com/96411866/222956572-2c3de7ba-c3fa-4b88-851f-4cfe8c20e00b.gif"/>
+<img width="30%" src="https://user-images.githubusercontent.com/96411866/222956573-955a8c6e-3906-418d-9309-26eef77bb7b0.gif"/>
+
+##### [커뮤니티]
+<img width="30%" src="https://user-images.githubusercontent.com/96411866/222951248-c9470733-f68d-4f1c-ba5d-36c036b124de.gif"/>
+
+##### [예약하기]
+<img width="30%" src="https://user-images.githubusercontent.com/96411866/222951245-9ea4b320-880b-4007-b23b-5ed3ea02a0ba.gif"/>
+
+##### [검색 및 사용자]
+<img width="30%" src="https://user-images.githubusercontent.com/96411866/222951254-1698e117-9d24-4d8b-83e3-0daffab7d5bc.gif"/>
+
+
+
+
+
